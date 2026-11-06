@@ -41,10 +41,13 @@ function attemptSend_(rows, email, message) {
   }
 }
 
-/** Sends instant alerts first, then digests spread across the day, then reminders. */
+function istDate_() {
+  return Utilities.formatDate(new Date(), 'Asia/Kolkata', 'yyyy-MM-dd');
+}
+
+/** Sends instant alerts first, then each student's daily digest, then reminders. */
 function sendQueued_(deadline) {
   var pending = readTable_('Queue').filter(function (row) { return row.status === 'pending'; });
-  if (!pending.length) return;
   var students = {};
   readTable_('Students').forEach(function (row) { students[row.responseId] = row; });
   var jobs = {};
@@ -63,24 +66,78 @@ function sendQueued_(deadline) {
     }
   });
 
-  var hour = istHour_();
-  var byStudent = {};
-  ofType('digest').forEach(function (row) { (byStudent[row.responseId] = byStudent[row.responseId] || []).push(row); });
-  Object.keys(byStudent).forEach(function (responseId) {
-    var rows = byStudent[responseId];
-    var student = students[responseId];
-    if (!student || hour < digestHour(student.email) || !hasRoom(CONFIG.QUOTA_RESERVED_FOR_INSTANT)) return;
-    var items = rows.filter(function (row) { return jobs[row.jobId]; }).map(function (row) {
-      return { job: jobs[row.jobId], checkEligibility: isTrue_(row.checkEligibility) };
-    });
-    if (items.length) attemptSend_(rows, student.email, buildDigestEmail(items, student.editUrl));
-  });
+  sendDailyDigests_(students, ofType('digest'), jobs, hasRoom);
 
   ofType('reminder').forEach(function (row) {
     var student = students[row.responseId];
     if (student && hasRoom(CONFIG.QUOTA_MIN_FOR_REMINDERS)) {
       attemptSend_([row], row.email, buildReminderEmail(student.name, student.editUrl));
     }
+  });
+}
+
+/**
+ * Each active student gets one digest per India date, from their assigned hour. Jobs found
+ * after it goes out wait for the next day. Digests with jobs go first, so "no openings"
+ * emails are the first to be dropped when the daily limit is close.
+ */
+function sendDailyDigests_(students, digestRows, jobs, hasRoom) {
+  var hour = istHour_();
+  var today = istDate_();
+  var rowsFor = {};
+  digestRows.forEach(function (row) {
+    if (jobs[row.jobId]) (rowsFor[row.responseId] = rowsFor[row.responseId] || []).push(row);
+  });
+  var due = Object.keys(students).map(function (id) { return students[id]; }).filter(function (student) {
+    return student.status === 'active' && String(student.lastDigestDate) !== today && hour >= digestHour(student.email);
+  });
+  var withJobs = due.filter(function (student) { return rowsFor[student.responseId]; });
+  var withoutJobs = due.filter(function (student) { return !rowsFor[student.responseId]; });
+
+  withJobs.concat(withoutJobs).forEach(function (student) {
+    if (!hasRoom(CONFIG.QUOTA_RESERVED_FOR_INSTANT)) return;
+    var rows = rowsFor[student.responseId];
+    var sent;
+    if (rows) {
+      var items = rows.map(function (row) {
+        return { job: jobs[row.jobId], checkEligibility: isTrue_(row.checkEligibility) };
+      });
+      sent = attemptSend_(rows, student.email, buildDigestEmail(items, student.editUrl));
+    } else {
+      sent = attemptNoOpenings_(student);
+    }
+    if (sent) {
+      student.lastDigestDate = today;
+      updateRow_('Students', student);
+    }
+  });
+}
+
+function attemptNoOpenings_(student) {
+  try {
+    sendMail_(student.email, buildNoOpeningsEmail(student.name, student.editUrl));
+    return true;
+  } catch (error) {
+    log_('ERROR', 'email', 'A no-openings email failed: ' + error.message);
+    return false;
+  }
+}
+
+/** Run by hand from the editor. Sends samples of each job email to the alerts inbox only. */
+function sendTestEmails() {
+  var job = {
+    title: 'Sample Software Intern (test only)', company: 'Example Company', location: 'Bengaluru, India',
+    url: 'https://example.com/sample-job', deadline: 'Not listed',
+    minQualifications: "Pursuing a Bachelor's degree.\nExperience with Python."
+  };
+  var editUrl = 'https://example.com/your-personal-link';
+  [
+    buildInstantEmail(job, editUrl, true),
+    buildDigestEmail([{ job: job, checkEligibility: false }], editUrl),
+    buildNoOpeningsEmail('Test', editUrl)
+  ].forEach(function (message) {
+    message.subject = '[Test] ' + message.subject;
+    sendMail_(CONFIG.ALERT_EMAIL, message);
   });
 }
 

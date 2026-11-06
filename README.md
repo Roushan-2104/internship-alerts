@@ -1,6 +1,6 @@
 # Internship Alerts
 
-Watches internship listings and emails students only about new roles that match their profile.
+Watches internship listings and emails students about new roles that match their profile, with instant alerts for priority roles and one digest a day.
 
 - **GitHub Actions (public):** Playwright reads job sources every 30 minutes and publishes `data/jobs.json`. It holds job data only.
 - **Google Apps Script (private):** handles the form, student profiles, GitHub scans, resume reading, matching, Gmail, health alerts and the status page.
@@ -40,6 +40,15 @@ Adding it means everyone must sign in to Google to fill in the form. The status 
 Fill in the form yourself, then run `tick` from the editor. You should get a confirmation email, and the status page should show one active student.
 
 The first sync records jobs that are already open without emailing anyone. Only jobs that appear later are matched.
+
+## What students receive
+
+- **Instant alert:** a new priority role, usually within about an hour.
+- **Daily digest:** one email per India date, sent from the student's assigned hour (between 9 AM and 9 PM). It lists new matches, or says there are no new openings. Jobs found after it goes out wait for the next day.
+
+Every active student gets a daily email. Personal Gmail allows about 100 recipients a day and 20 are held back for instant alerts, so this fits about 80 students. Past that, digests with jobs go first and "no openings" emails are dropped for the day.
+
+To preview the emails, run `sendTestEmails` from the editor. The samples go to the alerts inbox only.
 
 ## Changing things
 

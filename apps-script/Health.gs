@@ -100,6 +100,7 @@ function getStatusData_() {
     checkEligibility: matches.filter(function (m) { return m.status === 'unclear' && m.channel !== 'none'; }).length,
     quotaRemaining: quota,
     sentToday: queue.filter(function (row) { return String(row.sentAt).slice(0, 10) === today; }).length,
+    digestsToday: students.filter(function (s) { return String(s.lastDigestDate) === istDate_(); }).length,
     queuePending: queue.filter(function (row) { return row.status === 'pending'; }).length,
     studentsActive: students.filter(function (s) { return s.status === 'active'; }).length,
     studentsPaused: students.filter(function (s) { return s.status === 'paused'; }).length,

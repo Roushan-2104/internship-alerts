@@ -30,7 +30,7 @@ class FakeSheet {
 /** Builds a sandbox running the real script files on in-memory fakes of Google's services. */
 export function createWorld({ configured = true } = {}) {
   const world = {
-    sent: [], props: {}, sheets: {}, quota: 100, hour: 12, account: 'internshipalerts.roushan@gmail.com',
+    sent: [], props: {}, sheets: {}, quota: 100, hour: 0, day: '2026-11-06', account: 'internshipalerts.roushan@gmail.com',
     fetch: () => ({ code: 404, body: '' }), fetched: [], trashed: [], deletedResponses: [], triggers: [],
     formItems: [], ocrText: 'Skills: Python and Docker', ocrFails: false, created: 0,
   };
@@ -66,7 +66,7 @@ export function createWorld({ configured = true } = {}) {
         return { getResponseCode: () => result.code, getContentText: () => result.body };
       },
     },
-    Utilities: { getUuid: () => `id-${++world.created}`, formatDate: () => String(world.hour) },
+    Utilities: { getUuid: () => `id-${++world.created}`, formatDate: (date, zone, format) => (format === 'H' ? String(world.hour) : world.day) },
     LockService: { getScriptLock: () => ({ tryLock: () => true, waitLock: () => {}, releaseLock: () => {} }) },
     Session: { getEffectiveUser: () => ({ getEmail: () => world.account }) },
     DriveApp: { getFileById: (id) => ({ setTrashed: () => world.trashed.push(id) }) },
