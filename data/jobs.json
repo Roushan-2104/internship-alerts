@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-11-06T15:16:57.055Z",
+  "lastFullSuccessAt": "2026-11-06T15:16:57.055Z",
+  "sources": {
+    "Google internships India": {
+      "ok": true,
+      "count": 4,
+      "checkedAt": "2026-11-06T15:16:57.055Z",
+      "error": null
+    },
+    "Google priority role search": {
+      "ok": true,
+      "count": 0,
+      "checkedAt": "2026-11-06T15:16:57.055Z",
+      "error": null
+    }
+  },
+  "jobs": [
+    {
+      "title": "Software Engineering PhD Intern, Summer 2027",
+      "url": "https://www.google.com/about/careers/applications/jobs/results/109976286780105414-software-engineering-phd-intern-summer-2027",
+      "location": "Bengaluru, Karnataka, India; Hyderabad, Telangana, India; +2 more; +1 more",
+      "minQualifications": "Pursuing a PhD program with a focus in software development or other technical related field.\nExperience with one or more general purpose programming languages (e.g., Java, C/C++, Python, JavaScript, Go, etc.).\nExperience working in Unix/Linux environments.\nExperience with data structures, algorithms, and software design.",
+      "id": "google-109976286780105414",
+      "company": "Google",
+      "source": "Google internships India",
+      "priority": false,
+      "fingerprint": "google|software engineering phd intern summer 2027|bengaluru karnataka india",
+      "firstSeen": "2026-11-06T15:15:56.838Z",
+      "lastSeen": "2026-11-06T15:16:57.055Z",
+      "open": true,
+      "repostOf": null,
+      "detailAttempts": 1,
+      "preferredQualifications": "Research experience in algorithms, architecture, artificial intelligence, compilers, database, data mining, distributed systems, machine learning, networking, or systems.\nProgramming experience in one or more of the following: C/C++, C#, Java, JavaScript, Python Objective C, Go or similar.\nExperience in computer science, with competencies in data structures, algorithms and software design.",
+      "deadline": "",
+      "detailFetched": true
+    },
+    {
+      "title": "Silicon Engineering Intern, PhD, Summer 2027",
+      "url": "https://www.google.com/about/careers/applications/jobs/results/109375266236572358-silicon-engineering-intern-phd-summer-2027",
+      "location": "Bengaluru, Karnataka, India; Hyderabad, Telangana, India",
+      "minQualifications": "Currently pursuing a PhD degree in Computer Engineering, Computer Science, Electronics and Communication Engineering, Electrical Engineering, or a related technical field.\nExperience in programming languages (e.g., C++, Python, Verilog, UVM), Synopsys, and Cadence tools.\nExperience in one or more of the following areas: hardware system integration, product design, computer architecture, digital design verification, digital circuits, ASIC physical design, FPGAs, embedded systems, memory systems.",
+      "id": "google-109375266236572358",
+      "company": "Google",
+      "source": "Google internships India",
+      "priority": false,
+      "fingerprint": "google|silicon engineering intern phd summer 2027|bengaluru karnataka india",
+      "firstSeen": "2026-11-06T15:15:56.838Z",
+      "lastSeen": "2026-11-06T15:16:57.055Z",
+      "open": true,
+      "repostOf": null,
+      "detailAttempts": 1,
+      "preferredQualifications": "Currently attending a degree program in India and available to work full time for 12 weeks outside of university term time.\nExperience with performance modeling tools, C++, Python or silicon design tools in front end/design verification/physical design.\nKnowledge of arithmetic units, bus architectures, accelerators or memory hierarchies, computer architecture, linear algebra, or ML/DL background.\nKnowledge of high performance and low power design techniques.",
+      "deadline": "April 30, 2027",
+      "detailFetched": true
+    },
+    {
+      "title": "Research Scientist PhD Intern, Summer 2027",
+      "url": "https://www.google.com/about/careers/applications/jobs/results/87534302853505734-research-scientist-phd-intern-summer-2027",
+      "location": "Hyderabad, Telangana, India",
+      "minQualifications": "Currently enrolled in a PhD program in Computer Science and Engineering, Machine Intelligence and Data Science, AI or a related technical field.\nExperience in one or more areas of Machine Learning (e.g., Large Language Models, Deep Learning, Natural Language, Computer Vision, etc.).\nExperience programming in Python, Java.",
+      "id": "google-87534302853505734",
+      "company": "Google",
+      "source": "Google internships India",
+      "priority": false,
+      "fingerprint": "google|research scientist phd intern summer 2027|hyderabad telangana india",
+      "firstSeen": "2026-11-06T15:15:56.838Z",
+      "lastSeen": "2026-11-06T15:16:57.055Z",
+      "open": true,
+      "repostOf": null,
+      "detailAttempts": 1,
+      "preferredQualifications": "Currently enrolled in a full-time degree program and returning to the program after completion of the internship.\nExperience as a researcher, including internships, full-time, or at a lab.\nExperience contributing to research communities or efforts, including publishing papers in conferences or journals.\nExperience with one or more of AI/ML frameworks.\nExperience with security-related research, systems, or technologies.\nAbility to design and execute on research agendas.",
+      "deadline": "",
+      "detailFetched": true
+    },
+    {
+      "title": "Student Researcher, 2027",
+      "url": "https://www.google.com/about/careers/applications/jobs/results/125423735539671750-student-researcher-2027",
+      "location": "India",
+      "minQualifications": "Currently enrolled in a degree program (e.g., Bachelor's, Master's or PhD) in Computer Science, Linguistics, Statistics, Biostatistics, Applied Mathematics, Operations Research, Economics, or Natural Sciences.\nExperience in one area of computer science (e.g., Natural Language, Human Computer Interactions, Computer Vision, Machine Learning, Deep Learning, Algorithmic Foundations of Optimization, Quantum Information Science, Data Science, Software Engineering, or a related area).",
+      "id": "google-125423735539671750",
+      "company": "Google",
+      "source": "Google internships India",
+      "priority": false,
+      "fingerprint": "google|student researcher 2027|india",
+      "firstSeen": "2026-11-06T15:15:56.838Z",
+      "lastSeen": "2026-11-06T15:16:57.055Z",
+      "open": true,
+      "repostOf": null,
+      "detailAttempts": 1,
+      "preferredQualifications": "Currently enrolled in a full-time degree program and returning to the program after completion of the internship.\nExperience as a researcher (e.g., internships, full-time, or at a lab).\nExperience contributing to research communities or efforts, including publishing papers in major conferences or journals.\nExperience with one or more general purpose programming languages (e.g., Python, Java, JavaScript, C/C++, etc.).",
+      "deadline": "December 4th, 2026",
+      "detailFetched": true
+    }
+  ]
+}

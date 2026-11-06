@@ -1,0 +1,17 @@
+{
+  "name": "internship-alerts",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Watches internship listings and publishes public job data for the Apps Script side.",
+  "scripts": {
+    "watch": "node watcher/index.mjs",
+    "test": "node --test \"tests/*.test.mjs\""
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "playwright": "1.49.1"
+  }
+}

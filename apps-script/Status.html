@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+<head>
+  <base target="_top">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root { --bg: #fff; --ink: #1c1c1a; --muted: #62625d; --line: #deded8; --Green: #17693d; --Yellow: #8a5a00; --Red: #a32222; }
+    @media (prefers-color-scheme: dark) { :root { --bg: #1c1c1a; --ink: #f0f0ea; --muted: #b0b0a8; --line: #3d3d39; --Green: #6fd39b; --Yellow: #efbd5c; --Red: #f19a9a; } }
+    body { background: var(--bg); color: var(--ink); font: 15px/1.5 system-ui, sans-serif; margin: 0 auto; max-width: 860px; padding: 24px 16px; }
+    h1 { font-size: 22px; font-weight: 600; margin: 0 0 4px; }
+    h2 { font-size: 16px; font-weight: 600; margin: 28px 0 8px; }
+    .status { font-size: 18px; font-weight: 600; margin: 12px 0; }
+    .grid { display: grid; gap: 8px 24px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+    .grid div { border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; gap: 12px; padding: 4px 0; }
+    .muted { color: var(--muted); }
+    table { border-collapse: collapse; width: 100%; }
+    td, th { border-bottom: 1px solid var(--line); padding: 6px 8px 6px 0; text-align: left; vertical-align: top; overflow-wrap: anywhere; }
+  </style>
+</head>
+<body>
+  <h1>Internship Alerts</h1>
+  <p class="muted">Last run: <?= data.lastTickAt ?></p>
+  <p class="status" style="color: var(--<?= data.overall ?>)">Status: <?= data.overall ?></p>
+
+  <? if (data.problems.length) { ?><h2>Problems</h2><ul><? data.problems.forEach(function (item) { ?><li><?= item ?></li><? }); ?></ul><? } ?>
+  <? if (data.warnings.length) { ?><h2>Warnings</h2><ul><? data.warnings.forEach(function (item) { ?><li><?= item ?></li><? }); ?></ul><? } ?>
+
+  <h2>Watcher</h2>
+  <p class="muted">Job data updated: <?= data.feedGeneratedAt ?></p>
+  <table>
+    <tr><th>Source</th><th>Result</th><th>Jobs</th><th>Error</th></tr>
+    <? data.sources.forEach(function (source) { ?>
+      <tr><td><?= source.name ?></td><td><?= source.ok ? 'OK' : 'Failed' ?></td><td><?= source.count ?></td><td><?= source.error ?></td></tr>
+    <? }); ?>
+  </table>
+
+  <h2>Jobs and email</h2>
+  <div class="grid">
+    <div><span>Open jobs</span><b><?= data.jobsOpen ?></b></div>
+    <div><span>New today</span><b><?= data.jobsNewToday ?></b></div>
+    <div><span>Marked "check eligibility"</span><b><?= data.checkEligibility ?></b></div>
+    <div><span>Sent today</span><b><?= data.sentToday ?></b></div>
+    <div><span>Recipients left today</span><b><?= data.quotaRemaining ?></b></div>
+    <div><span>Emails waiting</span><b><?= data.queuePending ?></b></div>
+  </div>
+
+  <h2>Students</h2>
+  <div class="grid">
+    <div><span>Active</span><b><?= data.studentsActive ?></b></div>
+    <div><span>Paused</span><b><?= data.studentsPaused ?></b></div>
+    <div><span>Updated this week</span><b><?= data.profilesUpdatedThisWeek ?></b></div>
+    <div><span>GitHub scans waiting</span><b><?= data.githubPending ?></b></div>
+    <div><span>GitHub scans failed</span><b><?= data.githubFailed ?></b></div>
+    <div><span>Resume reads failed</span><b><?= data.resumeFailed ?></b></div>
+  </div>
+
+  <h2>Recent errors</h2>
+  <? if (!data.logs.length) { ?><p class="muted">None.</p><? } else { ?>
+  <table>
+    <tr><th>Time</th><th>Level</th><th>Area</th><th>Message</th></tr>
+    <? data.logs.forEach(function (log) { ?>
+      <tr><td><?= log.time ?></td><td><?= log.level ?></td><td><?= log.area ?></td><td><?= log.message ?></td></tr>
+    <? }); ?>
+  </table>
+  <? } ?>
+</body>
+</html>

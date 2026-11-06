@@ -1,0 +1,32 @@
+{
+  "priorityTitles": [
+    "Associate Software Developer Intern",
+    "Student Training in Engineering Program",
+    "STEP"
+  ],
+  "internKeywords": ["intern", "internship", "apprentice", "apprenticeship", "trainee", "student researcher"],
+  "locationKeywords": ["india", "bengaluru", "bangalore", "hyderabad", "pune", "gurugram", "gurgaon", "mumbai", "chennai", "noida", "delhi"],
+  "repostWindowDays": 90,
+  "closedJobRetentionDays": 180,
+  "maxDetailFetchesPerRun": 20,
+  "delayBetweenRequestsMs": 2000,
+  "maxDetailAttempts": 3,
+  "sources": [
+    {
+      "type": "google",
+      "name": "Google internships India",
+      "company": "Google",
+      "url": "https://www.google.com/about/careers/applications/jobs/results/?location=India&target_level=INTERN_AND_APPRENTICE",
+      "keep": "all",
+      "requireJobs": true
+    },
+    {
+      "type": "google",
+      "name": "Google priority role search",
+      "company": "Google",
+      "url": "https://www.google.com/about/careers/applications/jobs/results/?location=India&q=%22Associate%20Software%20Developer%20Intern%22",
+      "keep": "priority",
+      "requireJobs": false
+    }
+  ]
+}
