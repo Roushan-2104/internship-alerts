@@ -46,7 +46,7 @@ var TABLES = {
   Students: ['responseId', 'status', 'name', 'email', 'degree', 'gradYear', 'skills', 'experience', 'projects',
     'privateProjects', 'github', 'interests', 'resumeFileId', 'editUrl', 'githubUser', 'githubSkills',
     'githubScannedAt', 'githubError', 'resumeSkills', 'resumeReadFileId', 'resumeError', 'lastReminderAt',
-    'createdAt', 'updatedAt'],
+    'createdAt', 'updatedAt', 'lastDigestDate'],
   Jobs: ['id', 'title', 'company', 'location', 'url', 'priority', 'deadline', 'minQualifications',
     'preferredQualifications', 'firstSeen', 'processedAt', 'open', 'repostOf'],
   Matches: ['key', 'jobId', 'responseId', 'status', 'score', 'channel', 'reason', 'quote', 'createdAt'],

@@ -183,7 +183,7 @@ test('digest waits for its hour, combines jobs, labels unclear ones, and skips n
   assert.equal(mail[0].name, 'Test Sender');
 });
 
-test('reposts and closed jobs send nothing', () => {
+test('reposts and closed jobs are not sent to students', () => {
   const world = ready([]);
   signUp(world);
   world.sandbox.tick();
@@ -191,29 +191,107 @@ test('reposts and closed jobs send nothing', () => {
   world.hour = 23;
   world.jobs = [makeJob('re', { repostOf: 'old' }), makeJob('shut', { open: false })];
   world.sandbox.tick();
-  assert.equal(world.sent.length, 0);
+  assert.equal(world.sent.length, 1);
+  assert.match(world.sent[0].subject, /No new internship openings/);
+});
+
+test('digest goes out once a day, and later jobs wait for the next day', () => {
+  const world = ready([]);
+  signUp(world);
+  world.sandbox.tick();
+  world.sent.length = 0;
+  world.hour = 23;
+  world.jobs = [makeJob('a')];
+  world.sandbox.tick();
+  assert.equal(world.sent.length, 1);
+  assert.match(world.sent[0].body, /a Intern/);
+
+  world.sent.length = 0;
+  world.jobs.push(makeJob('b'));
+  world.sandbox.tick();
+  world.sandbox.tick();
+  assert.equal(world.sent.length, 0, 'a second digest must not go out the same day');
+
+  world.day = '2026-11-07';
+  world.hour = 0;
+  world.sandbox.tick();
+  assert.equal(world.sent.length, 0, 'waits for the assigned hour');
+  world.hour = 23;
+  world.sandbox.tick();
+  assert.equal(world.sent.length, 1);
+  assert.match(world.sent[0].body, /b Intern/);
+  assert.equal(world.sent[0].body.includes('a Intern'), false);
+});
+
+test('no-openings email goes once a day to active students only', () => {
+  const world = ready([]);
+  const { FORM_TITLES: titles, ALERT_STATUS: status } = world.sandbox;
+  signUp(world);
+  signUp(world, 'r2', { [titles.EMAIL]: 'paused@example.com', [titles.STATUS]: status.PAUSED });
+  world.sandbox.tick();
+  world.sent.length = 0;
+  world.hour = 23;
+  world.sandbox.tick();
+  world.sandbox.tick();
+  assert.equal(toStudents(world).length, 1);
+  assert.match(toStudents(world)[0].subject, /No new internship openings/);
+  assert.match(toStudents(world)[0].body, /https:\/\/edit\/r1/);
+  assert.equal(toStudents(world, 'paused@example.com').length, 0);
+  world.day = '2026-11-07';
+  world.sandbox.tick();
+  assert.equal(toStudents(world).length, 2);
+});
+
+test('near the limit, digests with jobs go first and no-openings emails are dropped', () => {
+  const world = ready([]);
+  const titles = world.sandbox.FORM_TITLES;
+  signUp(world, 'r1', { [titles.EMAIL]: 'match@example.com' });
+  signUp(world, 'r2', { [titles.EMAIL]: 'nomatch@example.com', [titles.SKILLS]: 'Figma' });
+  world.sandbox.tick();
+  world.sent.length = 0;
+  world.jobs = [makeJob('a')];
+  world.sandbox.tick();
+  world.hour = 23;
+  world.quota = 21;
+  world.sandbox.tick();
+  assert.equal(toStudents(world, 'match@example.com').length, 1);
+  assert.equal(toStudents(world, 'nomatch@example.com').length, 0);
+  assert.equal(world.table('Students').find((row) => row.responseId === 'r2').lastDigestDate, '');
+});
+
+test('test emails only go to the alerts inbox', () => {
+  const world = ready([]);
+  signUp(world);
+  world.sandbox.sendTestEmails();
+  assert.equal(world.sent.length, 3);
+  assert.ok(world.sent.every((mail) => mail.to === 'owner@example.com' && mail.subject.startsWith('[Test] ')));
+  assert.equal(world.table('Queue').filter((row) => row.status === 'sent').length, 0);
 });
 
 test('profile updates affect future jobs only, without another sign-up email', () => {
   const world = ready([]);
   const titles = world.sandbox.FORM_TITLES;
   signUp(world);
-  world.hour = 23;
   world.sandbox.tick();
   world.sent.length = 0;
   world.jobs = [makeJob('rust1', { minQualifications: "Bachelor's. Rust required." })];
+  world.hour = 23;
   world.sandbox.tick();
-  assert.equal(world.sent.length, 0, 'no Rust skill yet');
+  assert.equal(world.sent.length, 1);
+  assert.match(world.sent[0].subject, /No new internship openings/, 'no Rust skill yet');
 
+  world.sent.length = 0;
   signUp(world, 'r1', { [titles.SKILLS]: 'Python, SQL, Rust' });
   assert.equal(world.table('Students').length, 1);
   world.sandbox.tick();
   assert.equal(world.sent.length, 0, 'the earlier job is not sent, and no new confirmation');
 
+  world.day = '2026-11-07';
   world.jobs.push(makeJob('rust2', { minQualifications: "Bachelor's. Rust required." }));
   world.sandbox.tick();
   assert.equal(world.sent.length, 1);
   assert.match(world.sent[0].body, /rust2 Intern/);
+  assert.equal(world.sent[0].body.includes('rust1'), false);
 });
 
 test('new skills from students are added to the synonym list once', () => {

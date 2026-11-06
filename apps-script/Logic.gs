@@ -246,6 +246,15 @@ function buildDigestEmail(items, editUrl) {
   };
 }
 
+function buildNoOpeningsEmail(name, editUrl) {
+  var intro = 'Hi ' + name + ', there are no new internship openings matching your profile today. We will keep watching.';
+  return {
+    subject: 'No new internship openings today',
+    htmlBody: '<p>' + escapeHtml(intro) + '</p>' + footerHtml_(editUrl),
+    body: intro + footerText_(editUrl)
+  };
+}
+
 function buildConfirmationEmail(name, editUrl) {
   var intro = 'Hi ' + name + ', you are signed up for internship alerts. You will only get emails about new internships that match your profile.';
   var spam = 'If this email is in spam, please mark it "Not spam" so you do not miss an alert.';

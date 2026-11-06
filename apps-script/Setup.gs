@@ -36,7 +36,9 @@ function createTables_(spreadsheetId) {
   var book = SpreadsheetApp.openById(spreadsheetId);
   Object.keys(TABLES).forEach(function (name) {
     var sheet = book.getSheetByName(name) || book.insertSheet(name);
+    // Rewriting the header row adds any new columns when setup runs again after an update.
     if (sheet.getLastRow() === 0) sheet.appendRow(TABLES[name]);
+    else sheet.getRange(1, 1, 1, TABLES[name].length).setValues([TABLES[name]]);
     // Plain text keeps ids, years and timestamps exactly as written.
     sheet.getRange('A:Z').setNumberFormat('@');
     sheet.setFrozenRows(1);
