@@ -1,390 +1,390 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-07T16:26:35.850Z",
-  "lastFullSuccessAt": "2026-11-07T16:26:35.850Z",
+  "generatedAt": "2026-11-07T16:49:43.730Z",
+  "lastFullSuccessAt": "2026-11-07T16:49:43.730Z",
   "sources": {
     "Google internships India": {
       "ok": true,
       "count": 4,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "Google priority role search": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "AIOS": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "AiPrise": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "Airbnb": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "Aleph": {
       "ok": true,
       "count": 1,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "Alpaca": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "Amplitude": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "Anthropic": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "Atlan": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "AtoB": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "Avoca": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "Cardboard": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "Coinbase": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "CRED": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "Databricks": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "Datadog": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "Deepgram": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "Druva": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "Duolingo": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "Elastic": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "FamPay": {
       "ok": true,
       "count": 2,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "Figma": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "Finni Health": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "FirstWork": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "Flai": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "Fleek": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "Flexport": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "GitLab": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "Groww": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "HackerRank": {
       "ok": true,
       "count": 2,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "IMC": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "InMobi": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "Instawork": {
       "ok": true,
       "count": 7,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "LiteLLM": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "Meesho": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "Mem0": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "MongoDB": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "Netomi": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "Notion": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "Okta": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "OpenAI": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "Overview": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "PermitFlow": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "Prodigal": {
       "ok": true,
       "count": 2,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "Provision": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "Retell AI": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "Rubrik": {
       "ok": true,
       "count": 5,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "Sarvam AI": {
       "ok": true,
       "count": 1,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "Scale AI": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "Sieve": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "SigNoz": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "Snowflake": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "Stepful": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "Stripe": {
       "ok": true,
       "count": 2,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "Tekion": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "Tower Research Capital": {
       "ok": true,
       "count": 1,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "Triomics": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "TRM Labs": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "Twilio": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "Vercel": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "Xendit": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "Zapier": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     },
     "Zscaler": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-07T16:26:35.850Z",
+      "checkedAt": "2026-11-07T16:49:43.730Z",
       "error": null
     }
   },
@@ -402,7 +402,7 @@
       "deadline": "",
       "fingerprint": "aleph|finance intern|mumbai india",
       "firstSeen": "2026-11-07T10:17:02.218Z",
-      "lastSeen": "2026-11-07T16:26:35.850Z",
+      "lastSeen": "2026-11-07T16:49:43.730Z",
       "open": true,
       "repostOf": null,
       "aboutRole": "",
@@ -422,7 +422,7 @@
       "deadline": "",
       "fingerprint": "fampay|people operations intern|bengaluru",
       "firstSeen": "2026-11-07T10:17:02.218Z",
-      "lastSeen": "2026-11-07T16:26:35.850Z",
+      "lastSeen": "2026-11-07T16:49:43.730Z",
       "open": true,
       "repostOf": null,
       "aboutRole": "",
@@ -442,7 +442,7 @@
       "deadline": "",
       "fingerprint": "fampay|security engineer intern|bengaluru",
       "firstSeen": "2026-11-07T10:17:02.218Z",
-      "lastSeen": "2026-11-07T16:26:35.850Z",
+      "lastSeen": "2026-11-07T16:49:43.730Z",
       "open": true,
       "repostOf": null,
       "aboutRole": "We are looking for a Security Enthusiast who thinks like a hacker but works for the good guys. You shouldn't just find bugs; you should be obsessed with understanding why they exist and how to fix them for good.\nAs an Application Security Engineer Intern , you will be the first line of defense for the Fam. You will break things before the bad guys do, automate security checks, and work side-by-side with our engineering team to build a fortress around our users' hard-earned money.\nIf you get a rush from finding an RCE, live on r/netsec, or spend your weekends capturing flags or bounties, this role is for you.\nNote: This is an onsite internship at Fam HQ, Bangalore.\nCurious to know about FamPay's tech stack? Click here to know what makes and keeps Fam running!",
@@ -462,7 +462,7 @@
       "deadline": "",
       "fingerprint": "hackerrank|ai researcher intern|onsite in bangalore",
       "firstSeen": "2026-11-07T10:17:02.218Z",
-      "lastSeen": "2026-11-07T16:26:35.850Z",
+      "lastSeen": "2026-11-07T16:49:43.730Z",
       "open": true,
       "repostOf": null,
       "aboutRole": "HackerRank is advancing AI-driven Technical Interviewing, assessment of Integrity, and the measurement of Engineering skill to use AI assistance effectively in the agentic era. We are looking for research-oriented M.S./Ph.D. scholars to explore and develop novel Deep Learning architectures and build efficient, trustworthy AI systems. A key research direction is to develop a model-agnostic external Recursive Reasoning Engine that enables smaller models (SLM/SSM/Hybrid etc.) to solve complex, repository-grounded software engineering tasks with greater effectiveness, traceability, and lower inference cost.",
@@ -482,7 +482,7 @@
       "deadline": "",
       "fingerprint": "hackerrank|software development engineer intern|onsite in bangalore",
       "firstSeen": "2026-11-07T10:17:02.218Z",
-      "lastSeen": "2026-11-07T16:26:35.850Z",
+      "lastSeen": "2026-11-07T16:49:43.730Z",
       "open": true,
       "repostOf": null,
       "aboutRole": "This is a 6-month full-time onsite internship (Jan - June 2027).\nPlease apply only if you're available full-time to work from the Bengaluru office for the entire duration.\nIf you're obsessed with writing great code that will be used by other great engineers around the world, read on - this just may be the perfect role for you. HackerRank is looking for high-potential Hacker Interns to join our team of world-class full-time Hackers as we build the most engaged community of Developers.",
@@ -502,7 +502,7 @@
       "deadline": "",
       "fingerprint": "instawork|hardware intern robotics ai|bengaluru karnataka india",
       "firstSeen": "2026-11-07T10:17:02.218Z",
-      "lastSeen": "2026-11-07T16:26:35.850Z",
+      "lastSeen": "2026-11-07T16:49:43.730Z",
       "open": true,
       "repostOf": null,
       "aboutRole": "",
@@ -522,7 +522,7 @@
       "deadline": "",
       "fingerprint": "instawork|hr intern|bengaluru karnataka india",
       "firstSeen": "2026-11-07T10:17:02.218Z",
-      "lastSeen": "2026-11-07T16:26:35.850Z",
+      "lastSeen": "2026-11-07T16:49:43.730Z",
       "open": true,
       "repostOf": null,
       "aboutRole": "We are looking for a highly motivated and highly organized Talent Acquisition Intern to join our team at Instawork. In this role, you will get hands-on experience working on end-to-end recruitment, serving as the critical bridge between our hiring teams and prospective candidates.\nIf you enjoy speaking with people, thrive in a fast-paced environment, and want to build a strong foundation in human resources and talent acquisition, this opportunity is a great starting point.",
@@ -542,7 +542,7 @@
       "deadline": "",
       "fingerprint": "instawork|inventory management intern|bengaluru karnataka india",
       "firstSeen": "2026-11-07T10:17:02.218Z",
-      "lastSeen": "2026-11-07T16:26:35.850Z",
+      "lastSeen": "2026-11-07T16:49:43.730Z",
       "open": true,
       "repostOf": null,
       "aboutRole": "The Inventory Manager will be responsible for end-to-end custody, tracking, and reconciliation of high-value inventory, primarily iPhones and related accessories such as SD cards and card readers. This role demands strict control, zero tolerance for mismatches, and complete documentation discipline.\nNo inventory movement is allowed without entries, and physical stock must always tally with records.\n(Morning Shift - 7 am to 4 pm; Evening Shift - 4 pm to 2 am)",
@@ -562,7 +562,7 @@
       "deadline": "",
       "fingerprint": "instawork|it intern gadget tech support operations|bengaluru karnataka india",
       "firstSeen": "2026-11-07T10:17:02.218Z",
-      "lastSeen": "2026-11-07T16:26:35.850Z",
+      "lastSeen": "2026-11-07T16:49:43.730Z",
       "open": true,
       "repostOf": null,
       "aboutRole": "The Rig / Productivity Team is responsible for ensuring that recorded field data is uploaded, reconciled, validated, and made ready for reuse. The role combines two critical functions: processing SD card data and reviewing recorded videos to determine whether the data is valid.\nThe team ensures that every uploaded batch is accounted for, SD cards are returned to inventory within the expected turnaround time, and valid-data assessments are completed accurately. No shortcuts in data handling, no unexplained pending work, and no compromise on data quality.",
@@ -582,7 +582,7 @@
       "deadline": "",
       "fingerprint": "instawork|operations management intern|bengaluru karnataka india",
       "firstSeen": "2026-11-07T10:17:02.218Z",
-      "lastSeen": "2026-11-07T16:26:35.850Z",
+      "lastSeen": "2026-11-07T16:49:43.730Z",
       "open": true,
       "repostOf": null,
       "aboutRole": "An Internal Coordinator (IC) owns the day-to-day running of field data collection for a single region. Each IC leads a team of Field Officers (FOs) who carry recording rigs(hardware) into partner businesses, set them up correctly, and capture high-quality task recordings.\nThe IC is the operational nerve center of the region: planning the day's pipeline, keeping FOs productive in the field, solving problems live, ensuring recording quality and diversity rules are met, tracking inventory (rigs and SD cards) in and out, and reporting hours planned vs. achieved with clear loss reasons at end of day.\nThis role is mainly about live coordination, field problem-solving, quality control, and disciplined reporting.",
@@ -602,7 +602,7 @@
       "deadline": "",
       "fingerprint": "instawork|quality check intern hardware|bengaluru karnataka india",
       "firstSeen": "2026-11-07T10:17:02.218Z",
-      "lastSeen": "2026-11-07T16:26:35.850Z",
+      "lastSeen": "2026-11-07T16:49:43.730Z",
       "open": true,
       "repostOf": null,
       "aboutRole": "The Quality Control Intern – Hardware is the checkpoint every recording rig passes through, in both directions. When rigs return from the field, you inspect their condition, run a functional check, and capture a short test recording that you review to confirm the cameras, footage, audio, and storage are all working. Before any rig goes back out, you give the final sign-off that it is field-ready.\nThis is a small role with an outsized impact: a rig that leaves your desk in a bad state means a Field Officer travels to a business, records for hours, and returns with unusable or missing data — a full day lost, and sometimes a burned business relationship. Your job is to make sure that never happens. Precision, consistency, and discipline are the whole game here.",
@@ -622,7 +622,7 @@
       "deadline": "",
       "fingerprint": "instawork|trainer intern|bengaluru karnataka india",
       "firstSeen": "2026-11-07T10:17:02.218Z",
-      "lastSeen": "2026-11-07T16:26:35.850Z",
+      "lastSeen": "2026-11-07T16:49:43.730Z",
       "open": true,
       "repostOf": null,
       "aboutRole": "We are looking for a Trainer (Intern) to support the onboarding, training, assessment, and certification of Field Operators working on large-scale field operations.\nThis is a hands-on training role, not a conventional classroom-only position. You will be responsible for taking candidates through the complete training journey, from onboarding and practical training to assessment and certification.\nThe role requires extensive travel across India, strong communication skills, confidence in managing groups, and the ability to strictly enforce SOPs and make objective certification decisions.",
@@ -642,7 +642,7 @@
       "deadline": "",
       "fingerprint": "prodigal|content marketing intern|mumbai",
       "firstSeen": "2026-11-07T10:17:02.218Z",
-      "lastSeen": "2026-11-07T16:26:35.850Z",
+      "lastSeen": "2026-11-07T16:49:43.730Z",
       "open": true,
       "repostOf": null,
       "aboutRole": "AI has made it incredibly easy to produce content. There are more articles, posts, emails, videos, and opinions competing for people's attention every day.\nWe think this makes genuinely good content more valuable.\nWe're looking for a Content Marketing Intern who wants to become exceptionally good at understanding an audience, finding ideas worth talking about, and turning those ideas into work people actually want to read, watch, save, share, and come back to.\nAt Prodigal, good content starts with understanding.\nYou'll learn how financial institutions operate, how their teams work, what their customers experience, what executives care about, where processes break, and how AI is changing the industry. We go unusually deep into these details. We obsess over the people, processes, regulations, and edge cases that shape how this industry actually works.\nThat level of understanding should show up in everything we publish.\nWe want someone inside the industry to encounter something from Prodigal and think\nHow do they know that?\nAnd we want the content to be good enough that they keep reading.\nThis is an Intern + PPO opportunity (performance based).",
@@ -662,7 +662,7 @@
       "deadline": "",
       "fingerprint": "prodigal|people ops intern|mumbai",
       "firstSeen": "2026-11-07T10:17:02.218Z",
-      "lastSeen": "2026-11-07T16:26:35.850Z",
+      "lastSeen": "2026-11-07T16:49:43.730Z",
       "open": true,
       "repostOf": null,
       "aboutRole": "",
@@ -682,7 +682,7 @@
       "deadline": "",
       "fingerprint": "rubrik|eng project program intern|bangalore",
       "firstSeen": "2026-11-07T10:17:02.218Z",
-      "lastSeen": "2026-11-07T16:26:35.850Z",
+      "lastSeen": "2026-11-07T16:49:43.730Z",
       "open": true,
       "repostOf": null,
       "aboutRole": "We are looking for a highly organised and motivated Project/ Program Manager Intern to join our dynamic team. As an intern, you'll assist in managing our On Prem/Saas product delivery. You will assist in the planning, managing, and execution of several technical programs and initiatives each year for our Engineering Organisation across our Product portfolio. You will get an first-hand experience in driving the improvement of our processes throughout the development, validation and deployment lifecycle. You will be collaborating with stakeholders and understanding the components of delivering large features/ initiatives and their associated technical complexities. This role will provide you the opportunity to learn how to navigate complex situations while evaluating risks and aligning with business priorities. You will learn to manage tasks while working in a fast-paced environment and developing your technical expertise. Your responsibilities will include assisting in driving metrics improvement, learning to communicate the current status, and helping in delivering features to market.",
@@ -702,7 +702,7 @@
       "deadline": "",
       "fingerprint": "rubrik|industrial trainee|bangalore",
       "firstSeen": "2026-11-07T10:17:02.218Z",
-      "lastSeen": "2026-11-07T16:26:35.850Z",
+      "lastSeen": "2026-11-07T16:49:43.730Z",
       "open": true,
       "repostOf": null,
       "aboutRole": "We are offering an excellent learning opportunity within our International Accounting & Reporting team based at Bangalore. Designed specifically for CA students seeking industrial training, this role supports our U.S. GAAP accounting team or International Reporting team. You will step into a global corporate environment, partner with team members worldwide, and gain hands-on exposure to corporate accounting principles, change management, and complex issue resolution. We are looking for motivated individuals who thrive in a fast-paced setting and embrace new challenges.",
@@ -722,7 +722,7 @@
       "deadline": "",
       "fingerprint": "rubrik|payroll industrial trainee|bangalore",
       "firstSeen": "2026-11-07T10:17:02.218Z",
-      "lastSeen": "2026-11-07T16:26:35.850Z",
+      "lastSeen": "2026-11-07T16:49:43.730Z",
       "open": true,
       "repostOf": null,
       "aboutRole": "",
@@ -742,7 +742,7 @@
       "deadline": "",
       "fingerprint": "rubrik|product management intern|bangalore",
       "firstSeen": "2026-11-07T10:17:02.218Z",
-      "lastSeen": "2026-11-07T16:26:35.850Z",
+      "lastSeen": "2026-11-07T16:49:43.730Z",
       "open": true,
       "repostOf": null,
       "aboutRole": "",
@@ -762,7 +762,7 @@
       "deadline": "",
       "fingerprint": "rubrik|software engineer cpd winter intern|bangalore",
       "firstSeen": "2026-11-07T10:17:02.218Z",
-      "lastSeen": "2026-11-07T16:26:35.850Z",
+      "lastSeen": "2026-11-07T16:49:43.730Z",
       "open": true,
       "repostOf": null,
       "aboutRole": "We are looking for a Software Engineer - Intern to join our Continuous Product Development (CPD) team in Bangalore. We believe in giving engineers responsibility, not tasks. Our goal is to motivate and challenge people to do their best work. To do that, we have a very fluid structure and give people the flexibility to work on projects that they enjoy the most. This develops more capable engineers and keeps everyone engaged and happy.",
@@ -782,7 +782,7 @@
       "deadline": "",
       "fingerprint": "sarvam ai|marketing internship brand communication|bengaluru",
       "firstSeen": "2026-11-07T10:17:02.218Z",
-      "lastSeen": "2026-11-07T16:26:35.850Z",
+      "lastSeen": "2026-11-07T16:49:43.730Z",
       "open": true,
       "repostOf": null,
       "aboutRole": "We are looking for a sharp, high-ownership Marketing Intern to act as the primary story-builder and content engine across Sarvam’s marketing channels.\nThis is not a passive internship focused on surface-level social updates. You will translate complex frontier AI capabilities like our Vision APIs, Document Intelligence models, and voice platforms into crisp, high-impact stories, viral launch threads, and sharp enterprise collateral. You will sit at the intersection of product, creative execution, and creator operations, helping shape how Sarvam communicates its sovereign AI vision to technical builders, enterprise buyers, and the broader ecosystem.",
@@ -802,7 +802,7 @@
       "deadline": "",
       "fingerprint": "stripe|operations associate apprenticeship|bengaluru",
       "firstSeen": "2026-11-07T10:17:02.218Z",
-      "lastSeen": "2026-11-07T16:26:35.850Z",
+      "lastSeen": "2026-11-07T16:49:43.730Z",
       "open": true,
       "repostOf": null,
       "aboutRole": "",
@@ -822,7 +822,7 @@
       "deadline": "",
       "fingerprint": "stripe|software engineer intern|bengaluru",
       "firstSeen": "2026-11-07T10:17:02.218Z",
-      "lastSeen": "2026-11-07T16:26:35.850Z",
+      "lastSeen": "2026-11-07T16:49:43.730Z",
       "open": true,
       "repostOf": null,
       "aboutRole": "",
@@ -842,7 +842,7 @@
       "deadline": "",
       "fingerprint": "tower research capital|hr intern|gurgaon",
       "firstSeen": "2026-11-07T10:17:02.218Z",
-      "lastSeen": "2026-11-07T16:26:35.850Z",
+      "lastSeen": "2026-11-07T16:49:43.730Z",
       "open": true,
       "repostOf": null,
       "aboutRole": "",
@@ -860,7 +860,7 @@
       "priority": false,
       "fingerprint": "google|software engineering phd intern summer 2027|bengaluru karnataka india",
       "firstSeen": "2026-11-06T15:15:56.838Z",
-      "lastSeen": "2026-11-07T16:26:35.850Z",
+      "lastSeen": "2026-11-07T16:49:43.730Z",
       "open": true,
       "repostOf": null,
       "detailAttempts": 0,
@@ -882,7 +882,7 @@
       "priority": false,
       "fingerprint": "google|silicon engineering intern phd summer 2027|bengaluru karnataka india",
       "firstSeen": "2026-11-06T15:15:56.838Z",
-      "lastSeen": "2026-11-07T16:26:35.850Z",
+      "lastSeen": "2026-11-07T16:49:43.730Z",
       "open": true,
       "repostOf": null,
       "detailAttempts": 0,
@@ -904,7 +904,7 @@
       "priority": false,
       "fingerprint": "google|research scientist phd intern summer 2027|hyderabad telangana india",
       "firstSeen": "2026-11-06T15:15:56.838Z",
-      "lastSeen": "2026-11-07T16:26:35.850Z",
+      "lastSeen": "2026-11-07T16:49:43.730Z",
       "open": true,
       "repostOf": null,
       "detailAttempts": 0,
@@ -926,7 +926,7 @@
       "priority": false,
       "fingerprint": "google|student researcher 2027|india",
       "firstSeen": "2026-11-06T15:15:56.838Z",
-      "lastSeen": "2026-11-07T16:26:35.850Z",
+      "lastSeen": "2026-11-07T16:49:43.730Z",
       "open": true,
       "repostOf": null,
       "detailAttempts": 0,
