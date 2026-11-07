@@ -588,3 +588,117 @@ test('a failed start does not stop the other steps', () => {
   world.sandbox.tick();
   assert.equal(toStudents(world).length, 1);
 });
+
+test('send now matches every new job and ignores the assigned hour', () => {
+  const world = ready([]);
+  signUp(world);
+  world.sandbox.tick();
+  world.sent.length = 0;
+  world.hour = 0;
+  world.jobs = Array.from({ length: 23 }, (_, i) => makeJob(`job${i}`));
+  const summary = world.sandbox.sendDigestNow();
+  assert.equal(summary.jobsNotYetMatched, 0);
+  assert.equal(summary.matchedJobsWaiting, 23);
+  assert.equal(summary.digestEmailsSent, 1);
+  assert.equal(world.sent.length, 1);
+  assert.match(world.sent[0].subject, /23 new internships/);
+  assert.equal(world.table('Queue').filter((row) => row.type === 'digest' && row.status === 'pending').length, 0);
+});
+
+test('send now works after today\'s digest, without repeating jobs or sending empty emails', () => {
+  const world = ready([]);
+  signUp(world);
+  world.sandbox.tick();
+  world.hour = 23;
+  world.sandbox.tick();
+  world.sent.length = 0;
+  assert.equal(world.sandbox.sendDigestNow().digestEmailsSent, 0, 'nothing waiting means no email');
+  assert.equal(world.sent.length, 0);
+
+  world.jobs = [makeJob('late')];
+  world.sandbox.tick();
+  assert.equal(world.sent.length, 0, 'the normal cycle waits for tomorrow');
+  world.sandbox.sendDigestNow();
+  assert.equal(world.sent.length, 1);
+  assert.match(world.sent[0].body, /late Intern/);
+  world.sent.length = 0;
+  world.sandbox.sendDigestNow();
+  assert.equal(world.sent.length, 0, 'the same job is not sent twice');
+});
+
+test('send now skips paused students and reports a bad feed', () => {
+  const world = ready([]);
+  const { FORM_TITLES: titles, ALERT_STATUS: status } = world.sandbox;
+  signUp(world, 'r1', { [titles.STATUS]: status.PAUSED });
+  world.sandbox.tick();
+  world.sent.length = 0;
+  world.jobs = [makeJob('a')];
+  world.sandbox.sendDigestNow();
+  assert.equal(world.sent.length, 0);
+  world.fetch = () => ({ code: 500, body: '' });
+  assert.throws(() => world.sandbox.sendDigestNow(), /Could not read job data/);
+});
+
+test('emails put each part of a job under its own heading, in order', () => {
+  const mail = logic.buildInstantEmail({
+    title: 'Intern', company: 'Acme', location: 'India', url: 'https://x/1', aboutRole: 'Join the team.',
+    responsibilities: 'Build things', minQualifications: 'Python', preferredQualifications: 'Docker', fullText: 'Founded in 1999. Free lunch.',
+  }, 'https://edit/1', false);
+  const order = ['About the role', 'Join the team.', "What you&#39;ll do", 'Build things', 'What they ask for', 'Python', 'Nice to have', 'Docker'];
+  let position = -1;
+  for (const piece of order) {
+    const next = mail.htmlBody.indexOf(piece);
+    assert.ok(next > position, `${piece} out of order`);
+    position = next;
+  }
+  assert.equal(mail.htmlBody.includes('Free lunch'), false);
+  assert.match(mail.body, /WHAT THEY ASK FOR\n- Python/);
+});
+
+test('empty sections show no heading, and long sections say they were shortened', () => {
+  const none = logic.buildInstantEmail({ title: 'Intern', company: 'A', location: 'I', url: 'https://x', fullText: 'Everything in one block.' }, 'https://e', false);
+  assert.equal(none.htmlBody.includes('What they ask for'), false);
+  assert.match(none.htmlBody, /no clear sections/);
+  const long = logic.buildInstantEmail({ title: 'Intern', company: 'A', location: 'I', url: 'https://x', minQualifications: Array.from({ length: 20 }, (_, i) => `Skill ${i}`).join('\n') }, 'https://e', false);
+  assert.equal(long.htmlBody.includes('Skill 7'), true);
+  assert.equal(long.htmlBody.includes('Skill 8'), false);
+  assert.match(long.htmlBody, /Shortened for this email/);
+});
+
+test('matching and eligibility use the full text when sections are missing', () => {
+  const job = { title: 'Intern', minQualifications: '', fullText: 'Graduating in 2029. Experience with Python.' };
+  assert.equal(logic.evaluateEligibility(job, bachelor).status, 'eligible');
+  assert.equal(logic.routeJob(job, { ...bachelor, skills: 'Python' }, synonyms).channel, 'digest');
+  const phd = { title: 'Intern', minQualifications: '', fullText: 'Pursuing a PhD program.' };
+  assert.equal(logic.evaluateEligibility(phd, bachelor).status, 'not_eligible');
+});
+
+test('new section details reach stored jobs on later syncs', () => {
+  const world = ready([makeJob('old')]);
+  world.sandbox.tick();
+  world.jobs = [makeJob('old', { aboutRole: 'Now with details', fullText: 'All of it' })];
+  world.sandbox.tick();
+  const row = world.table('Jobs')[0];
+  assert.equal(row.aboutRole, 'Now with details');
+  assert.equal(row.fullText, 'All of it');
+});
+
+test('long role text ends at a full sentence, with joined sentences separated', () => {
+  const sentence = 'This sentence describes the programme in some detail.';
+  const aboutRole = Array.from({ length: 20 }, () => sentence).join('');
+  const mail = logic.buildInstantEmail({ title: 'Intern', company: 'A', location: 'I', url: 'https://x', aboutRole }, 'https://e', false);
+  assert.match(mail.body, /detail\.\n/);
+  assert.equal(mail.body.includes('detail.This'), false);
+  assert.match(mail.htmlBody, /Shortened for this email/);
+});
+
+test('old messy text is replaced when a job no longer has that section', () => {
+  const world = ready([makeJob('old', { minQualifications: 'Company history and everything else' })]);
+  world.sandbox.tick();
+  world.jobs = [makeJob('old', { minQualifications: '', aboutRole: 'Clean text' })];
+  world.sandbox.tick();
+  const row = world.table('Jobs')[0];
+  assert.equal(row.minQualifications, '');
+  assert.equal(row.aboutRole, 'Clean text');
+});
+

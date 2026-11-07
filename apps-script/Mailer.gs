@@ -81,7 +81,7 @@ function sendQueued_(deadline) {
  * after it goes out wait for the next day. Digests with jobs go first, so "no openings"
  * emails are the first to be dropped when the daily limit is close.
  */
-function sendDailyDigests_(students, digestRows, jobs, hasRoom) {
+function sendDailyDigests_(students, digestRows, jobs, hasRoom, sendNow) {
   var hour = istHour_();
   var today = istDate_();
   var rowsFor = {};
@@ -89,10 +89,11 @@ function sendDailyDigests_(students, digestRows, jobs, hasRoom) {
     if (jobs[row.jobId]) (rowsFor[row.responseId] = rowsFor[row.responseId] || []).push(row);
   });
   var due = Object.keys(students).map(function (id) { return students[id]; }).filter(function (student) {
-    return student.status === 'active' && String(student.lastDigestDate) !== today && hour >= digestHour(student.email);
+    if (student.status !== 'active') return false;
+    return sendNow || (String(student.lastDigestDate) !== today && hour >= digestHour(student.email));
   });
   var withJobs = due.filter(function (student) { return rowsFor[student.responseId]; });
-  var withoutJobs = due.filter(function (student) { return !rowsFor[student.responseId]; });
+  var withoutJobs = sendNow ? [] : due.filter(function (student) { return !rowsFor[student.responseId]; });
 
   withJobs.concat(withoutJobs).forEach(function (student) {
     if (!hasRoom(CONFIG.QUOTA_RESERVED_FOR_INSTANT)) return;
@@ -123,12 +124,55 @@ function attemptNoOpenings_(student) {
   }
 }
 
+/**
+ * Run by hand from the editor. Fetches the latest jobs, matches all of them, and sends any
+ * waiting digests to every active student straight away, ignoring their assigned hour. A
+ * student with nothing waiting gets no email, so this can't send a second "no openings".
+ */
+function sendDigestNow() {
+  var lock = LockService.getScriptLock();
+  if (!lock.tryLock(30000)) throw new Error('Another run is in progress. Try again in a minute.');
+  try {
+    var deadline = Date.now() + 240000;
+    var feed = { payload: null, error: null };
+    syncJobs_(feed, deadline);
+    if (feed.error) throw new Error('Could not read job data: ' + feed.error);
+    var unmatched = function () {
+      return readTable_('Jobs').filter(function (job) { return !job.processedAt; }).length;
+    };
+    while (unmatched() > 0 && Date.now() < deadline) matchNewJobs_(deadline);
+
+    var students = {};
+    readTable_('Students').forEach(function (row) { students[row.responseId] = row; });
+    var jobs = {};
+    readTable_('Jobs').forEach(function (row) { jobs[row.id] = row; });
+    var waiting = readTable_('Queue').filter(function (row) { return row.type === 'digest' && row.status === 'pending'; });
+    var before = MailApp.getRemainingDailyQuota();
+    var hasRoom = function (minimum) { return MailApp.getRemainingDailyQuota() > minimum && Date.now() < deadline; };
+    sendDailyDigests_(students, waiting, jobs, hasRoom, true);
+
+    var summary = {
+      jobsNotYetMatched: unmatched(),
+      matchedJobsWaiting: waiting.length,
+      digestEmailsSent: before - MailApp.getRemainingDailyQuota(),
+      activeStudents: Object.keys(students).filter(function (id) { return students[id].status === 'active'; }).length
+    };
+    Logger.log(JSON.stringify(summary, null, 2));
+    return summary;
+  } finally {
+    lock.releaseLock();
+  }
+}
+
 /** Run by hand from the editor. Sends samples of each job email to the alerts inbox only. */
 function sendTestEmails() {
   var job = {
     title: 'Sample Software Intern (test only)', company: 'Example Company', location: 'Bengaluru, India',
     url: 'https://example.com/sample-job', deadline: 'Not listed',
-    minQualifications: "Pursuing a Bachelor's degree.\nExperience with Python."
+    aboutRole: 'This sample shows how each section of a job appears in your emails.',
+    responsibilities: 'Build internal tools.\nWork with a mentor.',
+    minQualifications: "Pursuing a Bachelor's degree.\nExperience with Python.",
+    preferredQualifications: 'Experience with SQL.'
   };
   var editUrl = 'https://example.com/your-personal-link';
   [

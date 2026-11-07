@@ -8,6 +8,8 @@ import { readAshby, readGoogle, readGoogleDetail, readGreenhouse, readLever } fr
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const JOBS_FILE = process.env.JOBS_FILE || resolve(root, 'data/jobs.json');
+// Raising this re-reads stored Google jobs once when more fields are collected.
+const DETAIL_VERSION = 2;
 
 async function loadState() {
   try {
@@ -47,7 +49,7 @@ async function fillGoogleDetails(state, page, config) {
   let fetched = 0;
   for (const job of state.jobs) {
     if (fetched >= config.maxDetailFetchesPerRun) break;
-    const needsDetail = job.id.startsWith('google-') && job.open && !job.detailFetched
+    const needsDetail = job.id.startsWith('google-') && job.open && job.detailVersion !== DETAIL_VERSION
       && (job.detailAttempts || 0) < config.maxDetailAttempts;
     if (!needsDetail) continue;
     fetched += 1;
@@ -57,7 +59,10 @@ async function fillGoogleDetails(state, page, config) {
       job.minQualifications = detail.minQualifications || job.minQualifications;
       job.preferredQualifications = detail.preferredQualifications;
       job.deadline = detail.deadline;
-      job.detailFetched = true;
+      job.aboutRole = detail.aboutRole;
+      job.responsibilities = detail.responsibilities;
+      job.detailVersion = DETAIL_VERSION;
+      job.detailAttempts = 0;
       delete job.detailError;
     } catch (error) {
       job.detailError = error.message;

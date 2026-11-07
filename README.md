@@ -50,6 +50,8 @@ Every active student gets a daily email. Personal Gmail allows about 100 recipie
 
 To preview the emails, run `sendTestEmails` from the editor. The samples go to the alerts inbox only.
 
+To send waiting digests straight away, run `sendDigestNow`. **This emails every active student who has matches waiting**, ignoring their assigned hour.
+
 ## GitHub token
 
 Apps Script reads this from the `GITHUB_DISPATCH_TOKEN` script property. Never put it in a project file, because this repo is public.

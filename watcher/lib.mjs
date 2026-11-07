@@ -109,3 +109,88 @@ export function htmlToText(html) {
     .filter(Boolean)
     .join('\n');
 }
+
+// Some boards escape their text twice, so this repeats until nothing changes.
+function decodeEntities(text) {
+  let current = String(text || '');
+  for (let pass = 0; pass < 3; pass += 1) {
+    const next = decodeOnce(current);
+    if (next === current) break;
+    current = next;
+  }
+  return current;
+}
+
+function decodeOnce(text) {
+  return text
+    .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;|&#x27;|&apos;/g, "'")
+    .replace(/&nbsp;|&#160;/g, ' ').replace(/&rsquo;/g, '’').replace(/&ndash;/g, '–').replace(/&mdash;/g, '—').replace(/&amp;/g, '&');
+}
+
+// Order matters: "preferred qualifications" must win over "qualifications".
+const SECTION_RULES = [
+  ['skip', /benefit|perk|why join|why you|why this|what we offer|we offer|compensation|salary|pay range|equal (employment|opportunity)|office location|in.?office|hybrid work|how to apply|interview process|key trait|performance metric|non.negotiable|reporting|faq|how we work|life as an|life at|culture|our values|learn more/i],
+  ['preferred', /prefer|nice.to.have|good.to.have|bonus|would be a plus|added advantage|pluses/i],
+  ['requirements', /minimum|must.?have|mandatory|require|qualification|who you are|looking for|you have|you bring|you.ll need|you need|skill|eligib|ideal candidate|about you|candidate profile/i],
+  ['responsibilities', /responsib|what you.?ll|what you will|you will|on the job|day.to.day|what will you|the work|your impact|key result/i],
+  ['aboutRole', /about the (role|job|position|internship|opportunity)|the role|role overview|your role|job (description|summary|overview)|position (overview|summary)|the opportunity|internship (details|overview)/i],
+];
+
+export function classifyHeading(heading) {
+  const match = SECTION_RULES.find(([, pattern]) => pattern.test(heading));
+  return match ? match[0] : 'other';
+}
+
+function looksLikeHeading(line) {
+  return line.length <= 60 && !/[.!?]$/.test(line) && classifyHeading(line) !== 'other';
+}
+
+/** Turns a job description into named sections, so nothing lands under the wrong heading. */
+export function parseDescription(html, limits = { aboutRole: 1500, responsibilities: 2000, minQualifications: 3000, preferredQualifications: 1500, fullText: 8000 }) {
+  const text = decodeEntities(html)
+    .replace(/<(script|style)[^>]*>[\s\S]*?<\/\1>/gi, ' ')
+    .replace(/<div class="content-(intro|conclusion)">[\s\S]*?<\/div>/gi, ' ')
+    .replace(/<h[1-6][^>]*>([\s\S]*?)<\/h[1-6]>/gi, (_, inner) => `\n##${inner.replace(/<[^>]+>/g, ' ')}\n`)
+    .replace(/<(p|div)[^>]*>\s*(?:<(?:strong|b|u|em|span)[^>]*>\s*)+([^<]{2,90})(?:\s*<\/(?:strong|b|u|em|span)>)+\s*(?:<br\s*\/?>\s*)*<\/\1>/gi, (_, __, inner) => `\n##${inner}\n`)
+    .replace(/<li[^>]*>/gi, '\n')
+    .replace(/<\/(p|div|li|ul|ol|tr)>|<br\s*\/?>/gi, '\n')
+    .replace(/<[^>]+>/g, ' ');
+
+  const sections = [{ kind: 'intro', lines: [] }];
+  for (const raw of text.split('\n')) {
+    const line = raw.replace(/\s+/g, ' ').trim();
+    if (!line) continue;
+    const marked = line.startsWith('##');
+    const value = line.replace(/^##\s*/, '').replace(/[:\s]+$/, '').trim();
+    if (!value) continue;
+    // Some postings mark whole sentences as headings, which are really text.
+    const isHeading = marked ? value.length <= 70 && !/[.!]$/.test(value) : looksLikeHeading(value);
+    if (isHeading) {
+      const current = sections.at(-1).kind;
+      const kind = classifyHeading(value);
+      // "1. Inventory ownership" under "Key Responsibilities" is a sub-heading, so it stays there.
+      const isSubHeading = kind === 'other' && !/^(about|who we are|company|our |the team)/i.test(value)
+        && ['responsibilities', 'requirements', 'preferred'].includes(current);
+      if (!isSubHeading) sections.push({ kind, lines: [] });
+    } else {
+      sections.at(-1).lines.push(value.replace(/^[•·▪◦\-*–]\s+/, ''));
+    }
+  }
+
+  const collect = (kind) => sections.filter((section) => section.kind === kind).flatMap((section) => section.lines).join('\n');
+  const cap = (value, limit) => {
+    if (value.length <= limit) return value;
+    const cut = value.slice(0, limit);
+    return cut.slice(0, Math.max(cut.lastIndexOf('\n'), cut.lastIndexOf('. ') + 1, 1)).trim();
+  };
+  // With no named sections, what's left after the company text is the best description available.
+  const hasSections = collect('aboutRole') || collect('responsibilities') || collect('requirements');
+  return {
+    aboutRole: cap(collect('aboutRole') || (hasSections ? '' : collect('intro')), limits.aboutRole),
+    responsibilities: cap(collect('responsibilities'), limits.responsibilities),
+    minQualifications: cap(collect('requirements'), limits.minQualifications),
+    preferredQualifications: cap(collect('preferred'), limits.preferredQualifications),
+    fullText: cap(sections.flatMap((section) => section.lines).join('\n'), limits.fullText),
+  };
+}
+
