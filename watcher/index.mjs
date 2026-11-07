@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { setTimeout as sleep } from 'node:timers/promises';
 import { chromium } from 'playwright';
 import { mergeRun } from './lib.mjs';
-import { readGoogle, readGoogleDetail, readGreenhouse, readLever } from './sources.mjs';
+import { readAshby, readGoogle, readGoogleDetail, readGreenhouse, readLever } from './sources.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const JOBS_FILE = process.env.JOBS_FILE || resolve(root, 'data/jobs.json');
@@ -24,6 +24,7 @@ async function readSource(source, config, page) {
     if (source.type === 'google') jobs = await readGoogle(page, source, config);
     else if (source.type === 'greenhouse') jobs = await readGreenhouse(source, config);
     else if (source.type === 'lever') jobs = await readLever(source, config);
+    else if (source.type === 'ashby') jobs = await readAshby(source, config);
     else throw new Error(`Unknown source type: ${source.type}`);
     return { ...baseResult(source), ok: true, jobs };
   } catch (error) {
@@ -85,7 +86,9 @@ async function main() {
       console.log(`${status.ok ? 'OK  ' : 'FAIL'} ${name}: ${status.count} job(s)${status.error ? ` - ${status.error}` : ''}`);
     }
     console.log(`Stored ${next.jobs.length} job(s), ${next.jobs.filter((job) => job.open).length} open.`);
-    if (Object.values(next.sources).some((status) => !status.ok)) process.exitCode = 1;
+    // One startup's board failing shouldn't fail the whole run. It still reaches you as a health alert.
+    const required = config.sources.filter((source) => source.requireJobs);
+    if (required.some((source) => !next.sources[source.name].ok)) process.exitCode = 1;
   } finally {
     await browser.close();
   }

@@ -4,8 +4,27 @@
     "Student Training in Engineering Program",
     "STEP"
   ],
-  "internKeywords": ["intern", "internship", "apprentice", "apprenticeship", "trainee", "student researcher"],
-  "locationKeywords": ["india", "bengaluru", "bangalore", "hyderabad", "pune", "gurugram", "gurgaon", "mumbai", "chennai", "noida", "delhi"],
+  "internKeywords": [
+    "intern",
+    "internship",
+    "apprentice",
+    "apprenticeship",
+    "trainee",
+    "student researcher"
+  ],
+  "locationKeywords": [
+    "india",
+    "bengaluru",
+    "bangalore",
+    "hyderabad",
+    "pune",
+    "gurugram",
+    "gurgaon",
+    "mumbai",
+    "chennai",
+    "noida",
+    "delhi"
+  ],
   "repostWindowDays": 90,
   "closedJobRetentionDays": 180,
   "maxDetailFetchesPerRun": 20,
@@ -26,6 +45,502 @@
       "company": "Google",
       "url": "https://www.google.com/about/careers/applications/jobs/results/?location=India&q=%22Associate%20Software%20Developer%20Intern%22",
       "keep": "priority",
+      "requireJobs": false
+    },
+    {
+      "type": "ashby",
+      "name": "AIOS",
+      "company": "AIOS",
+      "board": "aios",
+      "group": "yc",
+      "requireJobs": false
+    },
+    {
+      "type": "ashby",
+      "name": "AiPrise",
+      "company": "AiPrise",
+      "board": "aiprise",
+      "group": "yc",
+      "requireJobs": false
+    },
+    {
+      "type": "greenhouse",
+      "name": "Airbnb",
+      "company": "Airbnb",
+      "board": "airbnb",
+      "group": "company",
+      "requireJobs": false
+    },
+    {
+      "type": "lever",
+      "name": "Aleph",
+      "company": "Aleph",
+      "board": "aleph",
+      "group": "yc",
+      "requireJobs": false
+    },
+    {
+      "type": "greenhouse",
+      "name": "Alpaca",
+      "company": "Alpaca",
+      "board": "alpaca",
+      "group": "yc",
+      "requireJobs": false
+    },
+    {
+      "type": "ashby",
+      "name": "Amplitude",
+      "company": "Amplitude",
+      "board": "amplitude",
+      "group": "yc",
+      "requireJobs": false
+    },
+    {
+      "type": "greenhouse",
+      "name": "Anthropic",
+      "company": "Anthropic",
+      "board": "anthropic",
+      "group": "company",
+      "requireJobs": false
+    },
+    {
+      "type": "ashby",
+      "name": "Atlan",
+      "company": "Atlan",
+      "board": "atlan",
+      "group": "company",
+      "requireJobs": false
+    },
+    {
+      "type": "ashby",
+      "name": "AtoB",
+      "company": "AtoB",
+      "board": "atob",
+      "group": "yc",
+      "requireJobs": false
+    },
+    {
+      "type": "ashby",
+      "name": "Avoca",
+      "company": "Avoca",
+      "board": "avoca",
+      "group": "yc",
+      "requireJobs": false
+    },
+    {
+      "type": "ashby",
+      "name": "Cardboard",
+      "company": "Cardboard",
+      "board": "cardboard",
+      "group": "yc",
+      "requireJobs": false
+    },
+    {
+      "type": "greenhouse",
+      "name": "Coinbase",
+      "company": "Coinbase",
+      "board": "coinbase",
+      "group": "company",
+      "requireJobs": false
+    },
+    {
+      "type": "lever",
+      "name": "CRED",
+      "company": "CRED",
+      "board": "cred",
+      "group": "company",
+      "requireJobs": false
+    },
+    {
+      "type": "greenhouse",
+      "name": "Databricks",
+      "company": "Databricks",
+      "board": "databricks",
+      "group": "company",
+      "requireJobs": false
+    },
+    {
+      "type": "greenhouse",
+      "name": "Datadog",
+      "company": "Datadog",
+      "board": "datadog",
+      "group": "company",
+      "requireJobs": false
+    },
+    {
+      "type": "ashby",
+      "name": "Deepgram",
+      "company": "Deepgram",
+      "board": "deepgram",
+      "group": "yc",
+      "requireJobs": false
+    },
+    {
+      "type": "greenhouse",
+      "name": "Druva",
+      "company": "Druva",
+      "board": "druva",
+      "group": "company",
+      "requireJobs": false
+    },
+    {
+      "type": "greenhouse",
+      "name": "Duolingo",
+      "company": "Duolingo",
+      "board": "duolingo",
+      "group": "company",
+      "requireJobs": false
+    },
+    {
+      "type": "greenhouse",
+      "name": "Elastic",
+      "company": "Elastic",
+      "board": "elastic",
+      "group": "company",
+      "requireJobs": false
+    },
+    {
+      "type": "lever",
+      "name": "FamPay",
+      "company": "FamPay",
+      "board": "fampay",
+      "group": "yc",
+      "requireJobs": false
+    },
+    {
+      "type": "greenhouse",
+      "name": "Figma",
+      "company": "Figma",
+      "board": "figma",
+      "group": "company",
+      "requireJobs": false
+    },
+    {
+      "type": "ashby",
+      "name": "Finni Health",
+      "company": "Finni Health",
+      "board": "finni-health",
+      "group": "yc",
+      "requireJobs": false
+    },
+    {
+      "type": "ashby",
+      "name": "FirstWork",
+      "company": "FirstWork",
+      "board": "firstwork",
+      "group": "yc",
+      "requireJobs": false
+    },
+    {
+      "type": "ashby",
+      "name": "Flai",
+      "company": "Flai",
+      "board": "flai",
+      "group": "yc",
+      "requireJobs": false
+    },
+    {
+      "type": "ashby",
+      "name": "Fleek",
+      "company": "Fleek",
+      "board": "fleek",
+      "group": "yc",
+      "requireJobs": false
+    },
+    {
+      "type": "greenhouse",
+      "name": "Flexport",
+      "company": "Flexport",
+      "board": "flexport",
+      "group": "yc",
+      "requireJobs": false
+    },
+    {
+      "type": "greenhouse",
+      "name": "GitLab",
+      "company": "GitLab",
+      "board": "gitlab",
+      "group": "company",
+      "requireJobs": false
+    },
+    {
+      "type": "greenhouse",
+      "name": "Groww",
+      "company": "Groww",
+      "board": "groww",
+      "group": "yc",
+      "requireJobs": false
+    },
+    {
+      "type": "greenhouse",
+      "name": "HackerRank",
+      "company": "HackerRank",
+      "board": "hackerrank",
+      "group": "yc",
+      "requireJobs": false
+    },
+    {
+      "type": "greenhouse",
+      "name": "IMC",
+      "company": "IMC",
+      "board": "imc",
+      "group": "company",
+      "requireJobs": false
+    },
+    {
+      "type": "greenhouse",
+      "name": "InMobi",
+      "company": "InMobi",
+      "board": "inmobi",
+      "group": "company",
+      "requireJobs": false
+    },
+    {
+      "type": "greenhouse",
+      "name": "Instawork",
+      "company": "Instawork",
+      "board": "instawork",
+      "group": "yc",
+      "requireJobs": false
+    },
+    {
+      "type": "ashby",
+      "name": "LiteLLM",
+      "company": "LiteLLM",
+      "board": "litellm",
+      "group": "yc",
+      "requireJobs": false
+    },
+    {
+      "type": "lever",
+      "name": "Meesho",
+      "company": "Meesho",
+      "board": "meesho",
+      "group": "yc",
+      "requireJobs": false
+    },
+    {
+      "type": "ashby",
+      "name": "Mem0",
+      "company": "Mem0",
+      "board": "mem0",
+      "group": "yc",
+      "requireJobs": false
+    },
+    {
+      "type": "greenhouse",
+      "name": "MongoDB",
+      "company": "MongoDB",
+      "board": "mongodb",
+      "group": "company",
+      "requireJobs": false
+    },
+    {
+      "type": "lever",
+      "name": "Netomi",
+      "company": "Netomi",
+      "board": "netomi",
+      "group": "yc",
+      "requireJobs": false
+    },
+    {
+      "type": "ashby",
+      "name": "Notion",
+      "company": "Notion",
+      "board": "notion",
+      "group": "company",
+      "requireJobs": false
+    },
+    {
+      "type": "greenhouse",
+      "name": "Okta",
+      "company": "Okta",
+      "board": "okta",
+      "group": "company",
+      "requireJobs": false
+    },
+    {
+      "type": "ashby",
+      "name": "OpenAI",
+      "company": "OpenAI",
+      "board": "openai",
+      "group": "company",
+      "requireJobs": false
+    },
+    {
+      "type": "ashby",
+      "name": "Overview",
+      "company": "Overview",
+      "board": "overview",
+      "group": "yc",
+      "requireJobs": false
+    },
+    {
+      "type": "ashby",
+      "name": "PermitFlow",
+      "company": "PermitFlow",
+      "board": "permitflow",
+      "group": "yc",
+      "requireJobs": false
+    },
+    {
+      "type": "greenhouse",
+      "name": "Prodigal",
+      "company": "Prodigal",
+      "board": "prodigal",
+      "group": "yc",
+      "requireJobs": false
+    },
+    {
+      "type": "ashby",
+      "name": "Provision",
+      "company": "Provision",
+      "board": "provision",
+      "group": "yc",
+      "requireJobs": false
+    },
+    {
+      "type": "ashby",
+      "name": "Retell AI",
+      "company": "Retell AI",
+      "board": "retell-ai",
+      "group": "yc",
+      "requireJobs": false
+    },
+    {
+      "type": "greenhouse",
+      "name": "Rubrik",
+      "company": "Rubrik",
+      "board": "rubrik",
+      "group": "company",
+      "requireJobs": false
+    },
+    {
+      "type": "ashby",
+      "name": "Sarvam AI",
+      "company": "Sarvam AI",
+      "board": "sarvam",
+      "group": "company",
+      "requireJobs": false
+    },
+    {
+      "type": "greenhouse",
+      "name": "Scale AI",
+      "company": "Scale AI",
+      "board": "scaleai",
+      "group": "company",
+      "requireJobs": false
+    },
+    {
+      "type": "ashby",
+      "name": "Sieve",
+      "company": "Sieve",
+      "board": "sieve",
+      "group": "yc",
+      "requireJobs": false
+    },
+    {
+      "type": "ashby",
+      "name": "SigNoz",
+      "company": "SigNoz",
+      "board": "signoz",
+      "group": "yc",
+      "requireJobs": false
+    },
+    {
+      "type": "ashby",
+      "name": "Snowflake",
+      "company": "Snowflake",
+      "board": "snowflake",
+      "group": "company",
+      "requireJobs": false
+    },
+    {
+      "type": "ashby",
+      "name": "Stepful",
+      "company": "Stepful",
+      "board": "stepful",
+      "group": "yc",
+      "requireJobs": false
+    },
+    {
+      "type": "greenhouse",
+      "name": "Stripe",
+      "company": "Stripe",
+      "board": "stripe",
+      "group": "yc",
+      "requireJobs": false
+    },
+    {
+      "type": "ashby",
+      "name": "Tekion",
+      "company": "Tekion",
+      "board": "tekion",
+      "group": "company",
+      "requireJobs": false
+    },
+    {
+      "type": "greenhouse",
+      "name": "Tower Research Capital",
+      "company": "Tower Research Capital",
+      "board": "towerresearchcapital",
+      "group": "company",
+      "requireJobs": false
+    },
+    {
+      "type": "ashby",
+      "name": "Triomics",
+      "company": "Triomics",
+      "board": "triomics",
+      "group": "yc",
+      "requireJobs": false
+    },
+    {
+      "type": "ashby",
+      "name": "TRM Labs",
+      "company": "TRM Labs",
+      "board": "trm-labs",
+      "group": "yc",
+      "requireJobs": false
+    },
+    {
+      "type": "greenhouse",
+      "name": "Twilio",
+      "company": "Twilio",
+      "board": "twilio",
+      "group": "company",
+      "requireJobs": false
+    },
+    {
+      "type": "greenhouse",
+      "name": "Vercel",
+      "company": "Vercel",
+      "board": "vercel",
+      "group": "company",
+      "requireJobs": false
+    },
+    {
+      "type": "greenhouse",
+      "name": "Xendit",
+      "company": "Xendit",
+      "board": "xendit",
+      "group": "yc",
+      "requireJobs": false
+    },
+    {
+      "type": "ashby",
+      "name": "Zapier",
+      "company": "Zapier",
+      "board": "zapier",
+      "group": "yc",
+      "requireJobs": false
+    },
+    {
+      "type": "greenhouse",
+      "name": "Zscaler",
+      "company": "Zscaler",
+      "board": "zscaler",
+      "group": "company",
       "requireJobs": false
     }
   ]

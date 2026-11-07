@@ -15,6 +15,7 @@ function tick() {
   var feed = { payload: null, error: null };
   try {
     run('jobs', function () { syncJobs_(feed, deadline); });
+    run('watcher', function () { startWatcher_(feed); });
     run('profiles', function () { refreshProfiles_(deadline); });
     run('email', function () { sendQueued_(deadline); });
     run('reminders', function () { queueReminders_(); });
@@ -23,6 +24,33 @@ function tick() {
   } finally {
     lock.releaseLock();
   }
+}
+
+/**
+ * GitHub's own schedule isn't dependable, so this run asks GitHub to start the watcher.
+ * It skips the request if job data is already fresh, which avoids double runs if the
+ * schedule also fires. Throwing here reaches the owner as a failure alert.
+ */
+function startWatcher_(feed) {
+  if (feed.payload) {
+    var ageMinutes = (Date.now() - new Date(feed.payload.generatedAt).getTime()) / 60000;
+    if (ageMinutes < CONFIG.WATCHER_FRESH_MINUTES) return;
+  }
+  var token = prop_('GITHUB_DISPATCH_TOKEN');
+  if (!token) throw new Error('GITHUB_DISPATCH_TOKEN is missing from Script Properties.');
+
+  var response = UrlFetchApp.fetch(CONFIG.WORKFLOW_DISPATCH_URL, {
+    method: 'post',
+    contentType: 'application/json',
+    muteHttpExceptions: true,
+    headers: { Authorization: 'Bearer ' + token, Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' },
+    payload: JSON.stringify({ ref: 'main' })
+  });
+  var code = response.getResponseCode();
+  if (code >= 200 && code < 300) return;
+  if (code === 401) throw new Error('GitHub rejected the token (HTTP 401). It may have expired: create a new one and update Script Properties.');
+  if (code === 403 || code === 404) throw new Error('GitHub refused to start the watcher (HTTP ' + code + '). Check the token has Actions read and write access to this repo.');
+  throw new Error('GitHub could not start the watcher (HTTP ' + code + ').');
 }
 
 function syncJobs_(feed, deadline) {

@@ -32,7 +32,7 @@ export function createWorld({ configured = true } = {}) {
   const world = {
     sent: [], props: {}, sheets: {}, quota: 100, hour: 0, day: '2026-11-06', account: 'internshipalerts.roushan@gmail.com',
     fetch: () => ({ code: 404, body: '' }), fetched: [], trashed: [], deletedResponses: [], triggers: [],
-    formItems: [], ocrText: 'Skills: Python and Docker', ocrFails: false, created: 0,
+    dispatches: [], dispatch: { code: 204 }, formItems: [], ocrText: 'Skills: Python and Docker', ocrFails: false, created: 0,
   };
   const book = {
     getId: () => 'sheet-id',
@@ -60,8 +60,12 @@ export function createWorld({ configured = true } = {}) {
       sendEmail: (message) => { if (world.mailFails) throw new Error('mail down'); world.quota -= 1; world.sent.push(message); },
     },
     UrlFetchApp: {
-      fetch: (url) => {
+      fetch: (url, options) => {
         world.fetched.push(url);
+        if (url.includes('/dispatches')) {
+          world.dispatches.push(options);
+          return { getResponseCode: () => world.dispatch.code, getContentText: () => '' };
+        }
         const result = world.fetch(url);
         return { getResponseCode: () => result.code, getContentText: () => result.body };
       },
