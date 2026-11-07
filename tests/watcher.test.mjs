@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import {
-  assertAllowedGoogleUrl, containsKeyword, fingerprint, htmlToText, matchesPriority, mergeRun,
+  assertAllowedGoogleUrl, classifyHeading, containsKeyword, fingerprint, htmlToText, matchesPriority, mergeRun, parseDescription,
 } from '../watcher/lib.mjs';
 import { readAshby, readGreenhouse, readLever } from '../watcher/sources.mjs';
 
@@ -112,7 +112,7 @@ function withFetch(payload, run) {
 
 test('Ashby keeps India internships, including by job type and secondary location', () => withFetch({
   jobs: [
-    { id: '1', title: 'Software Intern', location: 'Bengaluru', jobUrl: 'https://a/1', descriptionPlain: 'Python' },
+    { id: '1', title: 'Software Intern', location: 'Bengaluru', jobUrl: 'https://a/1', descriptionHtml: '<p><strong>Requirements</strong></p><ul><li>Python</li></ul>' },
     { id: '2', title: 'Engineer', employmentType: 'Intern', location: 'Remote', secondaryLocations: [{ location: 'India' }], jobUrl: 'https://a/2' },
     { id: '3', title: 'Software Intern', location: 'London', jobUrl: 'https://a/3' },
     { id: '4', title: 'Senior Engineer', location: 'Bengaluru', jobUrl: 'https://a/4' },
@@ -126,18 +126,21 @@ test('Ashby keeps India internships, including by job type and secondary locatio
 }));
 
 test('Lever keeps India internships by title or commitment', () => withFetch([
-  { id: '1', text: 'Security Intern', hostedUrl: 'https://l/1', categories: { location: 'Bengaluru' } },
+  { id: '1', text: 'Security Intern', hostedUrl: 'https://l/1', categories: { location: 'Bengaluru' }, description: '<div>About us. We make apps.</div>', lists: [{ text: 'On the Job', content: '<li>Find bugs</li>' }, { text: 'Must-Haves', content: '<li>Python</li>' }, { text: 'Good to Haves', content: '<li>Go</li>' }, { text: 'Why join us?', content: '<li>Free lunch</li>' }] },
   { id: '2', text: 'Analyst', hostedUrl: 'https://l/2', categories: { location: 'India', commitment: 'Internship' } },
   { id: '3', text: 'Internal Tools Engineer', hostedUrl: 'https://l/3', categories: { location: 'India' } },
   { id: '4', text: 'Data Intern', hostedUrl: 'https://l/4', categories: { location: 'Paris' } },
 ], async () => {
   const jobs = await readLever(atsSource, atsConfig);
   assert.deepEqual(jobs.map((item) => item.id), ['lever-acme-1', 'lever-acme-2']);
+  assert.equal(jobs[0].minQualifications, 'Python');
+  assert.equal(jobs[0].preferredQualifications, 'Go');
+  assert.equal(jobs[0].responsibilities, 'Find bugs');
 }));
 
 test('Greenhouse keeps India internships and marks priority roles', () => withFetch({
   jobs: [
-    { id: 1, title: 'Associate Software Developer Intern', absolute_url: 'https://g/1', location: { name: 'Bengaluru, India' }, content: '&lt;p&gt;Java&lt;/p&gt;' },
+    { id: 1, title: 'Associate Software Developer Intern', absolute_url: 'https://g/1', location: { name: 'Bengaluru, India' }, content: '&lt;h4&gt;Requirements&lt;/h4&gt;&lt;ul&gt;&lt;li&gt;Java&lt;/li&gt;&lt;/ul&gt;' },
     { id: 2, title: 'Software Intern', absolute_url: 'https://g/2', location: { name: 'New York' }, content: '' },
   ],
 }, async () => {
@@ -146,4 +149,92 @@ test('Greenhouse keeps India internships and marks priority roles', () => withFe
   assert.equal(jobs[0].priority, true);
   assert.equal(jobs[0].minQualifications, 'Java');
 }));
+
+test('descriptions split into named sections and drop company and perks text', () => {
+  const parsed = parseDescription(`
+    <div class="content-intro"><p>Acme is a great company founded long ago.</p></div>
+    <h4><strong>About the role</strong></h4><p>You will join our platform team.</p>
+    <h4>Responsibilities</h4><ul><li>Build APIs</li><li><strong>Own:</strong> testing</li></ul>
+    <p><strong>Who you are</strong></p>
+    <p><strong>Minimum requirements</strong></p><ul><li>Python &amp; SQL</li></ul>
+    <p><b>Preferred qualifications:</b></p><ul><li>Docker</li></ul>
+    <h4>Benefits</h4><ul><li>Free lunch</li></ul>`);
+  assert.equal(parsed.aboutRole, 'You will join our platform team.');
+  assert.equal(parsed.responsibilities, 'Build APIs\nOwn: testing');
+  assert.equal(parsed.minQualifications, 'Python & SQL');
+  assert.equal(parsed.preferredQualifications, 'Docker');
+  for (const field of ['aboutRole', 'responsibilities', 'minQualifications', 'preferredQualifications']) {
+    assert.equal(parsed[field].includes('Free lunch'), false);
+    assert.equal(parsed[field].includes('founded long ago'), false);
+  }
+  assert.equal(parsed.fullText.includes('founded long ago'), false, 'company intro boxes are removed');
+  assert.match(parsed.fullText, /Free lunch/);
+});
+
+test('escaped Greenhouse HTML and plain-line headings both work', () => {
+  const parsed = parseDescription('&lt;p&gt;Intro&lt;/p&gt;&lt;p&gt;Requirements:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Java&lt;/li&gt;&lt;/ul&gt;');
+  assert.equal(parsed.minQualifications, 'Java');
+});
+
+test('a posting with no sections keeps its text only in fullText', () => {
+  const parsed = parseDescription('<p>We want someone who knows Python.</p>');
+  assert.equal(parsed.minQualifications, '');
+  assert.match(parsed.fullText, /Python/);
+});
+
+test('long sections are cut at a sentence or line, not mid-word', () => {
+  const parsed = parseDescription(`<h4>Requirements</h4><ul>${'<li>Experience with systems.</li>'.repeat(200)}</ul>`);
+  assert.ok(parsed.minQualifications.length <= 3000);
+  assert.match(parsed.minQualifications, /systems\.$/);
+});
+
+test('headings classify correctly, with preferred winning over qualifications', () => {
+  assert.equal(classifyHeading('Preferred qualifications'), 'preferred');
+  assert.equal(classifyHeading('Minimum qualifications'), 'requirements');
+  assert.equal(classifyHeading('Must-Haves'), 'requirements');
+  assert.equal(classifyHeading('Good to Haves'), 'preferred');
+  assert.equal(classifyHeading('On the Job'), 'responsibilities');
+  assert.equal(classifyHeading('About the Role'), 'aboutRole');
+  assert.equal(classifyHeading('Why join us?'), 'skip');
+  assert.equal(classifyHeading('About Stripe'), 'other');
+});
+
+test('sub-headings stay in their section, and later sections still split', () => {
+  const parsed = parseDescription(`
+    <p><span><strong>Key Responsibilities</strong></span></p>
+    <p><strong>1. Inventory Ownership</strong></p><ul><li>Track devices</li></ul>
+    <p><strong>Skills &amp; Requirements</strong></p>
+    <p><strong>Mandatory</strong></p><ul><li>Google Sheets</li></ul>
+    <p><strong>Preferred</strong></p><ul><li>Audit experience</li></ul>
+    <p><strong>Key Traits</strong></p><ul><li>Zero-error mindset</li></ul>
+    <p><strong>About Instawork</strong></p><p>We are a marketplace.</p>`);
+  assert.equal(parsed.responsibilities, 'Track devices');
+  assert.equal(parsed.minQualifications, 'Google Sheets');
+  assert.equal(parsed.preferredQualifications, 'Audit experience');
+  assert.equal(parsed.fullText.includes('marketplace'), true);
+  assert.equal(parsed.preferredQualifications.includes('marketplace'), false);
+});
+
+test('sentences marked as headings are text, and company intro boxes are removed', () => {
+  const parsed = parseDescription(`
+    <div class="content-intro"><p>Acme helps companies hire.</p></div>
+    <h4><em>This is a 6-month full-time onsite internship (Jan - June 2027).</em></h4>
+    <p>You will write great code.</p>`);
+  assert.match(parsed.aboutRole, /6-month full-time onsite/);
+  assert.match(parsed.aboutRole, /write great code/);
+  assert.equal(parsed.aboutRole.includes('helps companies hire'), false);
+});
+
+test('company text before named sections is not shown as the role', () => {
+  const parsed = parseDescription('<p>Acme was founded in 1999.</p><h4>Requirements</h4><ul><li>Java</li></ul>');
+  assert.equal(parsed.aboutRole, '');
+  assert.equal(parsed.minQualifications, 'Java');
+});
+
+test('text escaped twice is cleaned, and blank lines disappear', () => {
+  const parsed = parseDescription('&lt;h4&gt;Requirements&lt;/h4&gt;&lt;ul&gt;&lt;li&gt;Python &amp;amp; SQL&lt;/li&gt;&lt;li&gt;&amp;nbsp;&lt;/li&gt;&lt;/ul&gt;');
+  assert.equal(parsed.minQualifications, 'Python & SQL');
+  assert.equal(parsed.fullText.includes('&'), true);
+  assert.equal(parsed.fullText.includes('nbsp'), false);
+});
 

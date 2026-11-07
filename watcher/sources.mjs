@@ -1,4 +1,4 @@
-import { assertAllowedGoogleUrl, containsKeyword, htmlToText, matchesPriority } from './lib.mjs';
+import { assertAllowedGoogleUrl, containsKeyword, matchesPriority, parseDescription } from './lib.mjs';
 
 export async function readGoogle(page, source, config) {
   assertAllowedGoogleUrl(source.url);
@@ -57,6 +57,12 @@ export async function readGoogleDetail(page, url) {
     return {
       minQualifications: listAfter(/^minimum qualifications/i),
       preferredQualifications: listAfter(/^preferred qualifications/i),
+      responsibilities: listAfter(/^responsibilities/i),
+      aboutRole: (() => {
+        const heading = [...document.querySelectorAll('h3')].find((h3) => /^about the job/i.test(h3.textContent));
+        if (!heading) return '';
+        return heading.parentElement.textContent.replace(heading.textContent, '').replace(/\s+/g, ' ').trim().slice(0, 1500);
+      })(),
       deadline: deadline ? deadline[1].replace(/\s+/g, ' ').trim() : '',
     };
   });
@@ -68,7 +74,6 @@ function toJob(source, config, fields) {
     company: source.company,
     source: source.name,
     priority: matchesPriority(fields.title, config.priorityTitles),
-    preferredQualifications: '',
     deadline: '',
   };
 }
@@ -93,7 +98,7 @@ export async function readGreenhouse(source, config) {
       title: job.title,
       url: job.absolute_url,
       location: job.location?.name || '',
-      minQualifications: htmlToText(job.content).slice(0, 3000),
+      ...parseDescription(job.content),
     }))
     .filter((job) => keepAtsJob(job, config));
 }
@@ -111,7 +116,11 @@ export async function readLever(source, config) {
       title: job.text,
       url: job.hostedUrl,
       location: job.categories?.location || '',
-      minQualifications: String(job.descriptionPlain || '').slice(0, 3000),
+      // Lever keeps requirements in `lists`, separate from the main description.
+      ...parseDescription([
+        job.description,
+        ...(job.lists || []).map((list) => `<h4>${list.text}</h4><ul>${list.content}</ul>`),
+      ].join('')),
     }));
 }
 
@@ -129,6 +138,6 @@ export async function readAshby(source, config) {
       title: job.title,
       url: job.jobUrl,
       location: [job.location, ...(job.secondaryLocations || []).map((item) => item.location)].join('; '),
-      minQualifications: String(job.descriptionPlain || '').slice(0, 3000),
+      ...parseDescription(job.descriptionHtml),
     }));
 }

@@ -50,7 +50,7 @@ var TABLES = {
     'githubScannedAt', 'githubError', 'resumeSkills', 'resumeReadFileId', 'resumeError', 'lastReminderAt',
     'createdAt', 'updatedAt', 'lastDigestDate'],
   Jobs: ['id', 'title', 'company', 'location', 'url', 'priority', 'deadline', 'minQualifications',
-    'preferredQualifications', 'firstSeen', 'processedAt', 'open', 'repostOf'],
+    'preferredQualifications', 'firstSeen', 'processedAt', 'open', 'repostOf', 'aboutRole', 'responsibilities', 'fullText'],
   Matches: ['key', 'jobId', 'responseId', 'status', 'score', 'channel', 'reason', 'quote', 'createdAt'],
   Queue: ['queueId', 'type', 'responseId', 'email', 'jobId', 'checkEligibility', 'status', 'attempts', 'createdAt',
     'sentAt', 'error'],

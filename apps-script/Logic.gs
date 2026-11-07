@@ -119,7 +119,8 @@ function checkGraduationYear_(sentence, year) {
 
 /** Returns eligible, unclear or not_eligible, with the sentence that decided it. */
 function evaluateEligibility(job, student) {
-  var qualifications = String(job.minQualifications || '');
+  // Postings without a recognisable requirements section fall back to their full text.
+  var qualifications = String(job.minQualifications || job.fullText || '');
   var levelText = job.title + '\n' + qualifications;
   var levels = requiredLevels_(levelText);
   var level = degreeLevel_(student.degree);
@@ -129,7 +130,8 @@ function evaluateEligibility(job, student) {
     return { status: 'not_eligible', reason: 'Degree level is ' + levels.join(' or ') + ' only', quote: levelQuote };
   }
 
-  var yearQuote = sentenceWith_(qualifications, /(graduat|complet|finish|pass(ing)? out|batch|class of)[^\n]*\b20\d{2}\b|\b20\d{2}\b[^\n]*(graduat|batch)/i);
+  var yearPattern = /(graduat|complet|finish|pass(ing)? out|batch|class of)[^\n]*\b20\d{2}\b|\b20\d{2}\b[^\n]*(graduat|batch)/i;
+  var yearQuote = sentenceWith_(qualifications, yearPattern) || sentenceWith_(job.fullText, yearPattern);
   var gradYear = Number(student.gradYear);
   if (yearQuote && gradYear) {
     return checkGraduationYear_(yearQuote, gradYear)
@@ -140,7 +142,7 @@ function evaluateEligibility(job, student) {
 }
 
 function matchScore(job, student, synonyms) {
-  var jobSkills = extractSkills([job.title, job.minQualifications, job.preferredQualifications].join('\n'), synonyms);
+  var jobSkills = extractSkills([job.title, job.minQualifications, job.preferredQualifications, job.responsibilities, job.minQualifications ? '' : job.fullText].join('\n'), synonyms);
   var mine = studentSkillSet(student, synonyms);
   var shared = jobSkills.filter(function (skill) { return mine.indexOf(skill) !== -1; });
   return { score: shared.length, jobSkillCount: jobSkills.length, shared: shared };
@@ -197,25 +199,88 @@ function safeUrl_(url) {
   return /^https?:\/\//i.test(String(url)) ? String(url) : '#';
 }
 
+var JOB_SECTIONS = [
+  { field: 'aboutRole', heading: 'About the role', paragraphs: true, maxChars: 500 },
+  { field: 'responsibilities', heading: "What you'll do", maxItems: 6 },
+  { field: 'minQualifications', heading: 'What they ask for', maxItems: 8 },
+  { field: 'preferredQualifications', heading: 'Nice to have', maxItems: 4 }
+];
+
+function trimToSentence_(text, maxChars) {
+  var cut = text.slice(0, maxChars);
+  var end = Math.max(cut.lastIndexOf('. '), cut.lastIndexOf('! '), cut.lastIndexOf('? '));
+  if (end > 0) return cut.slice(0, end + 1).trim();
+  return cut.slice(0, cut.lastIndexOf(' ')).trim() + '...';
+}
+
+function sectionLines_(job, section) {
+  var lines = String(job[section.field] || '').split('\n').map(function (line) {
+    // Google's page joins some sentences without a space.
+    return line.replace(/([a-z]\.)([A-Z])/g, '$1 $2').trim();
+  }).filter(String);
+  var shortened = false;
+  if (section.maxItems && lines.length > section.maxItems) {
+    lines = lines.slice(0, section.maxItems);
+    shortened = true;
+  }
+  if (section.maxChars) {
+    var kept = [];
+    var used = 0;
+    lines.some(function (line) {
+      if (used + line.length > section.maxChars) {
+        if (!kept.length) {
+          kept.push(trimToSentence_(line, section.maxChars));
+        }
+        shortened = true;
+        return true;
+      }
+      kept.push(line);
+      used += line.length;
+      return false;
+    });
+    lines = kept;
+  }
+  return { lines: lines, shortened: shortened };
+}
+
+var HEADING_STYLE = 'margin:12px 0 4px;font-weight:bold';
+
 function jobBlockHtml_(job, checkEligibility) {
-  var lines = String(job.minQualifications || '').split('\n').filter(String).map(function (line) {
-    return '<li>' + escapeHtml(line) + '</li>';
+  var shortened = false;
+  var sections = JOB_SECTIONS.map(function (section) {
+    var content = sectionLines_(job, section);
+    shortened = shortened || content.shortened;
+    if (!content.lines.length) return '';
+    var body = section.paragraphs
+      ? content.lines.map(function (line) { return '<p style="margin:0 0 6px">' + escapeHtml(line) + '</p>'; }).join('')
+      : '<ul style="margin:0 0 8px;padding-left:20px">' + content.lines.map(function (line) { return '<li style="margin:0 0 3px">' + escapeHtml(line) + '</li>'; }).join('') + '</ul>';
+    return '<p style="' + HEADING_STYLE + '">' + escapeHtml(section.heading) + '</p>' + body;
   }).join('');
-  return '<div style="margin:0 0 24px">'
+  var missing = sections ? '' : '<p style="margin:12px 0 8px">This posting has no clear sections, so please read the details there.</p>';
+  return '<div style="margin:0 0 28px;padding:0 0 20px;border-bottom:1px solid #ddd">'
     + '<h3 style="margin:0 0 4px">' + escapeHtml(job.title) + '</h3>'
     + '<p style="margin:0 0 8px;color:#555">' + escapeHtml(job.company) + ' | ' + escapeHtml(job.location) + '</p>'
-    + '<p style="margin:0 0 8px"><b>Deadline:</b> ' + escapeHtml(job.deadline || 'Not listed') + '</p>'
-    + (checkEligibility ? '<p style="margin:0 0 8px"><b>Check eligibility:</b> the posting does not clearly say whether you qualify, so read it before applying.</p>' : '')
-    + (lines ? '<p style="margin:0 0 4px"><b>What they ask for:</b></p><ul style="margin:0 0 8px">' + lines + '</ul>' : '')
-    + '<p style="margin:0"><a href="' + escapeHtml(safeUrl_(job.url)) + '">View the posting and apply</a></p></div>';
+    + '<p style="margin:0"><b>Deadline:</b> ' + escapeHtml(job.deadline || 'Not listed') + '</p>'
+    + (checkEligibility ? '<p style="margin:8px 0 0"><b>Check eligibility:</b> the posting does not clearly say whether you qualify, so read it before applying.</p>' : '')
+    + sections + missing
+    + (shortened ? '<p style="margin:0 0 8px;color:#555">Shortened for this email. The posting has the full details.</p>' : '')
+    + '<p style="margin:12px 0 0"><a href="' + escapeHtml(safeUrl_(job.url)) + '">View the posting and apply</a></p></div>';
 }
 
 function jobBlockText_(job, checkEligibility) {
-  return [job.title, job.company + ' | ' + job.location, 'Deadline: ' + (job.deadline || 'Not listed')]
-    .concat(checkEligibility ? ['Check eligibility: the posting does not clearly say whether you qualify.'] : [])
-    .concat(job.minQualifications ? ['What they ask for:', job.minQualifications] : [])
-    .concat(['Apply: ' + job.url])
-    .join('\n');
+  var parts = [job.title, job.company + ' | ' + job.location, 'Deadline: ' + (job.deadline || 'Not listed')];
+  if (checkEligibility) parts.push('Check eligibility: the posting does not clearly say whether you qualify.');
+  var shortened = false;
+  JOB_SECTIONS.forEach(function (section) {
+    var content = sectionLines_(job, section);
+    shortened = shortened || content.shortened;
+    if (!content.lines.length) return;
+    parts.push('', section.heading.toUpperCase());
+    content.lines.forEach(function (line) { parts.push(section.paragraphs ? line : '- ' + line); });
+  });
+  if (shortened) parts.push('', 'Shortened for this email. The posting has the full details.');
+  parts.push('', 'Apply: ' + job.url);
+  return parts.join('\n');
 }
 
 function footerHtml_(editUrl) {

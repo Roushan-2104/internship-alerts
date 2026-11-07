@@ -75,13 +75,17 @@ function syncJobs_(feed, deadline) {
     var row = byId[job.id];
     if (row) {
       var open = job.open !== false;
-      var details = job.minQualifications || row.minQualifications;
-      if (isTrue_(row.open) !== open || String(row.minQualifications) !== String(details)
-        || String(row.deadline) !== String(job.deadline || row.deadline)) {
+      var fields = ['minQualifications', 'preferredQualifications', 'aboutRole', 'responsibilities', 'fullText', 'deadline'];
+      var changed = isTrue_(row.open) !== open;
+      fields.forEach(function (field) {
+        // An empty value still counts, so old messy text can't stay behind.
+        if (job[field] !== undefined && String(row[field]) !== String(job[field])) {
+          row[field] = job[field];
+          changed = true;
+        }
+      });
+      if (changed) {
         row.open = open;
-        row.minQualifications = details;
-        row.preferredQualifications = job.preferredQualifications || row.preferredQualifications;
-        row.deadline = job.deadline || row.deadline;
         updateRow_('Jobs', row);
       }
       return;
@@ -89,7 +93,8 @@ function syncJobs_(feed, deadline) {
     var record = {
       id: job.id, title: job.title, company: job.company, location: job.location, url: job.url,
       priority: Boolean(job.priority), deadline: job.deadline || '', minQualifications: job.minQualifications || '',
-      preferredQualifications: job.preferredQualifications || '', firstSeen: job.firstSeen || new Date().toISOString(),
+      preferredQualifications: job.preferredQualifications || '', aboutRole: job.aboutRole || '',
+      responsibilities: job.responsibilities || '', fullText: job.fullText || '', firstSeen: job.firstSeen || new Date().toISOString(),
       processedAt: firstSync || job.repostOf || job.open === false ? 'skipped' : '', open: job.open !== false, repostOf: job.repostOf || ''
     };
     appendRow_('Jobs', record);
