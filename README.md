@@ -2,10 +2,10 @@
 
 Watches internship listings and emails students about new roles that match their profile, with instant alerts for priority roles and one digest a day.
 
-- **GitHub Actions (public):** Playwright reads job sources every 30 minutes and publishes `data/jobs.json`. It holds job data only.
+- **GitHub Actions (public):** Playwright reads job sources and publishes `data/jobs.json`. It holds job data only. Apps Script starts each run, and the workflow's own schedule is a backup, because GitHub doesn't guarantee when scheduled runs start.
 - **Google Apps Script (private):** handles the form, student profiles, GitHub scans, resume reading, matching, Gmail, health alerts and the status page.
 
-No API keys or domain are needed.
+No domain is needed. The only key is one GitHub token, limited to this repo, which lets Apps Script start the watcher.
 
 ## Rules the watcher must follow
 
@@ -50,6 +50,14 @@ Every active student gets a daily email. Personal Gmail allows about 100 recipie
 
 To preview the emails, run `sendTestEmails` from the editor. The samples go to the alerts inbox only.
 
+## GitHub token
+
+Apps Script reads this from the `GITHUB_DISPATCH_TOKEN` script property. Never put it in a project file, because this repo is public.
+
+Create it at <https://github.com/settings/personal-access-tokens/new>, limited to this repo, with **Actions: Read and write** and nothing else. Save it in **Project Settings > Script Properties**.
+
+It expires on the date you chose when creating it. When it does, you get a `step:watcher` problem email: create a new token and replace the value.
+
 ## Changing things
 
 | To change | Edit |
@@ -59,15 +67,15 @@ To preview the emails, run `sendTestEmails` from the editor. The samples go to t
 | Skill synonyms | The `Skills` sheet: list extra names in `aliases`, separated by commas |
 | Limits and timing | `CONFIG` in `apps-script/Config.gs` |
 
-To add a company, find its board name in its careers URL and add one of these to `sources`:
+To add a company, find its board name in its careers URL and add a source using `greenhouse`, `lever` or `ashby` as the type. Check the board really belongs to that company, as names can collide:
 
 ```json
 { "type": "greenhouse", "name": "Example", "company": "Example", "board": "example", "requireJobs": false }
 ```
 
-```json
-{ "type": "lever", "name": "Example", "company": "Example", "board": "example", "requireJobs": false }
-```
+Companies with their own careers systems, such as Amazon, Microsoft or Flipkart, need a custom reader.
+
+YC's website terms ban robots and scraping, so the watcher doesn't read `ycombinator.com` or `workatastartup.com`. YC startups are only included through their own public job boards, which is why many are missing. Students can check Work at a Startup themselves.
 
 ## When something breaks
 
@@ -76,11 +84,14 @@ You get one email when a problem starts and one when it clears, plus a "Still ru
 | Alert | Likely cause | Fix |
 |---|---|---|
 | `source:...` with zero jobs | Page changed or blocked the watcher | Check the Actions log, then update `watcher/sources.mjs` |
-| `stale` | GitHub Actions stopped or was disabled | Check the Actions tab and re-enable the workflow |
+| `step:watcher` | The GitHub token expired or lost access | Create a new token (see above) |
+| `stale` | The watcher ran but failed, or runs aren't starting | Check the Actions tab and re-enable the workflow if needed |
 | `feed` | `JOBS_URL` is wrong, or the repo is private | Open the URL while signed out |
 | `quota` | Close to the daily email limit | Digests wait for the next day and instant alerts still go |
 
 ## Development
+
+Code changes go live with `clasp push --force` from this folder, once `clasp login` has been run as the alerts account. `.clasp.json` stays out of Git.
 
 ```bash
 npm install

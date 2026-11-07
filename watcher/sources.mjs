@@ -73,8 +73,9 @@ function toJob(source, config, fields) {
   };
 }
 
-function keepAtsJob(job, config) {
-  return containsKeyword(job.title, config.internKeywords) && containsKeyword(job.location, config.locationKeywords);
+function keepAtsJob(job, config, isInternType = false) {
+  const internRole = isInternType || containsKeyword(job.title, config.internKeywords);
+  return internRole && containsKeyword(job.location, config.locationKeywords);
 }
 
 async function fetchJson(url) {
@@ -101,12 +102,33 @@ export async function readLever(source, config) {
   const url = `https://api.lever.co/v0/postings/${encodeURIComponent(source.board)}?mode=json`;
   const data = await fetchJson(url);
   return data
+    .filter((job) => {
+      const location = [job.categories?.location, ...(job.categories?.allLocations || [])].join('; ');
+      return keepAtsJob({ title: job.text, location }, config, /intern/i.test(job.categories?.commitment || ''));
+    })
     .map((job) => toJob(source, config, {
       id: `lever-${source.board}-${job.id}`,
       title: job.text,
       url: job.hostedUrl,
       location: job.categories?.location || '',
       minQualifications: String(job.descriptionPlain || '').slice(0, 3000),
-    }))
-    .filter((job) => keepAtsJob(job, config));
+    }));
+}
+
+export async function readAshby(source, config) {
+  const url = `https://api.ashbyhq.com/posting-api/job-board/${encodeURIComponent(source.board)}`;
+  const data = await fetchJson(url);
+  return data.jobs
+    .filter((job) => {
+      if (job.isListed === false) return false;
+      const location = [job.location, ...(job.secondaryLocations || []).map((item) => item.location)].join('; ');
+      return keepAtsJob({ title: job.title, location }, config, job.employmentType === 'Intern');
+    })
+    .map((job) => toJob(source, config, {
+      id: `ashby-${source.board}-${job.id}`,
+      title: job.title,
+      url: job.jobUrl,
+      location: [job.location, ...(job.secondaryLocations || []).map((item) => item.location)].join('; '),
+      minQualifications: String(job.descriptionPlain || '').slice(0, 3000),
+    }));
 }

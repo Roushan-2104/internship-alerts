@@ -1,6 +1,8 @@
 var CONFIG = {
   EXPECTED_ACCOUNT: 'internshipalerts.roushan@gmail.com',
   JOBS_URL: 'https://raw.githubusercontent.com/Roushan-2104/internship-alerts/main/data/jobs.json',
+  WORKFLOW_DISPATCH_URL: 'https://api.github.com/repos/Roushan-2104/internship-alerts/actions/workflows/watch.yml/dispatches',
+  WATCHER_FRESH_MINUTES: 20,
   SENDER_NAME: 'Internship Alerts',
   ALERT_EMAIL: 'internshipalerts.roushan@gmail.com',
 

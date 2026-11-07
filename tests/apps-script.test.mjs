@@ -6,6 +6,7 @@ function ready(jobs = []) {
   const world = createWorld();
   world.sandbox.setup();
   world.jobs = jobs;
+  world.props.GITHUB_DISPATCH_TOKEN = 'github_pat_test_secret';
   world.fetch = (url) => (url.includes('raw/jobs') ? feed(world.jobs) : world.github ? world.github(url) : { code: 404, body: '' });
   return world;
 }
@@ -517,4 +518,73 @@ test('heartbeat and status page render with real data and escape it', () => {
   assert.match(html, /Status: Green/);
   assert.equal(html.includes('<img src=x'), false);
   assert.match(html, /&lt;img src=x/);
+});
+
+function staleFeed(world) {
+  world.fetch = () => feed([], { generatedAt: new Date(Date.now() - 45 * 60000).toISOString() });
+}
+
+test('stale job data starts the watcher on main with the token', () => {
+  const world = ready([]);
+  staleFeed(world);
+  world.sandbox.tick();
+  assert.equal(world.dispatches.length, 1);
+  const request = world.dispatches[0];
+  assert.equal(request.method, 'post');
+  assert.equal(request.headers.Authorization, 'Bearer github_pat_test_secret');
+  assert.deepEqual(JSON.parse(request.payload), { ref: 'main' });
+  assert.equal(world.sent.length, 0, 'a successful start sends no email');
+});
+
+test('fresh job data does not start another run', () => {
+  const world = ready([]);
+  world.sandbox.tick();
+  assert.equal(world.dispatches.length, 0);
+});
+
+test('an unreadable feed still starts the watcher, so it can recover', () => {
+  const world = ready([]);
+  world.fetch = () => ({ code: 500, body: '' });
+  world.sandbox.tick();
+  assert.equal(world.dispatches.length, 1);
+});
+
+test('a rejected token alerts once, reports the fix, and never reveals the token', () => {
+  const world = ready([]);
+  staleFeed(world);
+  world.dispatch = { code: 401 };
+  world.sandbox.tick();
+  world.sandbox.tick();
+  const alerts = world.sent.filter((mail) => /Problem: step:watcher/.test(mail.subject));
+  assert.equal(alerts.length, 1);
+  assert.match(alerts[0].body, /may have expired/);
+  const everything = JSON.stringify(world.sent) + JSON.stringify(world.table('Logs')) + JSON.stringify(world.sandbox.getStatusData_());
+  assert.equal(everything.includes('github_pat_test_secret'), false);
+
+  world.dispatch = { code: 204 };
+  world.sandbox.tick();
+  assert.equal(world.sent.filter((mail) => /Fixed: step:watcher/.test(mail.subject)).length, 1);
+});
+
+test('missing access and a missing token are both reported', () => {
+  const world = ready([]);
+  staleFeed(world);
+  world.dispatch = { code: 403 };
+  world.sandbox.tick();
+  assert.ok(world.sent.some((mail) => /Actions read and write/.test(mail.body)));
+
+  const none = ready([]);
+  delete none.props.GITHUB_DISPATCH_TOKEN;
+  staleFeed(none);
+  none.sandbox.tick();
+  assert.ok(none.sent.some((mail) => /GITHUB_DISPATCH_TOKEN is missing/.test(mail.body)));
+});
+
+test('a failed start does not stop the other steps', () => {
+  const world = ready([]);
+  signUp(world);
+  staleFeed(world);
+  world.dispatch = { code: 500 };
+  world.sandbox.tick();
+  assert.equal(toStudents(world).length, 1);
 });

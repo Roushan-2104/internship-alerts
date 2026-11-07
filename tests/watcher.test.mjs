@@ -3,6 +3,7 @@ import { test } from 'node:test';
 import {
   assertAllowedGoogleUrl, containsKeyword, fingerprint, htmlToText, matchesPriority, mergeRun,
 } from '../watcher/lib.mjs';
+import { readAshby, readGreenhouse, readLever } from '../watcher/sources.mjs';
 
 const options = { repostWindowDays: 90, closedJobRetentionDays: 180 };
 const job = (id, title = 'Software Intern') => ({ id, title, company: 'Google', location: 'Bengaluru, India', url: 'https://x/y' });
@@ -99,3 +100,50 @@ test('fingerprint ignores case and punctuation', () => {
 test('htmlToText handles escaped ATS content', () => {
   assert.equal(htmlToText('&lt;p&gt;Python &amp; SQL&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Git&lt;/li&gt;&lt;/ul&gt;'), 'Python & SQL\nGit');
 });
+
+const atsConfig = { priorityTitles: ['Associate Software Developer Intern'], internKeywords: ['intern', 'trainee'], locationKeywords: ['india', 'bengaluru'] };
+const atsSource = { name: 'Acme', company: 'Acme', board: 'acme' };
+
+function withFetch(payload, run) {
+  const original = globalThis.fetch;
+  globalThis.fetch = async () => ({ ok: true, status: 200, json: async () => payload });
+  return run().finally(() => { globalThis.fetch = original; });
+}
+
+test('Ashby keeps India internships, including by job type and secondary location', () => withFetch({
+  jobs: [
+    { id: '1', title: 'Software Intern', location: 'Bengaluru', jobUrl: 'https://a/1', descriptionPlain: 'Python' },
+    { id: '2', title: 'Engineer', employmentType: 'Intern', location: 'Remote', secondaryLocations: [{ location: 'India' }], jobUrl: 'https://a/2' },
+    { id: '3', title: 'Software Intern', location: 'London', jobUrl: 'https://a/3' },
+    { id: '4', title: 'Senior Engineer', location: 'Bengaluru', jobUrl: 'https://a/4' },
+    { id: '5', title: 'Hidden Intern', location: 'India', isListed: false, jobUrl: 'https://a/5' },
+  ],
+}, async () => {
+  const jobs = await readAshby(atsSource, atsConfig);
+  assert.deepEqual(jobs.map((item) => item.id), ['ashby-acme-1', 'ashby-acme-2']);
+  assert.equal(jobs[0].company, 'Acme');
+  assert.equal(jobs[0].minQualifications, 'Python');
+}));
+
+test('Lever keeps India internships by title or commitment', () => withFetch([
+  { id: '1', text: 'Security Intern', hostedUrl: 'https://l/1', categories: { location: 'Bengaluru' } },
+  { id: '2', text: 'Analyst', hostedUrl: 'https://l/2', categories: { location: 'India', commitment: 'Internship' } },
+  { id: '3', text: 'Internal Tools Engineer', hostedUrl: 'https://l/3', categories: { location: 'India' } },
+  { id: '4', text: 'Data Intern', hostedUrl: 'https://l/4', categories: { location: 'Paris' } },
+], async () => {
+  const jobs = await readLever(atsSource, atsConfig);
+  assert.deepEqual(jobs.map((item) => item.id), ['lever-acme-1', 'lever-acme-2']);
+}));
+
+test('Greenhouse keeps India internships and marks priority roles', () => withFetch({
+  jobs: [
+    { id: 1, title: 'Associate Software Developer Intern', absolute_url: 'https://g/1', location: { name: 'Bengaluru, India' }, content: '&lt;p&gt;Java&lt;/p&gt;' },
+    { id: 2, title: 'Software Intern', absolute_url: 'https://g/2', location: { name: 'New York' }, content: '' },
+  ],
+}, async () => {
+  const jobs = await readGreenhouse(atsSource, atsConfig);
+  assert.equal(jobs.length, 1);
+  assert.equal(jobs[0].priority, true);
+  assert.equal(jobs[0].minQualifications, 'Java');
+}));
+
