@@ -1,18 +1,18 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-07T08:17:24.592Z",
-  "lastFullSuccessAt": "2026-11-07T08:17:24.592Z",
+  "generatedAt": "2026-11-07T08:47:22.316Z",
+  "lastFullSuccessAt": "2026-11-07T08:47:22.316Z",
   "sources": {
     "Google internships India": {
       "ok": true,
       "count": 4,
-      "checkedAt": "2026-11-07T08:17:24.592Z",
+      "checkedAt": "2026-11-07T08:47:22.316Z",
       "error": null
     },
     "Google priority role search": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-07T08:17:24.592Z",
+      "checkedAt": "2026-11-07T08:47:22.316Z",
       "error": null
     }
   },
@@ -28,7 +28,7 @@
       "priority": false,
       "fingerprint": "google|software engineering phd intern summer 2027|bengaluru karnataka india",
       "firstSeen": "2026-11-06T15:15:56.838Z",
-      "lastSeen": "2026-11-07T08:17:24.592Z",
+      "lastSeen": "2026-11-07T08:47:22.316Z",
       "open": true,
       "repostOf": null,
       "detailAttempts": 1,
@@ -47,7 +47,7 @@
       "priority": false,
       "fingerprint": "google|silicon engineering intern phd summer 2027|bengaluru karnataka india",
       "firstSeen": "2026-11-06T15:15:56.838Z",
-      "lastSeen": "2026-11-07T08:17:24.592Z",
+      "lastSeen": "2026-11-07T08:47:22.316Z",
       "open": true,
       "repostOf": null,
       "detailAttempts": 1,
@@ -66,7 +66,7 @@
       "priority": false,
       "fingerprint": "google|research scientist phd intern summer 2027|hyderabad telangana india",
       "firstSeen": "2026-11-06T15:15:56.838Z",
-      "lastSeen": "2026-11-07T08:17:24.592Z",
+      "lastSeen": "2026-11-07T08:47:22.316Z",
       "open": true,
       "repostOf": null,
       "detailAttempts": 1,
@@ -85,7 +85,7 @@
       "priority": false,
       "fingerprint": "google|student researcher 2027|india",
       "firstSeen": "2026-11-06T15:15:56.838Z",
-      "lastSeen": "2026-11-07T08:17:24.592Z",
+      "lastSeen": "2026-11-07T08:47:22.316Z",
       "open": true,
       "repostOf": null,
       "detailAttempts": 1,
