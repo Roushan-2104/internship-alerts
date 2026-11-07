@@ -1,22 +1,785 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-07T09:58:46.690Z",
-  "lastFullSuccessAt": "2026-11-07T09:58:46.690Z",
+  "generatedAt": "2026-11-07T10:17:02.218Z",
+  "lastFullSuccessAt": "2026-11-07T10:17:02.218Z",
   "sources": {
     "Google internships India": {
       "ok": true,
       "count": 4,
-      "checkedAt": "2026-11-07T09:58:46.690Z",
+      "checkedAt": "2026-11-07T10:17:02.218Z",
       "error": null
     },
     "Google priority role search": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-07T09:58:46.690Z",
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "AIOS": {
+      "ok": true,
+      "count": 0,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "AiPrise": {
+      "ok": true,
+      "count": 0,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "Airbnb": {
+      "ok": true,
+      "count": 0,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "Aleph": {
+      "ok": true,
+      "count": 1,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "Alpaca": {
+      "ok": true,
+      "count": 0,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "Amplitude": {
+      "ok": true,
+      "count": 0,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "Anthropic": {
+      "ok": true,
+      "count": 0,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "Atlan": {
+      "ok": true,
+      "count": 0,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "AtoB": {
+      "ok": true,
+      "count": 0,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "Avoca": {
+      "ok": true,
+      "count": 0,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "Cardboard": {
+      "ok": true,
+      "count": 0,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "Coinbase": {
+      "ok": true,
+      "count": 0,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "CRED": {
+      "ok": true,
+      "count": 0,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "Databricks": {
+      "ok": true,
+      "count": 0,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "Datadog": {
+      "ok": true,
+      "count": 0,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "Deepgram": {
+      "ok": true,
+      "count": 0,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "Druva": {
+      "ok": true,
+      "count": 0,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "Duolingo": {
+      "ok": true,
+      "count": 0,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "Elastic": {
+      "ok": true,
+      "count": 0,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "FamPay": {
+      "ok": true,
+      "count": 2,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "Figma": {
+      "ok": true,
+      "count": 0,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "Finni Health": {
+      "ok": true,
+      "count": 0,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "FirstWork": {
+      "ok": true,
+      "count": 0,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "Flai": {
+      "ok": true,
+      "count": 0,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "Fleek": {
+      "ok": true,
+      "count": 0,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "Flexport": {
+      "ok": true,
+      "count": 0,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "GitLab": {
+      "ok": true,
+      "count": 0,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "Groww": {
+      "ok": true,
+      "count": 0,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "HackerRank": {
+      "ok": true,
+      "count": 2,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "IMC": {
+      "ok": true,
+      "count": 0,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "InMobi": {
+      "ok": true,
+      "count": 0,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "Instawork": {
+      "ok": true,
+      "count": 7,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "LiteLLM": {
+      "ok": true,
+      "count": 0,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "Meesho": {
+      "ok": true,
+      "count": 0,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "Mem0": {
+      "ok": true,
+      "count": 0,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "MongoDB": {
+      "ok": true,
+      "count": 0,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "Netomi": {
+      "ok": true,
+      "count": 0,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "Notion": {
+      "ok": true,
+      "count": 0,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "Okta": {
+      "ok": true,
+      "count": 0,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "OpenAI": {
+      "ok": true,
+      "count": 0,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "Overview": {
+      "ok": true,
+      "count": 0,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "PermitFlow": {
+      "ok": true,
+      "count": 0,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "Prodigal": {
+      "ok": true,
+      "count": 2,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "Provision": {
+      "ok": true,
+      "count": 0,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "Retell AI": {
+      "ok": true,
+      "count": 0,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "Rubrik": {
+      "ok": true,
+      "count": 5,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "Sarvam AI": {
+      "ok": true,
+      "count": 1,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "Scale AI": {
+      "ok": true,
+      "count": 0,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "Sieve": {
+      "ok": true,
+      "count": 0,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "SigNoz": {
+      "ok": true,
+      "count": 0,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "Snowflake": {
+      "ok": true,
+      "count": 0,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "Stepful": {
+      "ok": true,
+      "count": 0,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "Stripe": {
+      "ok": true,
+      "count": 2,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "Tekion": {
+      "ok": true,
+      "count": 0,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "Tower Research Capital": {
+      "ok": true,
+      "count": 1,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "Triomics": {
+      "ok": true,
+      "count": 0,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "TRM Labs": {
+      "ok": true,
+      "count": 0,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "Twilio": {
+      "ok": true,
+      "count": 0,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "Vercel": {
+      "ok": true,
+      "count": 0,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "Xendit": {
+      "ok": true,
+      "count": 0,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "Zapier": {
+      "ok": true,
+      "count": 0,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
+      "error": null
+    },
+    "Zscaler": {
+      "ok": true,
+      "count": 0,
+      "checkedAt": "2026-11-07T10:17:02.218Z",
       "error": null
     }
   },
   "jobs": [
+    {
+      "id": "lever-aleph-bbd1e11d-2b60-4edf-839e-ead57efcda8a",
+      "title": "Finance Intern",
+      "url": "https://jobs.lever.co/aleph/bbd1e11d-2b60-4edf-839e-ead57efcda8a",
+      "location": "Mumbai, India",
+      "minQualifications": "Are you ready to join our digital revolution journey? \n \nAt Aleph, we’re not just part of the digital advertising landscape—we’re shaping its future. Representing the world’s leading platforms, including TikTok, Amazon, Google, and nearly 55 others, we operate in 130+ markets across new and existing geographies.\n \nOur mission is to empower advertisers and brands to unlock the full potential of these platforms' advertising capabilities. By fostering long-lasting partnerships, we create limitless opportunities for people and businesses to advertise effectively at both local and global levels.\n \nWith a presence spanning continents, Aleph offers you the chance to be part of a fast-growing, innovative team where your work makes a direct impact. If you’re ambitious, forward-thinking, and eager to thrive in a dynamic, global environment, Aleph is the perfect place to build your career.\n\n\nWe are looking for an enthusiastic Finance Intern to support our Accounts Receivable and Credit functions across the APAC region. In this role, you will help oversee billing and collections by coordinating day-to-day matters with local finance teams and assisting with direct follow-ups with clients on outstanding A/R balances. This internship offers hands-on exposure to regional finance operations, including reporting, credit checks, and compliance.\n",
+      "company": "Aleph",
+      "source": "Aleph",
+      "priority": false,
+      "preferredQualifications": "",
+      "deadline": "",
+      "fingerprint": "aleph|finance intern|mumbai india",
+      "firstSeen": "2026-11-07T10:17:02.218Z",
+      "lastSeen": "2026-11-07T10:17:02.218Z",
+      "open": true,
+      "repostOf": null
+    },
+    {
+      "id": "lever-fampay-213870db-ddfd-4519-9a57-54691d89cca5",
+      "title": "People Operations Intern",
+      "url": "https://jobs.lever.co/fampay/213870db-ddfd-4519-9a57-54691d89cca5",
+      "location": "Bengaluru",
+      "minQualifications": "About Fam (previously FamPay)\n\nFam is India’s first payments app for everyone above 11. FamApp helps make online and offline payments through UPI and FamCard. We are on a mission to raise a new, financially aware generation, and drive 250 million+ young users in India to kickstart their financial journey super early in their life.\n\nWe’re reimagining how the next generation experiences fintech—going beyond payments to build a lifestyle brand that blends money, identity, and everyday experiences into one seamless, intuitive journey.\n\nFounded in 2019 by IIT Roorkee alumni, Fam is backed by some of the most respected investors around the world like Elevation Capital, Y-Combinator, Peak XV (Sequoia Capital) India, Venture Highway, Global Founder’s Capital and the likes of Kunal Shah, Amrish Rao as angel investors.\n",
+      "company": "FamPay",
+      "source": "FamPay",
+      "priority": false,
+      "preferredQualifications": "",
+      "deadline": "",
+      "fingerprint": "fampay|people operations intern|bengaluru",
+      "firstSeen": "2026-11-07T10:17:02.218Z",
+      "lastSeen": "2026-11-07T10:17:02.218Z",
+      "open": true,
+      "repostOf": null
+    },
+    {
+      "id": "lever-fampay-bbbbbfd2-1855-4991-82d5-84ef57607c24",
+      "title": "Security Engineer Intern",
+      "url": "https://jobs.lever.co/fampay/bbbbbfd2-1855-4991-82d5-84ef57607c24",
+      "location": "Bengaluru",
+      "minQualifications": "About Fam (previously FamPay)\n \nFam is India's first payments app for everyone above 11. FamApp helps make online and offline payments through UPI and FamCard. We are on a mission to raise a new, financially aware generation, and drive 250 million+ youngest users in India to kickstart their financial journey super early in their life.\n \nFounded in 2019 by IIT Roorkee alumni, Fam is backed by some of the most respected investors around the world like Elevation Capital, Y-Combinator, Peak XV (Sequoia Capital) India, Venture Highway, Global Founder’s Capital and the likes of Kunal Shah, Amrish Rao as angel investors.\n \nAbout the Role\n \nWe are looking for a Security Enthusiast who thinks like a hacker but works for the good guys. You shouldn't just find bugs; you should be obsessed with understanding why they exist and how to fix them for good.\n \nAs an Application Security Engineer Intern, you will be the first line of defense for the Fam. You will break things before the bad guys do, automate security checks, and work side-by-side with our engineering team to build a fortress around our users' hard-earned money.\n \nIf you get a rush from finding an RCE, live on r/netsec, or spend your weekends capturing flags or bounties, this role is for you.\n \nNote: This is an onsite internship at Fam HQ, Bangalore.\n \nCurious to know about FamPay's tech stack? Click here to know what makes and keeps Fam running!\n",
+      "company": "FamPay",
+      "source": "FamPay",
+      "priority": false,
+      "preferredQualifications": "",
+      "deadline": "",
+      "fingerprint": "fampay|security engineer intern|bengaluru",
+      "firstSeen": "2026-11-07T10:17:02.218Z",
+      "lastSeen": "2026-11-07T10:17:02.218Z",
+      "open": true,
+      "repostOf": null
+    },
+    {
+      "id": "greenhouse-hackerrank-8281055",
+      "title": "AI Researcher Intern",
+      "url": "https://job-boards.greenhouse.io/hackerrank/jobs/8281055",
+      "location": "Onsite in Bangalore",
+      "minQualifications": "HackerRank helps companies like NVIDIA, Amazon, and Microsoft hire and upskill the next generation of developers based on skills, not pedigree. Our platform is trusted by over 2,500 of the world’s most innovative companies to build strong engineering teams ready for what’s next.\nSoftware has entered an era where humans and AI build side by side. As this shift accelerates, the definition of strong technical talent is changing. We give companies better ways to identify and invest in next-generation skills.\nPeople at HackerRank care deeply about the impact of their work and sweat the small details so our customers can be wildly successful with products they genuinely love to use. We move with urgency and believe great outcomes come from high standards.\nAbout the role\nHackerRank is advancing AI-driven Technical Interviewing, assessment of Integrity, and the measurement of Engineering skill to use AI assistance effectively in the agentic era. We are looking for research-oriented M.S./Ph.D. scholars to explore and develop novel Deep Learning architectures and build efficient, trustworthy AI systems. A key research direction is to develop a model-agnostic external Recursive Reasoning Engine that enables smaller models (SLM/SSM/Hybrid etc.) to solve complex, repository-grounded software engineering tasks with greater effectiveness, traceability, and lower inference cost.\nOpen problems\nThe agentic era is reshaping every layer of the hiring stack. These are some of the core problems you’ll be working across, none of them fully solved.\nChakra: Building an autonomous AI interviewer that conducts, adapts to, and evaluates technical interviews end to end.\nIntegrity: Detecting fraud and suspicious behavior across multiple signal types. The ways candidates game assessments change frequently, and the models need to keep up.\nEvaluation: Measuring technical skill in a world where AI writes the code. The old proxies no longer hold and the new ones have not been defined yet.\nYour focus will shift across these depending on where the highest-leverage work is at any given time.\nWhat you will do\nResearch, Design, and Develop advanced Deep Learning models and novel Neural architectures.\nExplore architectures beyond Transformers, including State Space Models (SSMs), Liquid Neural Networks (LNNs), and Hybrid approaches.\nDesign and implement Agentic AI systems, Recursive Reasoning Engines, and tool-augmented architectures.\nFine-tuning of models using PEFT (e.g. LoRA, QLoRA etc.), and Knowledge Distillation\nOptimize model Performance, Inference Efficiency, Latency, and Memory utilization.\nDesign rigorous experiments, evaluation frameworks, and benchmarks to validate research hypotheses.\nTranslate cutting-edge research into scalable, production-grade AI systems.\nWho you are\nM.Tech./M.S./Ph.D. in AI/ML or related disciplines.\n2-3 years of experience in Deep Learning, Machine Learning, or Applied AI Research.\nStrong foundations in Linear Algebra, Probability, Statistics, Optimiz",
+      "company": "HackerRank",
+      "source": "HackerRank",
+      "priority": false,
+      "preferredQualifications": "",
+      "deadline": "",
+      "fingerprint": "hackerrank|ai researcher intern|onsite in bangalore",
+      "firstSeen": "2026-11-07T10:17:02.218Z",
+      "lastSeen": "2026-11-07T10:17:02.218Z",
+      "open": true,
+      "repostOf": null
+    },
+    {
+      "id": "greenhouse-hackerrank-8229735",
+      "title": "Software Development Engineer Intern",
+      "url": "https://job-boards.greenhouse.io/hackerrank/jobs/8229735",
+      "location": "Onsite in Bangalore",
+      "minQualifications": "HackerRank helps companies like NVIDIA, Amazon, and Microsoft hire and upskill the next generation of developers based on skills, not pedigree. Our platform is trusted by over 2,500 of the world’s most innovative companies to build strong engineering teams ready for what’s next.\nSoftware has entered an era where humans and AI build side by side. As this shift accelerates, the definition of strong technical talent is changing. We give companies better ways to identify and invest in next-generation skills.\nPeople at HackerRank care deeply about the impact of their work and sweat the small details so our customers can be wildly successful with products they genuinely love to use. We move with urgency and believe great outcomes come from high standards.\nThis is a 6-month full-time onsite internship (Jan - June 2027).\nPlease apply only if you're available full-time to work from the Bengaluru office for the entire duration.\nIf you're obsessed with writing great code that will be used by other great engineers around the world, read on - this just may be the perfect role for you. HackerRank is looking for high-potential Hacker Interns to join our team of world-class full-time Hackers as we build the most engaged community of Developers.\nLife as an intern at HackerRank\nWorld-class mentors, great culture, amazing people and opportunities to make a difference all in a real-world scenario and right at the beginning of your career! If this sounds exciting, read on...\nEach one of you will be paired with a mentor, who will support you throughout your internship.\nYou get to push your code to prod and contribute to meaningful &amp; real-world projects right from your first month.\nTransparent communication is one of the principles that guides us. You’ll have access to all the information needed including the company’s progress every week directly from the Executive team.\nYou’ll have direct access to all employees in the company and can always challenge the status quo, enabling you to be more data driven.\nWhether you're graduating and seeking a full-time position after your internship, or hoping to return for another internship next year, you'll be considered for a returning offer during your internship.\nEvery intern batch designs its own page. See what past batches built\nThe early days: 2014 · 2015 · 2016 · 2017\n2018-2019: 2018 winter · 2018 summer · 2019 winter · 2019 summer\n2020-2022: 2020 · 2021 winter · 2021 summer · 2022 winter · 2022 summer\nMost recent: 2024 · 2025 · 2026\nDon't take our word for it. Take theirs\nOur past interns share what the experience was really like:\nIshan , Abhishek and Adyasha , who wrote a full blog series (2021 summer)\nPriya (2023)\nSindhu and Khushboo (2024)\nSharanya and Anshika (2026)\nYou can read many more blogs and watch videos here\nHow we work\nCare about the craft. From the code we ship to the words we use with customers, small things add up to an experience worth being proud of. Then we find ways to make it better.\nOne team. Engi",
+      "company": "HackerRank",
+      "source": "HackerRank",
+      "priority": false,
+      "preferredQualifications": "",
+      "deadline": "",
+      "fingerprint": "hackerrank|software development engineer intern|onsite in bangalore",
+      "firstSeen": "2026-11-07T10:17:02.218Z",
+      "lastSeen": "2026-11-07T10:17:02.218Z",
+      "open": true,
+      "repostOf": null
+    },
+    {
+      "id": "greenhouse-instawork-4706444006",
+      "title": "Hardware Intern — Robotics & AI",
+      "url": "https://job-boards.greenhouse.io/instawork/jobs/4706444006",
+      "location": "Bengaluru, Karnataka, India",
+      "minQualifications": "Instawork is on a mission to create meaningful economic opportunities for skilled hourly professionals in communities around the globe. Our AI-powered labor marketplace helps local businesses scale, and enables global technology companies to push the frontiers of robotics and AI. Backed by world-class investors like Benchmark, Spark Capital, Craft Ventures, Greylock, Y Combinator, and others, we’re looking for exceptional talent to reimagine the way the world works.\nInstawork Robotics Labs (IRL India) · Bengaluru · Internship (Full-time, On-site)\nBuild the hardware that teaches robots about the real world Robots learn from data — and the best data comes from the real world, captured at scale. At IRL India, we’re building Instacore, our proprietary 5-camera + IMU wearable capture rig that records rich, egocentric video of humans doing real tasks in real environments. Hundreds of these units run across India every day, feeding the training pipelines of frontier Physical AI models.\nYour job : keep this fleet alive, fast, and growing. If you’ve spent nights in a workshop before a Robocon run, wrenched on a Formula Student or BAJA vehicle, or built anything that had to actually work under pressure — this role was designed for you.\nWhat you’ll do\nOwn uptime for the Instacore fleet. Build, assemble, test, and troubleshoot the mechanical and electrical systems that keep hundreds of units capturing data daily.\nShip hardware iterations fast. Work directly with our robotics team to prototype, integrate, and stress-test improvements to the rig — cameras, IMUs, wiring, mounts, power\nGet your hands dirty. Sensors, actuators, controllers, soldering irons, 3D printers — this is a workshop role, not a slideware role.\nTravel and deploy. Set up hardware hubs across India and APAC. You’ll see your work running in the field, not just on a bench.\nDebug like a detective. Trace faults through hands-on testing, fix them, and document what you learned so the fleet gets more reliable every week.\nKeep the lab sharp. Maintain tools, components, test setups, and build documentation the whole team relies on.\nWhat we’re looking forPursuing or recently completed a degree/diploma in Mechanical, Mechatronics, Electronics, Electrical, Robotics, or a related field.\nBattle scars from Robocon, Formula Student/FSAE, BAJA, e-Yantra, or similar competitions — especially if you spent months building a vehicle or robot that had to perform on demand\nHands-on experience with IoT systems, cameras, sensors, Raspberry Pi, 3D printing, and soldering.\nWorking knowledge of motors, sensors, actuators, electronics, mechanical systems, and wiring.\nA bias for figuring things out: you’d rather open the enclosure and probe the board than wait for someone to tell you the answer.\nWillingness to travel PAN-India and across APAC for deployments.\nLeadership: Demonstrated leadership by leading a team/project during Robocon, Formula Student, robotics competitions, or similar engineering projects, taking owners",
+      "company": "Instawork",
+      "source": "Instawork",
+      "priority": false,
+      "preferredQualifications": "",
+      "deadline": "",
+      "fingerprint": "instawork|hardware intern robotics ai|bengaluru karnataka india",
+      "firstSeen": "2026-11-07T10:17:02.218Z",
+      "lastSeen": "2026-11-07T10:17:02.218Z",
+      "open": true,
+      "repostOf": null
+    },
+    {
+      "id": "greenhouse-instawork-4686783006",
+      "title": "HR Intern",
+      "url": "https://job-boards.greenhouse.io/instawork/jobs/4686783006",
+      "location": "Bengaluru, Karnataka, India",
+      "minQualifications": "Instawork is on a mission to create meaningful economic opportunities for skilled hourly professionals in communities around the globe. Our AI-powered labor marketplace helps local businesses scale, and enables global technology companies to push the frontiers of robotics and AI. Backed by world-class investors like Benchmark, Spark Capital, Craft Ventures, Greylock, Y Combinator, and others, we’re looking for exceptional talent to reimagine the way the world works.\n📍 Location: Koramangala, Bangalore\n🕒 Working Days: 6 days/week, 1 rotational weekly off\n⏰ Shift Timings: 9:00 AM – 7:00 PM (Standard office hours)\n💼 Experience: Fresher (0–1 year)\n📅 Contract Duration: 3 Months\nAbout the Role\nWe are looking for a highly motivated and highly organized Talent Acquisition Intern to join our team at Instawork. In this role, you will get hands-on experience working on end-to-end recruitment, serving as the critical bridge between our hiring teams and prospective candidates.\nIf you enjoy speaking with people, thrive in a fast-paced environment, and want to build a strong foundation in human resources and talent acquisition, this opportunity is a great starting point.\nKey Responsibilities\nManage End-to-End Recruitment: Support the full recruitment lifecycle for various open positions.\nHigh-Volume Outreach: Source, screen, and make 100–150 outbound calls daily to prospective candidates.\nInterview Coordination: Take ownership of lining up and scheduling interviews between candidates and internal hiring teams.\nCandidate Communication: Manage ongoing follow-ups, gather feedback, and ensure a smooth and positive candidate experience throughout the hiring journey.\nData Management: Maintain accurate and up-to-date records of calls, candidate statuses, and interview schedules.\nRequirements\nExcellent verbal communication skills with a confident and professional phone presence.\nStrong organizational skills, multitasking abilities, and exceptional attention to detail (crucial for interview coordination).\nComfortable working in a fast-paced, high-volume calling environment.\nPrior experience in HR, recruitment, or customer-facing roles is preferred but not mandatory.\nCompensation &amp; Benefits\n💰 Base Stipend: ₹20,000 per month\n🍱 Food Allowance: ₹200 per day\nPerks &amp; Benefits:\nCollaborative team culture and vibrant office environment.\nHands-on exposure to full-cycle talent acquisition and HR operations.\nStrong career growth opportunities by learning the core mechanics of tech and business hiring.\nOur Values\nEmpathy, Trust &amp; Candor\nWe put ourselves in the shoes of our colleagues and customers and don’t shy away from uncomfortable conversations, instead building trust through honest and direct feedback.\nBias for Action\nWe practice high-velocity decision-making, clear-eyed that we often operate with incomplete information. Growing quickly means it’s OK to be wrong, so long as we learn from our mistakes and course correct!\nAlways Be Learning\nWe’re a curious bunch",
+      "company": "Instawork",
+      "source": "Instawork",
+      "priority": false,
+      "preferredQualifications": "",
+      "deadline": "",
+      "fingerprint": "instawork|hr intern|bengaluru karnataka india",
+      "firstSeen": "2026-11-07T10:17:02.218Z",
+      "lastSeen": "2026-11-07T10:17:02.218Z",
+      "open": true,
+      "repostOf": null
+    },
+    {
+      "id": "greenhouse-instawork-4646658006",
+      "title": "Inventory Management Intern",
+      "url": "https://job-boards.greenhouse.io/instawork/jobs/4646658006",
+      "location": "Bengaluru, Karnataka, India",
+      "minQualifications": "Instawork is on a mission to create meaningful economic opportunities for skilled hourly professionals in communities around the globe. Our AI-powered labor marketplace helps local businesses scale, and enables global technology companies to push the frontiers of robotics and AI. Backed by world-class investors like Benchmark, Spark Capital, Craft Ventures, Greylock, Y Combinator, and others, we’re looking for exceptional talent to reimagine the way the world works.\nInventory Manager – High Value Devices\nFunction: Operations – Asset &amp; Inventory Control\nInventory Type: High-Value Electronic Assets\nTools Used: Manual Registers &amp; Google Sheets\nWork Mode: On-site\nRole Overview\nThe Inventory Manager will be responsible for end-to-end custody, tracking, and reconciliation of high-value inventory, primarily iPhones and related accessories such as SD cards and card readers. This role demands strict control, zero tolerance for mismatches, and complete documentation discipline.\nNo inventory movement is allowed without entries, and physical stock must always tally with records.\n(Morning Shift - 7 am to 4 pm; Evening Shift - 4 pm to 2 am)\nKey Responsibilities\n1. High-Value Inventory Ownership\nTake complete ownership of high-value devices and accessories .\nEnsure serial-number–level tracking for all devices.\nMaintain zero loss and zero undocumented movement .\n2. Inward Inventory Management (IT → Inventory)\nReceive devices and accessories from the IT team.\nVerify:\nQuantity\nSerial numbers\nPhysical condition\nRecord all inward movements immediately in:\nManual registers\nGoogle Sheets\nEscalate any mismatch, damage, or discrepancy without delay.\n3. Outward Inventory Management (Inventory ↔ Field Ops)\nHand over inventory from:\nInventory to Field Ops (FO)\nField Ops back to Inventory\nEnsure no item goes out without prior entry .\nCapture details including:\nItem name and serial number\nFO name / ID\nDate and time of handover\nExpected return date\nAvoid all verbal or informal handovers.\n4. Returns, Reconciliation &amp; Control\nReceive returned inventory and re-verify serial numbers and condition.\nUpdate return entries on the same day.\nPerform daily reconciliation between:\nPhysical stock\nGoogle Sheets\nItems with Field Ops\nTrack overdue or missing items and follow up proactively.\n5. Documentation &amp; Audit Readiness\nMaintain clean, structured Google Sheets trackers.\nEnsure inventory area access is controlled.\nSupport audits and internal checks as required.\nMaintain high compliance standards for asset handling.\nSkills &amp; Requirements\nMandatory\nExperience handling high-value inventory or assets .\nStrong working knowledge of Google Sheets (filters, basic formulas).\nExperience with manual inventory registers .\nHigh attention to detail and accuracy.\nPreferred\nBackground in inventory, warehouse, logistics, or operations.\nExperience managing electronic devices or serialized assets.\nKey Traits\nStrong ownership and accountability\nProcess-driven with a zero-error mindset\nHi",
+      "company": "Instawork",
+      "source": "Instawork",
+      "priority": false,
+      "preferredQualifications": "",
+      "deadline": "",
+      "fingerprint": "instawork|inventory management intern|bengaluru karnataka india",
+      "firstSeen": "2026-11-07T10:17:02.218Z",
+      "lastSeen": "2026-11-07T10:17:02.218Z",
+      "open": true,
+      "repostOf": null
+    },
+    {
+      "id": "greenhouse-instawork-4646670006",
+      "title": " IT Intern – Gadget & Tech Support Operations",
+      "url": "https://job-boards.greenhouse.io/instawork/jobs/4646670006",
+      "location": "Bengaluru, Karnataka, India",
+      "minQualifications": "Instawork is on a mission to create meaningful economic opportunities for skilled hourly professionals in communities around the globe. Our AI-powered labor marketplace helps local businesses scale, and enables global technology companies to push the frontiers of robotics and AI. Backed by world-class investors like Benchmark, Spark Capital, Craft Ventures, Greylock, Y Combinator, and others, we’re looking for exceptional talent to reimagine the way the world works.\nRig / Productivity Team - Intern\nFunction: Operations – Rig Data Processing &amp; Productivity\nWork Mode: On-site\nShift: 9:00 AM to 6:00 PM\nRole Overview\nThe Rig / Productivity Team is responsible for ensuring that recorded field data is uploaded, reconciled, validated, and made ready for reuse. The role combines two critical functions: processing SD card data and reviewing recorded videos to determine whether the data is valid.\nThe team ensures that every uploaded batch is accounted for, SD cards are returned to inventory within the expected turnaround time, and valid-data assessments are completed accurately. No shortcuts in data handling, no unexplained pending work, and no compromise on data quality.\nWhat You'll Own\n- Rig: Complete the upload-to-return cycle for SD cards, ensuring data is uploaded successfully before cards are formatted and returned to inventory.\n- Productivity: Review recorded videos and accurately determine valid vs. invalid data.\n- Maintain complete visibility of pending work, turnaround time, and any data-related issues.\n- Ensure that every batch is processed in the correct sequence and that no data is skipped or misrepresented.\nKey Responsibilities\n1. SD Card Data Processing &amp; Upload\n- Receive reconciled SD cards from the inventory team.\n- Upload recorded data to the cloud as per the defined process.\n- Verify that uploads are completed successfully before proceeding to formatting.\n- Track uploaded, pending, and failed uploads.\n- Report any corrupt cards, upload failures, or other data-related issues.\n2. SD Card Formatting &amp; Return to Inventory\n- Format SD cards only after successful upload confirmation.\n- Ensure formatted cards are returned to inventory on the same day.\n- Maintain accurate records of cards processed, formatted, and returned.\n- Follow the complete upload → format → return sequence without skipping steps.\n3. Video Review &amp; Valid-Data Assessment\n- Review recorded videos to determine whether the data is valid.\n- Identify and record valid vs. invalid data accurately.\n- Track videos checked against pending videos.\n- Maintain valid-data percentages at card and batch level.\n- Escalate unclear or questionable data for further review.\n4. Reconciliation, Tracking &amp; Reporting\n- Maintain daily visibility of SD cards and batches across the processing cycle.\n- Track turnaround from reconciled → uploaded → formatted → returned to inventory.\n- Maintain clean and complete Google Sheets trackers.\n- Report pending work, delays, and card/data erro",
+      "company": "Instawork",
+      "source": "Instawork",
+      "priority": false,
+      "preferredQualifications": "",
+      "deadline": "",
+      "fingerprint": "instawork|it intern gadget tech support operations|bengaluru karnataka india",
+      "firstSeen": "2026-11-07T10:17:02.218Z",
+      "lastSeen": "2026-11-07T10:17:02.218Z",
+      "open": true,
+      "repostOf": null
+    },
+    {
+      "id": "greenhouse-instawork-4618554006",
+      "title": "Operations Management Intern",
+      "url": "https://job-boards.greenhouse.io/instawork/jobs/4618554006",
+      "location": "Bengaluru, Karnataka, India",
+      "minQualifications": "Instawork is on a mission to create meaningful economic opportunities for skilled hourly professionals in communities around the globe. Our AI-powered labor marketplace helps local businesses scale, and enables global technology companies to push the frontiers of robotics and AI. Backed by world-class investors like Benchmark, Spark Capital, Craft Ventures, Greylock, Y Combinator, and others, we’re looking for exceptional talent to reimagine the way the world works.\nInstawork is on a mission to create meaningful economic opportunities for skilled hourly professionals in communities around the globe. Our AI-powered labor marketplace helps local businesses scale, and enables global technology companies to push the frontiers of robotics and AI. Backed by world-class investors like Benchmark, Spark Capital, Craft Ventures, Greylock, Y Combinator, and others, we're looking for exceptional talent to reimagine the way the world works.\nRole Overview\nAn Internal Coordinator (IC) owns the day-to-day running of field data collection for a single region. Each IC leads a team of Field Officers (FOs) who carry recording rigs(hardware) into partner businesses, set them up correctly, and capture high-quality task recordings.\nThe IC is the operational nerve center of the region: planning the day's pipeline, keeping FOs productive in the field, solving problems live, ensuring recording quality and diversity rules are met, tracking inventory (rigs and SD cards) in and out, and reporting hours planned vs. achieved with clear loss reasons at end of day.\nThis role is mainly about live coordination, field problem-solving, quality control, and disciplined reporting.\nWho Are Field Officers (FOs)?\nPeople working on the ground, out in the field\nThey collect rigs from inventory, travel to assigned businesses, and record short videos of real commercial/household tasks\nThey are responsible for correct setup, on-site recording, and returning rigs and SD cards\nThey have clear daily and overall hour targets to complete\nKey Responsibilities\n1. Start-of-Day Planning\nCheck the day's pipeline of confirmed businesses for each FO\nKeep enough backup businesses on hand so no FO is left idle if a task falls through\nConfirm rig, SD card, and inventory availability before FOs leave\nPlan for exigencies (business cancellations, FO absence, device shortfall, travel issues)\n2. Live Monitoring &amp; 2-Hourly Updates\nTrack who has started, who is on-site, who is recording, and who is falling behind\nTake structured updates from every FO at least every 2 hours to catch and solve issues early\nFollow up immediately with FOs who are idle, delayed, or stuck\n3. Target &amp; Productivity Management\nEnsure FOs meet their daily and overall hour targets\nRedirect FOs to backup businesses when a planned task drops, to protect the day's hours\nPush and motivate the team to close the day on plan\n4. Quality, Rules &amp; Diversity Adherence\nEnsure FOs follow recording rules: correct task type, valid duration, cor",
+      "company": "Instawork",
+      "source": "Instawork",
+      "priority": false,
+      "preferredQualifications": "",
+      "deadline": "",
+      "fingerprint": "instawork|operations management intern|bengaluru karnataka india",
+      "firstSeen": "2026-11-07T10:17:02.218Z",
+      "lastSeen": "2026-11-07T10:17:02.218Z",
+      "open": true,
+      "repostOf": null
+    },
+    {
+      "id": "greenhouse-instawork-4712960006",
+      "title": "Quality Check Intern - Hardware",
+      "url": "https://job-boards.greenhouse.io/instawork/jobs/4712960006",
+      "location": "Bengaluru, Karnataka, India",
+      "minQualifications": "Instawork is on a mission to create meaningful economic opportunities for skilled hourly professionals in communities around the globe. Our AI-powered labor marketplace helps local businesses scale, and enables global technology companies to push the frontiers of robotics and AI. Backed by world-class investors like Benchmark, Spark Capital, Craft Ventures, Greylock, Y Combinator, and others, we’re looking for exceptional talent to reimagine the way the world works.\nQuality Control Intern – Hardware\nBengaluru, Karnataka, India\nInstawork is on a mission to create meaningful economic opportunities for skilled hourly professionals in communities around the globe. Our AI-powered labor marketplace helps local businesses scale, and enables global technology companies to push the frontiers of robotics and AI. Backed by world-class investors like Benchmark, Spark Capital, Craft Ventures, Greylock, Y Combinator, and others, we're looking for exceptional talent to reimagine the way the world works.\nRole Overview\nThe Quality Control Intern – Hardware is the checkpoint every recording rig passes through, in both directions. When rigs return from the field, you inspect their condition, run a functional check, and capture a short test recording that you review to confirm the cameras, footage, audio, and storage are all working. Before any rig goes back out, you give the final sign-off that it is field-ready.\nThis is a small role with an outsized impact: a rig that leaves your desk in a bad state means a Field Officer travels to a business, records for hours, and returns with unusable or missing data — a full day lost, and sometimes a burned business relationship. Your job is to make sure that never happens. Precision, consistency, and discipline are the whole game here.\nWhat You'll Own\nNothing goes to field without your approval; nothing comes back without your inspection and log.\nYou are the last line of defense on rig quality before it reaches a business.\nKey Responsibilities\n1. Inbound Inspection (rigs returning from cities)\nReceive rigs and accessories (cameras, SD cards, card readers, cables, mounts) as they return from the field\nCheck physical condition — damage, loose mounts, worn cables, cleanliness — and log it\nVerify all issued components are present against the checkout record; flag anything missing\n2. Functional QC &amp; Test Recording\nPower up each rig and confirm cameras open, storage is available, and the device is charged/charging correctly\nCapture a short test recording and review it: cameras correctly aligned, footage clear and stable, audio present, timestamps correct\nConfirm the SD card reads correctly, the previous session's data has been offloaded, and the card is cleared and ready for reuse\nOnly mark a rig \"field-ready\" once every check passes\n3. Outbound Approval (clearing rigs for field)\nGive the final go/no-go before a rig is handed to a Field Officer\nEnsure the rig leaves fully charged, correctly configured, and with the right access",
+      "company": "Instawork",
+      "source": "Instawork",
+      "priority": false,
+      "preferredQualifications": "",
+      "deadline": "",
+      "fingerprint": "instawork|quality check intern hardware|bengaluru karnataka india",
+      "firstSeen": "2026-11-07T10:17:02.218Z",
+      "lastSeen": "2026-11-07T10:17:02.218Z",
+      "open": true,
+      "repostOf": null
+    },
+    {
+      "id": "greenhouse-instawork-4651150006",
+      "title": "Trainer Intern",
+      "url": "https://job-boards.greenhouse.io/instawork/jobs/4651150006",
+      "location": "Bengaluru, Karnataka, India",
+      "minQualifications": "Instawork is on a mission to create meaningful economic opportunities for skilled hourly professionals in communities around the globe. Our AI-powered labor marketplace helps local businesses scale, and enables global technology companies to push the frontiers of robotics and AI. Backed by world-class investors like Benchmark, Spark Capital, Craft Ventures, Greylock, Y Combinator, and others, we’re looking for exceptional talent to reimagine the way the world works.\nRole Type: Contract / Internship (High-Commitment)\nLocation: Bengaluru (On-site)\nTravel: Extensive travel across India\nDuration: 6 Months\nWorking Hours: 6 days/week | Project-dependent hours\nRole Overview\nWe are looking for a Trainer (Intern) to support the onboarding, training, assessment, and certification of Field Operators working on large-scale field operations.\nThis is a hands-on training role, not a conventional classroom-only position. You will be responsible for taking candidates through the complete training journey, from onboarding and practical training to assessment and certification.\nThe role requires extensive travel across India, strong communication skills, confidence in managing groups, and the ability to strictly enforce SOPs and make objective certification decisions.\nKey Responsibilities\n1. Training &amp; Onboarding\nConduct classroom and hands-on training sessions for Field Operators.|\nExplain SOPs, technical processes, and field procedures in a simple and actionable manner.\nDemonstrate correct equipment handling and operating procedures.\nManage training batches and maintain discipline, engagement, and focus.\nTake ownership of trainees from onboarding through certification.\n2. Assessment &amp; Certification\nConduct knowledge quizzes and practical assessments.\nEvaluate candidates against defined assessment criteria.\nMake objective Select / Reject decisions based on performance.\nProvide corrective coaching and feedback where required.\nEnsure only candidates meeting the required standard are certified and deployed.\nMaintain certification standards even when there is pressure to increase deployment numbers.\n3. Field Training &amp; Travel\nTravel extensively across India to conduct training at different locations.\nConduct training and practical assessments in field environments.\nSupport newly certified Field Operators during initial deployment when required.\nAdapt to changing locations, schedules, batch sizes, and operational requirements.\nBe comfortable spending extended periods away from Bengaluru when required.\n4. Quality, Reporting &amp; Improvement\nEnsure Field Operators follow SOPs and critical operational requirements correctly.\nIdentify recurring mistakes and process gaps during training.\nMaintain accurate records of attendance, assessment scores, and certification status.\nShare regular updates on training progress and candidate performance.\nProvide feedback and suggestions to improve training content and processes.\nRequired Skills &amp; Attributes\n● Communicati",
+      "company": "Instawork",
+      "source": "Instawork",
+      "priority": false,
+      "preferredQualifications": "",
+      "deadline": "",
+      "fingerprint": "instawork|trainer intern|bengaluru karnataka india",
+      "firstSeen": "2026-11-07T10:17:02.218Z",
+      "lastSeen": "2026-11-07T10:17:02.218Z",
+      "open": true,
+      "repostOf": null
+    },
+    {
+      "id": "greenhouse-prodigal-5227267007",
+      "title": "Content Marketing Intern",
+      "url": "https://job-boards.greenhouse.io/prodigal/jobs/5227267007",
+      "location": "Mumbai",
+      "minQualifications": "About Prodigal\nProdigal is the connected AI platform leading financial institutions use to run their operations.\nWe work with banks, lenders, credit unions, and other financial companies that lend money to people and manage those relationships over time.\nThese institutions make millions of high-stakes decisions every day. Who should they reach? When should they reach them? What should they say or offer? When should a case move to a human? How should that change based on the borrower, the account, previous interactions, and the regulations involved?\nGetting those decisions right requires a deep understanding of the people, processes, rules, and edge cases behind them.\nProdigal has spent the last eight years building that understanding. More than a billion interactions between financial institutions and their customers have shaped the intelligence, guardrails, and AI agents we now run in production across North America.\nToday, our AI agents analyze conversations, capture context, guide human agents, decide the next action, conduct customer conversations, orchestrate outreach, and help people complete payments and resolutions. They are connected, so what is learned in one interaction can inform what happens next.\nWe are expanding this swarm of AI agents across more of the work financial institutions do: originations, document processing, back-office workflows, servicing, and other critical operations where money, identity, people, and regulation intersect.\nWe are backed by Y Combinator, Accel, and Menlo Ventures, and work with 100+ financial institutions across North America. Listen directly from our CTO, Cofounder - Sangram Raje\nAbout the Role\nAI has made it incredibly easy to produce content. There are more articles, posts, emails, videos, and opinions competing for people's attention every day.\nWe think this makes genuinely good content more valuable.\nWe're looking for a Content Marketing Intern who wants to become exceptionally good at understanding an audience, finding ideas worth talking about, and turning those ideas into work people actually want to read, watch, save, share, and come back to.\nAt Prodigal, good content starts with understanding.\nYou'll learn how financial institutions operate, how their teams work, what their customers experience, what executives care about, where processes break, and how AI is changing the industry. We go unusually deep into these details. We obsess over the people, processes, regulations, and edge cases that shape how this industry actually works.\nThat level of understanding should show up in everything we publish.\nWe want someone inside the industry to encounter something from Prodigal and think:\nHow do they know that?\nAnd we want the content to be good enough that they keep reading.\nThis is an Intern + PPO opportunity (performance based).\nWhat You'll Do\nResearch deeply\nIdeas can come from anywhere: earnings calls, annual reports, customer conversations, regulatory filings, job postings, datasets, online c",
+      "company": "Prodigal",
+      "source": "Prodigal",
+      "priority": false,
+      "preferredQualifications": "",
+      "deadline": "",
+      "fingerprint": "prodigal|content marketing intern|mumbai",
+      "firstSeen": "2026-11-07T10:17:02.218Z",
+      "lastSeen": "2026-11-07T10:17:02.218Z",
+      "open": true,
+      "repostOf": null
+    },
+    {
+      "id": "greenhouse-prodigal-5284033007",
+      "title": "People Ops Intern",
+      "url": "https://job-boards.greenhouse.io/prodigal/jobs/5284033007",
+      "location": "Mumbai",
+      "minQualifications": "About Prodigal\nProdigal is the connected AI platform leading financial institutions use to run their operations.\nWe work with banks, lenders, credit unions, and other financial companies that lend money to people and manage those relationships over time.\nThese institutions make millions of high-stakes decisions every day. Who should they reach? When should they reach them? What should they say or offer? When should a case move to a human? How should that change based on the borrower, the account, previous interactions, and the regulations involved?\nGetting those decisions right requires a deep understanding of the people, processes, rules, and edge cases behind them.\nProdigal has spent the last eight years building that understanding. More than a billion interactions between financial institutions and their customers have shaped the intelligence, guardrails, and AI agents we now run in production across North America.\nToday, our AI agents analyze conversations, capture context, guide human agents, decide the next action, conduct customer conversations, orchestrate outreach, and help people complete payments and resolutions. They are connected, so what is learned in one interaction can inform what happens next.\nWe are expanding this swarm of AI agents across more of the work financial institutions do: originations, document processing, back-office workflows, servicing, and other critical operations where money, identity, people, and regulation intersect.\nWe are backed by Y Combinator, Accel, and Menlo Ventures, and work with 100+ financial institutions across North America. Listen directly from our CTO, Cofounder - Sangram Raje\nWhat You'll Own\nOnboarding Experience\nSupport employee lifecycle through onboarding and offboarding activities.\nCoordinate background verification, and joining formalities.\nPartner with DevOps and Finance to make sure systems and access are sorted from day 1.\nPeople Ops &amp; Continuous Improvement\nMaintain and update employee information, ensuring data accuracy and confidentiality.\nAssist in preparing HR letters, employment documents, and other employee-related documentation.\nSpot friction or gaps in how things run today and pitch practical fixes, we want your ideas, not just your execution.\nExplore and apply AI tools to improve HR processes efficiency.\nEmployee Engagement\nAssist in employee engagement activities, wellness initiatives, and HR events.\nOwn the logistics behind our weekly Friday team rituals, keeping the energy consistent and something people actually look forward to, week after week.\nDesign and run team bonding activities that actually land, the kind people talk about afterward, not just check off a calendar.\nPayroll Support\nSupport payroll administration and review employee reimbursement submissions against the travel and expense policy.\nWhat we are looking for\nBonus points for prior exposure to HR, operations, or admin work.\nNaturally organized and detail-oriented, the kind of person who catches the thing ",
+      "company": "Prodigal",
+      "source": "Prodigal",
+      "priority": false,
+      "preferredQualifications": "",
+      "deadline": "",
+      "fingerprint": "prodigal|people ops intern|mumbai",
+      "firstSeen": "2026-11-07T10:17:02.218Z",
+      "lastSeen": "2026-11-07T10:17:02.218Z",
+      "open": true,
+      "repostOf": null
+    },
+    {
+      "id": "greenhouse-rubrik-8166514",
+      "title": "ENG Project/ Program - Intern",
+      "url": "https://www.rubrik.com/company/careers/departments/job.8166514?gh_jid=8166514",
+      "location": "Bangalore",
+      "minQualifications": "ABOUT THE JOB\nWe are looking for a highly organised and motivated Project/ Program Manager Intern to join our dynamic team. As an intern, you'll assist in managing our On Prem/Saas product delivery. You will assist in the planning, managing, and execution of several technical programs and initiatives each year for our Engineering Organisation across our Product portfolio. You will get an first-hand experience in driving the improvement of our processes throughout the development, validation and deployment lifecycle. You will be collaborating with stakeholders and understanding the components of delivering large features/ initiatives and their associated technical complexities. This role will provide you the opportunity to learn how to navigate complex situations while evaluating risks and aligning with business priorities. You will learn to manage tasks while working in a fast-paced environment and developing your technical expertise. Your responsibilities will include assisting in driving metrics improvement, learning to communicate the current status, and helping in delivering features to market.\nResponsibilities include:\nPlanning &amp; Execution:\n- Assist in defining program scope, goals, milestones &amp; success metrics\n- Develop &amp; maintain project plans, schedules &amp; documentation\n- Track project progress and communicate updates to stakeholders\n- Create dashboards or reports to track progress, KPIs\nCoordination and Communication:\n- Collaborate with Engineering and Product Leadership and functions such as Engineering, Product Management, Customer Support etc. to prioritize, plan, and deliver new features and products to the market.\n- Assisting in the communication of schedules, status, and issues to stakeholders.\n- Assist in running effective and efficient meetings that accomplish goals in a timely manner.\nRisk Management:\n- Identifying potential risks and assisting in the development of mitigation plans.\n- Collaborating with development teams to aid in addressing and resolving issues that may impact timelines.\nContinuous Improvement:\n- Recommending tools and methodologies to enhance efficiency and automation\n- Document lessons learned and best practices for future projects\nMandatory Skills &amp; Qualifications:\nPursuing a Bachelor’s or Master’s degree in Computer Science, Engineering, Information Systems or a related field.\nStrong organizational and analytical skills\nBasic understanding of Software development lifecycle(SDLC) and agile methodologies\nExcellent written and verbal communication skills\nAbility to learn fast and work collaboratively in a fast-paced team environment\nPreferred/Nice-to-have skills\nExposure to Cloud Platforms - AWS/Azure/GCP\nExposure to Storage domain\nExposure to Enterprise product development\nMinimum eligibility criteria\n- CGPA 8 and above\n- 2027 graduates of Circuital branches only\n- Available from January 2027 to May 2027 in Bangalore for the onsite internship (No remote options)\nJoin Us in Securing and Acc",
+      "company": "Rubrik",
+      "source": "Rubrik",
+      "priority": false,
+      "preferredQualifications": "",
+      "deadline": "",
+      "fingerprint": "rubrik|eng project program intern|bangalore",
+      "firstSeen": "2026-11-07T10:17:02.218Z",
+      "lastSeen": "2026-11-07T10:17:02.218Z",
+      "open": true,
+      "repostOf": null
+    },
+    {
+      "id": "greenhouse-rubrik-8266405",
+      "title": "Industrial Trainee",
+      "url": "https://www.rubrik.com/company/careers/departments/job.8266405?gh_jid=8266405",
+      "location": "Bangalore",
+      "minQualifications": "Intern – CA Industrial Trainee (Accounting / Reporting)\nAbout the Role\nWe are offering an excellent learning opportunity within our International Accounting &amp; Reporting team based at Bangalore. Designed specifically for CA students seeking industrial training, this role supports our U.S. GAAP accounting team or International Reporting team. You will step into a global corporate environment, partner with team members worldwide, and gain hands-on exposure to corporate accounting principles, change management, and complex issue resolution. We are looking for motivated individuals who thrive in a fast-paced setting and embrace new challenges.\nAbout the Team\nOur global accounting team is the backbone of our financial reporting. We are responsible for finalizing the financial statements for all subsidiaries across North America, EMEA, and APAC, ensuring strict adherence to the required GAAP in each country. This team drives compliance with regulatory guidelines and corporate accounting policies. From managing accurate and timely book closures to overseeing financial audits, GL management, and reconciliations, we maintain and elevate the overall control environment.\nWhat You’ll Be Doing\nSupport the Close Process: Assist the team with month-end and quarter-end U.S. GAAP close processes and related departmental responsibilities.\nExecute Accounting Tasks: Participate in the accurate and timely execution of close procedures to ensure highly reliable financial reporting.\nCollaborate Globally: Work closely with the broader corporate accounting team, shadowing experts to support a seamless monthly book closure.\nLearn Risk Assessment: Help analyze accounts to assess financial risks and learn to apply professional judgment to ensure the integrity of accounting entries, accruals, and reconciliations.\nPrepare Documentation: Draft journal entries and assist in maintaining account reconciliations consistent with strict corporate policies.\nAudit Support: Assist in preparing and maintaining essential reports and schedules for management, as well as those requested by internal and external auditors.\nGST &amp; WHT: Support the reconciliation process, prepare and file tax returns, and manage refund applications as applicable.\nTechnical Research: Support the team in researching complex technical accounting issues, gaining valuable exposure to how a global company documents and communicates its accounting positions.\nInternal Controls (SOX): Gain practical, hands-on exposure to the organization's internal control framework (SOX) by assisting in control procedures to ensure company-wide compliance.\nContinuous Learning: Stay current on evolving Accounting Standards pronouncements and learn how to directly apply them in a modern corporate setting.\nWho We Are Looking For\nCurrently pursuing a Chartered Accountancy (CA) qualification.\nEligible and actively seeking mandatory CA Industrial Training.\nStrong theoretical foundation in accounting principles (U.S. GAAP or IFRS knowl",
+      "company": "Rubrik",
+      "source": "Rubrik",
+      "priority": false,
+      "preferredQualifications": "",
+      "deadline": "",
+      "fingerprint": "rubrik|industrial trainee|bangalore",
+      "firstSeen": "2026-11-07T10:17:02.218Z",
+      "lastSeen": "2026-11-07T10:17:02.218Z",
+      "open": true,
+      "repostOf": null
+    },
+    {
+      "id": "greenhouse-rubrik-8305308",
+      "title": "Payroll Industrial Trainee",
+      "url": "https://www.rubrik.com/company/careers/departments/job.8305308?gh_jid=8305308",
+      "location": "Bangalore",
+      "minQualifications": "A Payroll Intern – will be learning the payroll activities phase wise and while the role is responsible for supporting Payroll team members with assigned payroll tasks, employee supports (answering emails, filing, collecting data, Payroll Validation and forms collection), and support to maintaining accurate payroll records.\nHere's a more detailed breakdown of the role:\nKey Learnings and Responsibilities:\nBasic activities of Payroll:\nThis Role will start understanding the Payroll Activities from the Basics to Statutory compliance.\nSupport on Payroll Activities for North America (US and Canada)\nKey Responsibilities\nData Collection and Verification:\nCollect New hires data, payroll required forms, and other relevant information from New Hires.\nVerify all information for new hires are correctly completed in these form and other payroll-related data.\nValidate the Offer letters\nPayroll Processing supports\nHelping with payroll tasks as required by Payroll specialist and Payroll Manager.\nHelp to provide the basic level for payroll processing related activities (like validating forma, communifi, commission, etc.)\nRecord Keeping and Audit Requirements:\nRetrieve and manage payroll information as needed.\nMaintain accurate and up-to-date payroll records which will be aligned with the Audit requirements\nNeed to help the team in collating the Audit requirement.\nProvide support for year-end activities.\nOther Duties:\nAssist with payroll inquiries from employees.\nPrepare payroll reports and statements.\nMay assist with other administrative tasks as needed.\nSupport on Statutory Compliance based on country specific.\nSupport GL team on payroll Recons and Fluxes\nWill be supporting the Payroll team in the new development projects to improve the Team Process.\nSkills and Qualifications:\nEducation:CA Intern and eligible for industrial training.\nSkills:\nStrong communication skills, both verbal and written.\nProficiency in Microsoft Office Suite (particularly Excel, Word, and Outlook).\nAbility to work effectively in a team environment and collaborate with colleagues.\nAttention to detail and accuracy in performing tasks.\nStrong organizational skills and the ability to prioritize tasks.\nEagerness to learn and develop new skills in the accounting field.\nPrior internship or work experience in Payroll accounting or finance is a plus.\nStrong attention to detail and accuracy.\nProficiency in data entry and computer systems.\nExperience: Some experience in payroll processing or accounting is often preferred.\nBenefits:\nHands-on experience and mentorship from seasoned professionals.\nExposure to diverse accounting tasks and projects.\nOpportunity to develop skills and knowledge in accounting and finance.\nCompetitive compensation package.\nLearn US and Canada Countries Payroll.\nFriendly and supportive work environment.\nJoining our Finance department as Payroll Apprentice will provide you with a solid foundation for a successful career in Payroll Accounting. We encourage you to apply if you ar",
+      "company": "Rubrik",
+      "source": "Rubrik",
+      "priority": false,
+      "preferredQualifications": "",
+      "deadline": "",
+      "fingerprint": "rubrik|payroll industrial trainee|bangalore",
+      "firstSeen": "2026-11-07T10:17:02.218Z",
+      "lastSeen": "2026-11-07T10:17:02.218Z",
+      "open": true,
+      "repostOf": null
+    },
+    {
+      "id": "greenhouse-rubrik-8345283",
+      "title": "Product Management Intern",
+      "url": "https://www.rubrik.com/company/careers/departments/job.8345283?gh_jid=8345283",
+      "location": "Bangalore",
+      "minQualifications": "Product Management Intern – Identity Resilience\nAbout the Team &amp; Role\nThe Product Management team at Rubrik drives forward our vision of delivering a market-leading platform that addresses the world’s most critical cyber resilience and data security challenges.\nThe Identity Resilience team is Rubrik’s fastest-growing business unit, operating with a high-velocity \"0-to-1\" charter. Today, modern cyberattacks almost exclusively weaponize identity systems. When identity fails, the entire enterprise halts. Our mission is to ensure enterprise identity environments are secure, observable, compliant, and instantly recoverable.\nWe are looking for a strategically sharp, technical, and execution-minded Product Management Intern for a high-impact 2-month internship based in Bengaluru. As an intern, you will own a core strategic initiative – bridging enterprise customer pain points, competitive differentiation, and technical architecture to deliver a concrete product roadmap for next-generation identity protection.\nWhat You’ll Do (2-Month Charter)\nMarket Landscape &amp; Threat Vector Analysis: Benchmark the enterprise identity attack surface across hybrid environments. Map emerging threat vectors to potential resilience and recovery capabilities.\nCustomer Discovery &amp; Pain Point Synthesis: Work alongside PM and GTM mentors to analyze customer requirements, telemetry data, and enterprise security frameworks to pinpoint the highest-friction operational gaps for Security and IAM teams.\nFeature Strategy &amp; PRD Ownership: Define the scope, user workflows, and success metrics for a targeted identity protection/recovery feature. Author a high-quality Product Requirement Document (PRD) balancing enterprise-grade depth with Rubrik’s trademark simplicity.\nCross-Functional Architecture Alignment: Collaborate closely with Engineering, UX Design, and Architecture leads to evaluate technical trade-offs, define API/data pipeline requirements, and ensure feasibility.\nExecutive Strategy Pitch: Conclude your internship with an Executive Product Readout to Senior Leadership, defending your business case, technical trade-offs, and proposed roadmap.\nWhat You’ll Need\nEducation: Currently enrolled in a premier MBA/management program (IIM, ISB, or equivalent global top-tier business school) graduating in 2027/28\nTechnical Foundation: Bachelor’s degree in Computer Science, Information Technology, or an equivalent engineering discipline. Prior product management or technical experience in enterprise systems, cloud platforms, or cybersecurity is a strong plus.\nSystems &amp; Security Thinking: An understanding of enterprise software fundamentals; familiarity with core identity concepts is an advantage.\nProblem Solving: Comfort with ambiguity, structured thinking, and the ability to break complex, undefined problems into crisp, actionable requirements.\nCommunication &amp; Influence: Exceptional written and verbal communication skills with the ability to articulate technical tra",
+      "company": "Rubrik",
+      "source": "Rubrik",
+      "priority": false,
+      "preferredQualifications": "",
+      "deadline": "",
+      "fingerprint": "rubrik|product management intern|bangalore",
+      "firstSeen": "2026-11-07T10:17:02.218Z",
+      "lastSeen": "2026-11-07T10:17:02.218Z",
+      "open": true,
+      "repostOf": null
+    },
+    {
+      "id": "greenhouse-rubrik-8166537",
+      "title": "Software Engineer (CPD) - Winter Intern",
+      "url": "https://www.rubrik.com/company/careers/departments/job.8166537?gh_jid=8166537",
+      "location": "Bangalore",
+      "minQualifications": "ABOUT THE JOB\nWe are looking for a Software Engineer - Intern to join our Continuous Product Development (CPD) team in Bangalore. We believe in giving engineers responsibility, not tasks. Our goal is to motivate and challenge people to do their best work. To do that, we have a very fluid structure and give people the flexibility to work on projects that they enjoy the most. This develops more capable engineers and keeps everyone engaged and happy.\nAbout CPD\nCPD stands for Continuous Product Development. CPD-SWE is the part of the engineering org that focuses on E2E ownership of established products.\nResponsibilities\nIdentify and solve bottlenecks within our software stack by\nDesign, develop, test, deploy, maintain, and improve the software.\nManage individual project priorities, deadlines, and deliverables with your technical expertise.\nAbout You\nInterns are self-starters, driven, and can manage themselves. Bottom line, if you have a limitless drive and like to win, we want to talk to you - come make history!\nBachelor’s or Master’s degree, preferably in Computer Science\nProficiency in one or more general-purpose object-oriented programming languages like Java, C/C++, Scala, Python\nMinimum eligibility criteria\n- CGPA 8 and above\n- 2027 graduates of Circuital branches only\n- Available from January 2027 to May 2027 in Bangalore for the onsite internship (No remote options)\nJoin Us in Securing and Accelerating the World's AI Transformation\nRubrik (NYSE: RBRK) is the Security and AI Operations Company, delivering one platform built at the intersection of data, identity, and AI. The platform enables agentic cyber resilience and trusted AI operations for enterprises worldwide, built to recover before disruption strikes and stay a step ahead, so security is never the reason ambition stalls.\nLinkedin | X (formerly Twitter) | Instagram | Rubrik.com\nInclusion @ Rubrik\nAt Rubrik, we are dedicated to fostering a culture where people from all backgrounds are valued, feel they belong, and believe they can succeed. Our commitment to inclusion is at the heart of our mission to secure the world’s data.\nOur goal is to hire and promote the best talent, regardless of background. We continually review our hiring practices to ensure fairness and strive to create an environment where every employee has equal access to opportunities for growth and excellence. We believe in empowering everyone to bring their authentic selves to work and achieve their fullest potential.\nOur inclusion strategy focuses on three core areas of our business and culture:\nOur Company: We are committed to building a merit-based organization that offers equal access to growth and success for all employees globally. Your potential is limitless here.\nOur Culture: We strive to create an inclusive atmosphere where individuals from all backgrounds feel a strong sense of belonging, can thrive, and do their best work. Your contributions help us innovate and break boundaries.\nOur Communities: We are dedicat",
+      "company": "Rubrik",
+      "source": "Rubrik",
+      "priority": false,
+      "preferredQualifications": "",
+      "deadline": "",
+      "fingerprint": "rubrik|software engineer cpd winter intern|bangalore",
+      "firstSeen": "2026-11-07T10:17:02.218Z",
+      "lastSeen": "2026-11-07T10:17:02.218Z",
+      "open": true,
+      "repostOf": null
+    },
+    {
+      "id": "ashby-sarvam-bba82f34-1544-421e-a393-3edd8a5f4cb2",
+      "title": "Marketing internship (brand & communication)",
+      "url": "https://jobs.ashbyhq.com/sarvam/bba82f34-1544-421e-a393-3edd8a5f4cb2",
+      "location": "Bengaluru",
+      "minQualifications": "About Sarvam\n\nSarvam is building the bedrock of Sovereign AI for India, a full-stack sovereign AI platform spanning research, models, infrastructure, and applications, with a singular focus on making AI genuinely work for India. Sarvam works with leading enterprises and public institutions and is backed by Lightspeed, Peak XV, and Khosla Ventures. We partner with India's leading brands, including Tata Capital, SBI Life, CRED, IDFC, and LIC.\n\n\n\nAbout the Role\n\nWe are looking for a sharp, high-ownership Marketing Intern to act as the primary story-builder and content engine across Sarvam’s marketing channels.\n\nThis is not a passive internship focused on surface-level social updates. You will translate complex frontier AI capabilities like our Vision APIs, Document Intelligence models, and voice platforms into crisp, high-impact stories, viral launch threads, and sharp enterprise collateral. You will sit at the intersection of product, creative execution, and creator operations, helping shape how Sarvam communicates its sovereign AI vision to technical builders, enterprise buyers, and the broader ecosystem.\n\n\n\nWhat You'll Do\n\nCustomer Stories & Launch Comms\n\n - Transform technical milestones into narratives: Turn enterprise customer deployments into compelling case studies and written success stories.\n\n - Drive product launch comms: Draft multi-channel launch content—from sharp X/LinkedIn feature threads to enterprise mailers for prospects and existing clients.\n\n - Simplify the complex: Translate technical AI concepts into clear, punchy prose without losing accuracy or depth.\n\nSocial Content & Video Operations\n\n - Drive video execution: Write scripts for explainer videos and product walkthroughs; coordinate shoots and post-production workflows.\n\n - Manage multi-platform publishing: Oversee daily social presence across X, LinkedIn, Instagram, and YouTube, ensuring high content velocity and visual quality.\n\nCreator & Influencer Operations\n\n - Manage creator partnerships: Source, pitch, and recruit relevant tech creators, developer voices, and industry influencers.\n\n - Execute campaign logistics: Draft campaign briefs, align timelines, and track deliverables from initial outreach to final publish.\n\n\n\nWhat We're Looking For\n\n - Editorial precision: Exceptional written English skills with an instinct for tone, structure, and clarity across social, email, and long-form formats.\n\n - Technical translation capability: Comfortable diving into technical platforms, developer dashboards, or AI research to write simple, accurate marketing copy.\n\n - AI-first workflow: Habitual use of AI tools for rapid research, content structuring, and drafting.\n\n - Platform fluency: Deep, native understanding of content formats, algorithms, and tone across X, LinkedIn, Instagram, and YouTube.\n\n - Execution & ownership: Uncompromising attention to detail, strong organizational discipline, and the ability to drive multiple deadlines without hand-holding.\n\n\n\nBonus Points\n\n - Hands-",
+      "company": "Sarvam AI",
+      "source": "Sarvam AI",
+      "priority": false,
+      "preferredQualifications": "",
+      "deadline": "",
+      "fingerprint": "sarvam ai|marketing internship brand communication|bengaluru",
+      "firstSeen": "2026-11-07T10:17:02.218Z",
+      "lastSeen": "2026-11-07T10:17:02.218Z",
+      "open": true,
+      "repostOf": null
+    },
+    {
+      "id": "greenhouse-stripe-8131339",
+      "title": "Operations Associate, Apprenticeship",
+      "url": "https://stripe.com/jobs/search?gh_jid=8131339",
+      "location": "Bengaluru",
+      "minQualifications": "Who we are\nAbout Stripe\nStripe is a financial infrastructure platform for businesses. Millions of companies—from the world's largest enterprises to the most ambitious startups—use Stripe to accept payments, grow their revenue, and accelerate new business opportunities. Our mission is to increase the GDP of the internet, and we have a staggering amount of work ahead. That means you have an unprecedented opportunity to put the global economy within everyone's reach while doing the most important work of your career.\nAbout the team\nStripe was built with simplicity in mind. We strive to deliver frictionless experiences for all of our users, whether they are an Independent Business, Startup, SMB, or Enterprise, and our mission is to provide all Stripe Users with the best support experience possible. Today, Stripe handles over a million support cases per year and processes millions of internal transactions. We're going to achieve excellence by thinking of support in a novel, solution-oriented way, and viewing operations as an integral enabler of all of Stripe's growth.\nStripe has unique operational problems resulting from both our type of scale and the type of businesses we partner with as a result of \"growing the GDP of the Internet.\" Stripes leverage understanding of our products, the financial industry and money movement, and our processes to support both internal and external users. Doing so requires us to invest significant resources into building this experience ourselves.\nWhat you'll do\nResponsibilities\nDevelop a foundational understanding of our products, services, and features to assist customers effectively\nRespond promptly and professionally to customer inquiries via email, providing accurate information and resources\nDiagnose and troubleshoot customer issues under the guidance of senior team members, escalating complex issues to appropriate departments\nFollow up with customers to ensure their issues are fully resolved and they are satisfied with the service provided\nMaintain accurate and detailed records of customer interactions, issues, and resolutions using internal tools\nParticipate in team meetings, training sessions, and continuous learning initiatives to enhance skills and knowledge\nEngage in comprehensive training programs, seeking feedback and actively working on improving performance and developing professional skills\nWho you are\nWe're looking for someone who meets the minimum requirements to be considered for the role. If you meet these requirements, you are encouraged to apply. The preferred qualifications are a bonus, not a requirement.\nMinimum requirements\nYou have a user-first mindset and are energized by the challenge of solving difficult problems.\nYou have excellent English communication skills, both written and verbal.\nYou excel in analytical thinking, open-ended research, and problem solving.\nYou enjoy learning about technical products and processes. You are an organized self-starter with a passion for finding solutions.\nY",
+      "company": "Stripe",
+      "source": "Stripe",
+      "priority": false,
+      "preferredQualifications": "",
+      "deadline": "",
+      "fingerprint": "stripe|operations associate apprenticeship|bengaluru",
+      "firstSeen": "2026-11-07T10:17:02.218Z",
+      "lastSeen": "2026-11-07T10:17:02.218Z",
+      "open": true,
+      "repostOf": null
+    },
+    {
+      "id": "greenhouse-stripe-8031833",
+      "title": "Software Engineer, Intern",
+      "url": "https://stripe.com/jobs/search?gh_jid=8031833",
+      "location": "Bengaluru",
+      "minQualifications": "Who we are\nAbout Stripe\nStripe is a technology company focused on improving the conditions for economic growth and prosperity. We build programmable financial infrastructure, rethinking from first principles how financial services should work, to make it easier and cheaper for any business to start and scale. More than 10 million businesses build on Stripe, spanning the economic frontier—from solo founders to established enterprises—united by a practical focus on growth. The most ambitious companies in the world use Stripe as core infrastructure to grow faster. They process trillions of dollars a year on Stripe, equivalent to around 1.6% of global GDP. While economic growth makes everyone better off, open markets also enable greater variety. When any business can easily serve a global customer base, the quality and diversity of products in the world increase, and craft and creativity are unleashed into the smallest niches. Our own growth is wholly contingent on the success of the businesses building on Stripe. We therefore invest back into our technology at an unusual rate. We make upgrades to our products every single day to deliver compounding gains to our customers. We maintain some of the most reliable APIs on the internet. We build entirely new pieces of financial infrastructure to enable new ideas. And our significant advances in risk and fraud infrastructure over many years are making the internet economy safer and more accessible.\nThough people at Stripe don’t tend to take themselves seriously, Stripe is a fairly serious place: our customers are depending on us for their livelihoods. We admire ambition, intensity, curiosity, humility, and rigor. The most effective people become knowledgeable about many domains besides their own. Any company is an applied exercise in understanding some aspect of society or the market. In working with so many (especially the new and innovative ones), we think that Stripe is one of the very best places to learn about how the world works.\nWhat you’ll do\nAs an intern at Stripe you’ll work on projects across our stack that directly impact the way millions of businesses operate. You’ll own problems end to end with the support of your manager and teammates. It’s an opportunity to work alongside some of the most creative and technically rigorous engineers in the industry and learn how to ship high-quality work at scale. By contributing to Stripe’s codebase you’ll work across domains that give you insight into how the global economy works. Recent intern projects include expanding Stripe’s Payments Foundation Model capabilities to improve generalized anomaly detection, building more approachable fraud controls, creating safer payouts, and developing user-facing solutions that prevent costly pricing mistakes and make merchant checkout setup easier.\nOur internship program is competitive and the expectations are high.\nResponsibilities\nOperate as a real member of the team you join; engage in team discussions, decisions,",
+      "company": "Stripe",
+      "source": "Stripe",
+      "priority": false,
+      "preferredQualifications": "",
+      "deadline": "",
+      "fingerprint": "stripe|software engineer intern|bengaluru",
+      "firstSeen": "2026-11-07T10:17:02.218Z",
+      "lastSeen": "2026-11-07T10:17:02.218Z",
+      "open": true,
+      "repostOf": null
+    },
+    {
+      "id": "greenhouse-towerresearchcapital-8239067",
+      "title": "HR Intern",
+      "url": "https://www.tower-research.com/open-positions/?gh_jid=8239067",
+      "location": "Gurgaon",
+      "minQualifications": "Tower Research Capital is a leading quantitative trading firm founded in 1998. Tower has built its business on a high-performance platform and independent trading teams. We have a 25+ year track record of innovation and a reputation for discovering unique market opportunities.\nTower is home to some of the world’s best systematic trading and engineering talent. We empower portfolio managers to build their teams and strategies independently while providing the economies of scale that come from a large, global organization.\nEngineers thrive at Tower while developing electronic trading infrastructure at a world class level. Our engineers solve challenging problems in the realms of low-latency programming, FPGA technology, hardware acceleration and machine learning. Our ongoing investment in top engineering talent and technology ensures our platform remains unmatched in terms of functionality, scalability and performance.\nAt Tower, every employee plays a role in our success. Our Business Support teams are essential to building and maintaining the platform that powers everything we do — combining market access, data, compute, and research infrastructure with risk management, compliance, and a full suite of business services. Our Business Support teams enable our trading and engineering teams to perform at their best\nAt Tower, employees will find a stimulating, results-oriented environment where highly intelligent and motivated colleagues inspire each other to reach their greatest potential.\nResponsibilities :\nThe HR Intern will work closely with the Recruitment and HRBP team, supporting end-to-end recruitment activities, interview coordination, and other HR initiatives.\n● Supporting recruitment activities, including scheduling interviews, coordinating feedback, and assisting with documentation.\n● Managing candidate communication and interview coordination to ensure a timely, seamless, and positive candidate experience .\n● Supporting campus recruitment initiatives, including university coordination, application management, assessments, interview scheduling, and offer processes.\n● Maintaining accurate and up-to-date candidate information in Greenhouse and other internal trackers.\nQualifications :\n● Holding a Master of Business Administration (MBA) in Human Resources.\n● Demonstrating strong written, verbal, and interpersonal communication skills.\n● Showing enthusiasm for interacting with candidates and stakeholders.\n● Maintaining strong attention to detail and taking a proactive approach to work.\n● Managing multiple tasks, priorities, and timelines in a fast-paced environment.\n● Building a career in Recruitment/Talent Acquisition/Human Resources, with prior internship or project experience being an advantage.\nBenefits:\nTower’s headquarters are in the historic Equitable Building, right in the heart of NYC’s Financial District and our impact is global, with over a dozen offices around the world.\nAt Tower, we believe work should be both challenging and enjoy",
+      "company": "Tower Research Capital",
+      "source": "Tower Research Capital",
+      "priority": false,
+      "preferredQualifications": "",
+      "deadline": "",
+      "fingerprint": "tower research capital|hr intern|gurgaon",
+      "firstSeen": "2026-11-07T10:17:02.218Z",
+      "lastSeen": "2026-11-07T10:17:02.218Z",
+      "open": true,
+      "repostOf": null
+    },
     {
       "title": "Software Engineering PhD Intern, Summer 2027",
       "url": "https://www.google.com/about/careers/applications/jobs/results/109976286780105414-software-engineering-phd-intern-summer-2027",
@@ -28,7 +791,7 @@
       "priority": false,
       "fingerprint": "google|software engineering phd intern summer 2027|bengaluru karnataka india",
       "firstSeen": "2026-11-06T15:15:56.838Z",
-      "lastSeen": "2026-11-07T09:58:46.690Z",
+      "lastSeen": "2026-11-07T10:17:02.218Z",
       "open": true,
       "repostOf": null,
       "detailAttempts": 1,
@@ -47,7 +810,7 @@
       "priority": false,
       "fingerprint": "google|silicon engineering intern phd summer 2027|bengaluru karnataka india",
       "firstSeen": "2026-11-06T15:15:56.838Z",
-      "lastSeen": "2026-11-07T09:58:46.690Z",
+      "lastSeen": "2026-11-07T10:17:02.218Z",
       "open": true,
       "repostOf": null,
       "detailAttempts": 1,
@@ -66,7 +829,7 @@
       "priority": false,
       "fingerprint": "google|research scientist phd intern summer 2027|hyderabad telangana india",
       "firstSeen": "2026-11-06T15:15:56.838Z",
-      "lastSeen": "2026-11-07T09:58:46.690Z",
+      "lastSeen": "2026-11-07T10:17:02.218Z",
       "open": true,
       "repostOf": null,
       "detailAttempts": 1,
@@ -85,7 +848,7 @@
       "priority": false,
       "fingerprint": "google|student researcher 2027|india",
       "firstSeen": "2026-11-06T15:15:56.838Z",
-      "lastSeen": "2026-11-07T09:58:46.690Z",
+      "lastSeen": "2026-11-07T10:17:02.218Z",
       "open": true,
       "repostOf": null,
       "detailAttempts": 1,
