@@ -1564,3 +1564,24 @@ test('launch: if a step after the deletion fails, the retry does not delete new 
   assert.ok(world.table('Students').some((row) => row.responseId === 'after'), 'the new sign-up survived the retry');
 });
 
+test('"no openings" waits while open jobs are still being matched', () => {
+  const world = ready([]);
+  world.props.GEMINI_API_KEY = 'k';
+  world.gemini = () => ({ code: 500, body: '' });
+  world.sandbox.CONFIG.GEMINI_READS_PER_TICK = 0;
+  signUp(world);
+  world.sandbox.tick();
+  world.sent.length = 0;
+  world.hour = 23;
+  world.jobs = [makeJob('fresh')];
+  world.sandbox.tick();
+  assert.equal(world.sent.filter((m) => /No new openings/.test(m.subject)).length, 0, 'job still waiting to be matched');
+  world.jobs = [makeJob('fresh', { firstSeen: new Date(Date.now() - 3 * 3600000).toISOString() })];
+  const row = world.table('Jobs')[0];
+  row.firstSeen = new Date(Date.now() - 3 * 3600000).toISOString();
+  world.sandbox.updateRow_('Jobs', row);
+  world.sandbox.tick();
+  assert.ok(world.sent.some((m) => /new role/.test(m.subject)), 'the real digest goes once matched');
+  assert.equal(world.sent.filter((m) => /No new openings/.test(m.subject)).length, 0);
+});
+

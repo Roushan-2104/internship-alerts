@@ -125,7 +125,9 @@ function sendDailyDigests_(students, digestRows, jobs, roomFor, sendNow) {
     return String(student.lastDigestDate) !== today && hour >= digestHour(student.email);
   });
   var withJobs = due.filter(function (student) { return rowsFor[student.responseId]; });
-  var withoutJobs = sendNow ? [] : due.filter(function (student) { return !rowsFor[student.responseId]; });
+  // "No openings" would be wrong while open jobs are still waiting to be matched, so it waits too.
+  var matchingPending = readTable_('Jobs').some(function (job) { return isTrue_(job.open) && !job.processedAt; });
+  var withoutJobs = sendNow || matchingPending ? [] : due.filter(function (student) { return !rowsFor[student.responseId]; });
 
   withJobs.concat(withoutJobs).forEach(function (student) {
     if (!roomFor(student, CONFIG.QUOTA_RESERVED_FOR_INSTANT)) return;
