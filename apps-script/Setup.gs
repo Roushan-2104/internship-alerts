@@ -81,3 +81,39 @@ function installTriggers_(formId) {
   ScriptApp.newTrigger('sendHeartbeat').timeBased().onWeekDay(ScriptApp.WeekDay.MONDAY).atHour(9).create();
   ScriptApp.newTrigger('onFormSubmit').forForm(formId).onFormSubmit().create();
 }
+
+var COMPANY_HEADERS = ['Company', 'Type', 'Board', 'Enabled', 'Group', 'Notes'];
+
+/**
+ * Run once from the editor. Creates a separate Companies spreadsheet, so publishing it can
+ * never expose student data, and fills it with the current company list from GitHub.
+ * Running it again leaves an existing sheet untouched, so your edits are safe.
+ */
+function setupCompanies() {
+  var existingId = prop_('COMPANIES_SHEET_ID');
+  if (existingId) {
+    Logger.log('Companies sheet already exists: ' + SpreadsheetApp.openById(existingId).getUrl());
+    return;
+  }
+  var response = UrlFetchApp.fetch(CONFIG.COMPANIES_SOURCE_URL, { muteHttpExceptions: true });
+  if (response.getResponseCode() !== 200) throw new Error('Could not read the company list from GitHub (HTTP ' + response.getResponseCode() + ').');
+  var companies = JSON.parse(response.getContentText()).companies || [];
+  if (!companies.length) throw new Error('The company list on GitHub is empty.');
+
+  var book = SpreadsheetApp.create('Internship Alerts Companies');
+  var sheet = book.getSheets()[0].setName('Companies');
+  var rows = companies.map(function (c) { return [c.company, c.type, c.board, 'yes', c.group || '', '']; });
+  sheet.getRange(1, 1, 1, COMPANY_HEADERS.length).setValues([COMPANY_HEADERS]).setFontWeight('bold');
+  sheet.getRange(2, 1, rows.length, COMPANY_HEADERS.length).setValues(rows);
+  sheet.setFrozenRows(1);
+  var typeRule = SpreadsheetApp.newDataValidation().requireValueInList(['greenhouse', 'lever', 'ashby', 'smartrecruiters'], true).setAllowInvalid(false).build();
+  var enabledRule = SpreadsheetApp.newDataValidation().requireValueInList(['yes', 'no'], true).setAllowInvalid(false).build();
+  sheet.getRange(2, 2, sheet.getMaxRows() - 1, 1).setDataValidation(typeRule);
+  sheet.getRange(2, 4, sheet.getMaxRows() - 1, 1).setDataValidation(enabledRule);
+  sheet.autoResizeColumns(1, COMPANY_HEADERS.length);
+
+  setProp_('COMPANIES_SHEET_ID', book.getId());
+  Logger.log('Created ' + rows.length + ' companies: ' + book.getUrl());
+  Logger.log('Next: File > Share > Publish to web > Companies > Comma-separated values (.csv) > Publish, then send the link.');
+}
+

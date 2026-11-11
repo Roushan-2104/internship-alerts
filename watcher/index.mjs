@@ -4,7 +4,8 @@ import { fileURLToPath } from 'node:url';
 import { setTimeout as sleep } from 'node:timers/promises';
 import { chromium } from 'playwright';
 import { mergeRun } from './lib.mjs';
-import { readAshby, readGoogle, readGoogleDetail, readGreenhouse, readLever } from './sources.mjs';
+import { readAshby, readGoogle, readGoogleDetail, readGreenhouse, readLever, readSmartRecruiters } from './sources.mjs';
+import { companiesToSources, parseCsv } from './classify.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const JOBS_FILE = process.env.JOBS_FILE || resolve(root, 'data/jobs.json');
@@ -27,6 +28,7 @@ async function readSource(source, config, page) {
     else if (source.type === 'greenhouse') jobs = await readGreenhouse(source, config);
     else if (source.type === 'lever') jobs = await readLever(source, config);
     else if (source.type === 'ashby') jobs = await readAshby(source, config);
+    else if (source.type === 'smartrecruiters') jobs = await readSmartRecruiters(source, config);
     else throw new Error(`Unknown source type: ${source.type}`);
     return { ...baseResult(source), ok: true, jobs };
   } catch (error) {
@@ -71,18 +73,39 @@ async function fillGoogleDetails(state, page, config) {
   }
 }
 
+/**
+ * Reads companies from the published Companies sheet. If it can't be read or has no
+ * usable rows, the list in config/watch.json is used and the problem is reported.
+ */
+async function loadCompanies(config) {
+  const fallback = config.companies.map((c) => ({ ...c, name: c.company, requireJobs: false }));
+  if (!config.companiesCsvUrl) return { sources: fallback, status: null };
+  try {
+    const response = await fetch(config.companiesCsvUrl, { signal: AbortSignal.timeout(30000) });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const { sources, problems } = companiesToSources(parseCsv(await response.text()));
+    if (!sources.length) throw new Error('no usable rows');
+    return { sources, status: { ok: true, count: sources.length, error: problems.length ? problems.join(' | ').slice(0, 500) : null } };
+  } catch (error) {
+    return { sources: fallback, status: { ok: false, count: fallback.length, error: `Could not read the Companies sheet (${error.message}), so the saved list was used` } };
+  }
+}
+
 async function main() {
   const config = JSON.parse(await readFile(resolve(root, 'config/watch.json'), 'utf8'));
   const previous = await loadState();
   const browser = await chromium.launch();
   try {
     const page = await browser.newPage();
+    const companies = await loadCompanies(config);
     const results = [];
-    for (const source of config.sources) {
+    for (const source of [...config.sources, ...companies.sources]) {
       results.push(await readSource(source, config, page));
-      await sleep(config.delayBetweenRequestsMs);
+      // Google pages get a longer pause than the job board APIs.
+      await sleep(source.type === 'google' ? config.delayBetweenRequestsMs : config.delayBetweenApiRequestsMs);
     }
     const next = mergeRun(previous, results, config);
+    if (companies.status) next.sources['Companies sheet'] = { ...companies.status, checkedAt: next.generatedAt };
     await fillGoogleDetails(next, page, config);
     await mkdir(dirname(JOBS_FILE), { recursive: true });
     await writeFile(JOBS_FILE, `${JSON.stringify(next, null, 2)}\n`);

@@ -4,31 +4,12 @@
     "Student Training in Engineering Program",
     "STEP"
   ],
-  "internKeywords": [
-    "intern",
-    "internship",
-    "apprentice",
-    "apprenticeship",
-    "trainee",
-    "student researcher"
-  ],
-  "locationKeywords": [
-    "india",
-    "bengaluru",
-    "bangalore",
-    "hyderabad",
-    "pune",
-    "gurugram",
-    "gurgaon",
-    "mumbai",
-    "chennai",
-    "noida",
-    "delhi"
-  ],
+  "companiesCsvUrl": "",
   "repostWindowDays": 90,
   "closedJobRetentionDays": 180,
   "maxDetailFetchesPerRun": 20,
   "delayBetweenRequestsMs": 2000,
+  "delayBetweenApiRequestsMs": 300,
   "maxDetailAttempts": 3,
   "sources": [
     {
@@ -48,500 +29,554 @@
       "requireJobs": false
     },
     {
-      "type": "ashby",
-      "name": "AIOS",
+      "type": "google",
+      "name": "Google university graduate search",
+      "company": "Google",
+      "url": "https://www.google.com/about/careers/applications/jobs/results/?location=India&target_level=EARLY&q=%22University%20Graduate%22",
+      "keep": "search",
+      "requireJobs": false
+    }
+  ],
+  "companies": [
+    {
       "company": "AIOS",
+      "type": "ashby",
       "board": "aios",
-      "group": "yc",
-      "requireJobs": false
+      "group": "YC startup"
     },
     {
-      "type": "ashby",
-      "name": "AiPrise",
       "company": "AiPrise",
+      "type": "ashby",
       "board": "aiprise",
-      "group": "yc",
-      "requireJobs": false
+      "group": "YC startup"
     },
     {
-      "type": "greenhouse",
-      "name": "Airbnb",
       "company": "Airbnb",
+      "type": "greenhouse",
       "board": "airbnb",
-      "group": "company",
-      "requireJobs": false
+      "group": "Company"
     },
     {
-      "type": "lever",
-      "name": "Aleph",
       "company": "Aleph",
+      "type": "lever",
       "board": "aleph",
-      "group": "yc",
-      "requireJobs": false
+      "group": "YC startup"
     },
     {
-      "type": "greenhouse",
-      "name": "Alpaca",
       "company": "Alpaca",
+      "type": "greenhouse",
       "board": "alpaca",
-      "group": "yc",
-      "requireJobs": false
+      "group": "YC startup"
     },
     {
-      "type": "ashby",
-      "name": "Amplitude",
       "company": "Amplitude",
+      "type": "ashby",
       "board": "amplitude",
-      "group": "yc",
-      "requireJobs": false
+      "group": "YC startup"
     },
     {
-      "type": "greenhouse",
-      "name": "Anthropic",
       "company": "Anthropic",
+      "type": "greenhouse",
       "board": "anthropic",
-      "group": "company",
-      "requireJobs": false
+      "group": "Company"
     },
     {
-      "type": "ashby",
-      "name": "Atlan",
       "company": "Atlan",
+      "type": "ashby",
       "board": "atlan",
-      "group": "company",
-      "requireJobs": false
+      "group": "Company"
     },
     {
+      "company": "Atlys",
       "type": "ashby",
-      "name": "AtoB",
+      "board": "atlys",
+      "group": "Added Nov 2026 (A)"
+    },
+    {
       "company": "AtoB",
+      "type": "ashby",
       "board": "atob",
-      "group": "yc",
-      "requireJobs": false
+      "group": "YC startup"
     },
     {
-      "type": "ashby",
-      "name": "Avoca",
       "company": "Avoca",
+      "type": "ashby",
       "board": "avoca",
-      "group": "yc",
-      "requireJobs": false
+      "group": "YC startup"
     },
     {
+      "company": "Bolna",
       "type": "ashby",
-      "name": "Cardboard",
+      "board": "bolna",
+      "group": "Added Nov 2026 (B)"
+    },
+    {
+      "company": "Bosch Group",
+      "type": "smartrecruiters",
+      "board": "boschgroup",
+      "group": "Added Nov 2026 (B)"
+    },
+    {
       "company": "Cardboard",
+      "type": "ashby",
       "board": "cardboard",
-      "group": "yc",
-      "requireJobs": false
+      "group": "YC startup"
     },
     {
-      "type": "greenhouse",
-      "name": "Coinbase",
+      "company": "Cars24",
+      "type": "smartrecruiters",
+      "board": "cars24",
+      "group": "Added Nov 2026 (C)"
+    },
+    {
       "company": "Coinbase",
+      "type": "greenhouse",
       "board": "coinbase",
-      "group": "company",
-      "requireJobs": false
+      "group": "Company"
     },
     {
-      "type": "lever",
-      "name": "CRED",
+      "company": "Composio",
+      "type": "ashby",
+      "board": "composio",
+      "group": "Added Nov 2026 (A)"
+    },
+    {
       "company": "CRED",
+      "type": "lever",
       "board": "cred",
-      "group": "company",
-      "requireJobs": false
+      "group": "Company"
     },
     {
-      "type": "greenhouse",
-      "name": "Databricks",
       "company": "Databricks",
+      "type": "greenhouse",
       "board": "databricks",
-      "group": "company",
-      "requireJobs": false
+      "group": "Company"
     },
     {
-      "type": "greenhouse",
-      "name": "Datadog",
       "company": "Datadog",
+      "type": "greenhouse",
       "board": "datadog",
-      "group": "company",
-      "requireJobs": false
+      "group": "Company"
     },
     {
-      "type": "ashby",
-      "name": "Deepgram",
       "company": "Deepgram",
+      "type": "ashby",
       "board": "deepgram",
-      "group": "yc",
-      "requireJobs": false
+      "group": "YC startup"
     },
     {
+      "company": "DevRev",
       "type": "greenhouse",
-      "name": "Druva",
+      "board": "devrev",
+      "group": "Added Nov 2026 (B)"
+    },
+    {
       "company": "Druva",
+      "type": "greenhouse",
       "board": "druva",
-      "group": "company",
-      "requireJobs": false
+      "group": "Company"
     },
     {
-      "type": "greenhouse",
-      "name": "Duolingo",
       "company": "Duolingo",
+      "type": "greenhouse",
       "board": "duolingo",
-      "group": "company",
-      "requireJobs": false
+      "group": "Company"
     },
     {
-      "type": "greenhouse",
-      "name": "Elastic",
       "company": "Elastic",
+      "type": "greenhouse",
       "board": "elastic",
-      "group": "company",
-      "requireJobs": false
+      "group": "Company"
     },
     {
-      "type": "lever",
-      "name": "FamPay",
+      "company": "Ema",
+      "type": "ashby",
+      "board": "ema",
+      "group": "Added Nov 2026 (B)"
+    },
+    {
       "company": "FamPay",
+      "type": "lever",
       "board": "fampay",
-      "group": "yc",
-      "requireJobs": false
+      "group": "YC startup"
     },
     {
-      "type": "greenhouse",
-      "name": "Figma",
       "company": "Figma",
+      "type": "greenhouse",
       "board": "figma",
-      "group": "company",
-      "requireJobs": false
+      "group": "Company"
     },
     {
-      "type": "ashby",
-      "name": "Finni Health",
       "company": "Finni Health",
+      "type": "ashby",
       "board": "finni-health",
-      "group": "yc",
-      "requireJobs": false
+      "group": "YC startup"
     },
     {
-      "type": "ashby",
-      "name": "FirstWork",
       "company": "FirstWork",
+      "type": "ashby",
       "board": "firstwork",
-      "group": "yc",
-      "requireJobs": false
+      "group": "YC startup"
     },
     {
-      "type": "ashby",
-      "name": "Flai",
       "company": "Flai",
+      "type": "ashby",
       "board": "flai",
-      "group": "yc",
-      "requireJobs": false
+      "group": "YC startup"
     },
     {
-      "type": "ashby",
-      "name": "Fleek",
       "company": "Fleek",
+      "type": "ashby",
       "board": "fleek",
-      "group": "yc",
-      "requireJobs": false
+      "group": "YC startup"
     },
     {
-      "type": "greenhouse",
-      "name": "Flexport",
       "company": "Flexport",
+      "type": "greenhouse",
       "board": "flexport",
-      "group": "yc",
-      "requireJobs": false
+      "group": "YC startup"
     },
     {
-      "type": "greenhouse",
-      "name": "GitLab",
+      "company": "Freshworks",
+      "type": "smartrecruiters",
+      "board": "freshworks",
+      "group": "Added Nov 2026 (B)"
+    },
+    {
       "company": "GitLab",
+      "type": "greenhouse",
       "board": "gitlab",
-      "group": "company",
-      "requireJobs": false
+      "group": "Company"
     },
     {
+      "company": "Glance",
       "type": "greenhouse",
-      "name": "Groww",
+      "board": "glance",
+      "group": "Added Nov 2026 (A)"
+    },
+    {
       "company": "Groww",
+      "type": "greenhouse",
       "board": "groww",
-      "group": "yc",
-      "requireJobs": false
+      "group": "YC startup"
     },
     {
-      "type": "greenhouse",
-      "name": "HackerRank",
       "company": "HackerRank",
+      "type": "greenhouse",
       "board": "hackerrank",
-      "group": "yc",
-      "requireJobs": false
+      "group": "YC startup"
     },
     {
-      "type": "greenhouse",
-      "name": "IMC",
       "company": "IMC",
+      "type": "greenhouse",
       "board": "imc",
-      "group": "company",
-      "requireJobs": false
+      "group": "Company"
     },
     {
-      "type": "greenhouse",
-      "name": "InMobi",
       "company": "InMobi",
+      "type": "greenhouse",
       "board": "inmobi",
-      "group": "company",
-      "requireJobs": false
+      "group": "Company"
     },
     {
-      "type": "greenhouse",
-      "name": "Instawork",
       "company": "Instawork",
+      "type": "greenhouse",
       "board": "instawork",
-      "group": "yc",
-      "requireJobs": false
+      "group": "YC startup"
     },
     {
-      "type": "ashby",
-      "name": "LiteLLM",
+      "company": "InterviewBit",
+      "type": "smartrecruiters",
+      "board": "interviewbit",
+      "group": "Added Nov 2026 (C)"
+    },
+    {
+      "company": "ION",
+      "type": "lever",
+      "board": "ion",
+      "group": "Added Nov 2026 (B)"
+    },
+    {
+      "company": "Lendingkart",
+      "type": "smartrecruiters",
+      "board": "lendingkart",
+      "group": "Added Nov 2026 (C)"
+    },
+    {
       "company": "LiteLLM",
+      "type": "ashby",
       "board": "litellm",
-      "group": "yc",
-      "requireJobs": false
+      "group": "YC startup"
     },
     {
-      "type": "lever",
-      "name": "Meesho",
       "company": "Meesho",
-      "board": "meesho",
-      "group": "yc",
-      "requireJobs": false
-    },
-    {
-      "type": "ashby",
-      "name": "Mem0",
-      "company": "Mem0",
-      "board": "mem0",
-      "group": "yc",
-      "requireJobs": false
-    },
-    {
-      "type": "greenhouse",
-      "name": "MongoDB",
-      "company": "MongoDB",
-      "board": "mongodb",
-      "group": "company",
-      "requireJobs": false
-    },
-    {
       "type": "lever",
-      "name": "Netomi",
+      "board": "meesho",
+      "group": "YC startup"
+    },
+    {
+      "company": "Mem0",
+      "type": "ashby",
+      "board": "mem0",
+      "group": "YC startup"
+    },
+    {
+      "company": "Mindtickle",
+      "type": "lever",
+      "board": "mindtickle",
+      "group": "Added Nov 2026 (B)"
+    },
+    {
+      "company": "MongoDB",
+      "type": "greenhouse",
+      "board": "mongodb",
+      "group": "Company"
+    },
+    {
       "company": "Netomi",
+      "type": "lever",
       "board": "netomi",
-      "group": "yc",
-      "requireJobs": false
+      "group": "YC startup"
     },
     {
-      "type": "ashby",
-      "name": "Notion",
+      "company": "Newton School",
+      "type": "smartrecruiters",
+      "board": "newtonschool",
+      "group": "Added Nov 2026 (C)"
+    },
+    {
+      "company": "NoBroker",
+      "type": "smartrecruiters",
+      "board": "nobroker",
+      "group": "Added Nov 2026 (C)"
+    },
+    {
       "company": "Notion",
+      "type": "ashby",
       "board": "notion",
-      "group": "company",
-      "requireJobs": false
+      "group": "Company"
     },
     {
+      "company": "Observe.AI",
       "type": "greenhouse",
-      "name": "Okta",
+      "board": "observeai",
+      "group": "Added Nov 2026 (B)"
+    },
+    {
       "company": "Okta",
+      "type": "greenhouse",
       "board": "okta",
-      "group": "company",
-      "requireJobs": false
+      "group": "Company"
     },
     {
-      "type": "ashby",
-      "name": "OpenAI",
       "company": "OpenAI",
+      "type": "ashby",
       "board": "openai",
-      "group": "company",
-      "requireJobs": false
+      "group": "Company"
     },
     {
-      "type": "ashby",
-      "name": "Overview",
       "company": "Overview",
+      "type": "ashby",
       "board": "overview",
-      "group": "yc",
-      "requireJobs": false
+      "group": "YC startup"
     },
     {
-      "type": "ashby",
-      "name": "PermitFlow",
+      "company": "Paytm",
+      "type": "lever",
+      "board": "paytm",
+      "group": "Added Nov 2026 (A)"
+    },
+    {
       "company": "PermitFlow",
+      "type": "ashby",
       "board": "permitflow",
-      "group": "yc",
-      "requireJobs": false
+      "group": "YC startup"
     },
     {
-      "type": "greenhouse",
-      "name": "Prodigal",
+      "company": "Pocket FM",
+      "type": "lever",
+      "board": "pocketfm",
+      "group": "Added Nov 2026 (B)"
+    },
+    {
       "company": "Prodigal",
+      "type": "greenhouse",
       "board": "prodigal",
-      "group": "yc",
-      "requireJobs": false
+      "group": "YC startup"
     },
     {
-      "type": "ashby",
-      "name": "Provision",
       "company": "Provision",
+      "type": "ashby",
       "board": "provision",
-      "group": "yc",
-      "requireJobs": false
+      "group": "YC startup"
     },
     {
-      "type": "ashby",
-      "name": "Retell AI",
       "company": "Retell AI",
+      "type": "ashby",
       "board": "retell-ai",
-      "group": "yc",
-      "requireJobs": false
+      "group": "YC startup"
     },
     {
-      "type": "greenhouse",
-      "name": "Rubrik",
       "company": "Rubrik",
+      "type": "greenhouse",
       "board": "rubrik",
-      "group": "company",
-      "requireJobs": false
+      "group": "Company"
     },
     {
-      "type": "ashby",
-      "name": "Sarvam AI",
       "company": "Sarvam AI",
+      "type": "ashby",
       "board": "sarvam",
-      "group": "company",
-      "requireJobs": false
+      "group": "Company"
     },
     {
-      "type": "greenhouse",
-      "name": "Scale AI",
       "company": "Scale AI",
+      "type": "greenhouse",
       "board": "scaleai",
-      "group": "company",
-      "requireJobs": false
+      "group": "Company"
     },
     {
-      "type": "ashby",
-      "name": "Sieve",
+      "company": "ServiceNow",
+      "type": "smartrecruiters",
+      "board": "servicenow",
+      "group": "Added Nov 2026 (B)"
+    },
+    {
       "company": "Sieve",
+      "type": "ashby",
       "board": "sieve",
-      "group": "yc",
-      "requireJobs": false
+      "group": "YC startup"
     },
     {
-      "type": "ashby",
-      "name": "SigNoz",
+      "company": "Sigmoid",
+      "type": "greenhouse",
+      "board": "sigmoid",
+      "group": "Added Nov 2026 (A)"
+    },
+    {
       "company": "SigNoz",
+      "type": "ashby",
       "board": "signoz",
-      "group": "yc",
-      "requireJobs": false
+      "group": "YC startup"
     },
     {
+      "company": "Smallest AI",
       "type": "ashby",
-      "name": "Snowflake",
+      "board": "smallest",
+      "group": "Added Nov 2026 (B)"
+    },
+    {
       "company": "Snowflake",
+      "type": "ashby",
       "board": "snowflake",
-      "group": "company",
-      "requireJobs": false
+      "group": "Company"
     },
     {
+      "company": "SpotDraft",
       "type": "ashby",
-      "name": "Stepful",
+      "board": "spotdraft",
+      "group": "Added Nov 2026 (B)"
+    },
+    {
       "company": "Stepful",
+      "type": "ashby",
       "board": "stepful",
-      "group": "yc",
-      "requireJobs": false
+      "group": "YC startup"
     },
     {
-      "type": "greenhouse",
-      "name": "Stripe",
       "company": "Stripe",
+      "type": "greenhouse",
       "board": "stripe",
-      "group": "yc",
-      "requireJobs": false
+      "group": "YC startup"
     },
     {
-      "type": "ashby",
-      "name": "Tekion",
+      "company": "Swiggy",
+      "type": "smartrecruiters",
+      "board": "swiggy",
+      "group": "Added Nov 2026 (B)"
+    },
+    {
+      "company": "Tala",
+      "type": "lever",
+      "board": "tala",
+      "group": "Added Nov 2026 (B)"
+    },
+    {
       "company": "Tekion",
+      "type": "ashby",
       "board": "tekion",
-      "group": "company",
-      "requireJobs": false
+      "group": "Company"
     },
     {
-      "type": "greenhouse",
-      "name": "Tower Research Capital",
       "company": "Tower Research Capital",
+      "type": "greenhouse",
       "board": "towerresearchcapital",
-      "group": "company",
-      "requireJobs": false
+      "group": "Company"
     },
     {
-      "type": "ashby",
-      "name": "Triomics",
       "company": "Triomics",
+      "type": "ashby",
       "board": "triomics",
-      "group": "yc",
-      "requireJobs": false
+      "group": "YC startup"
     },
     {
-      "type": "ashby",
-      "name": "TRM Labs",
       "company": "TRM Labs",
-      "board": "trm-labs",
-      "group": "yc",
-      "requireJobs": false
-    },
-    {
-      "type": "greenhouse",
-      "name": "Twilio",
-      "company": "Twilio",
-      "board": "twilio",
-      "group": "company",
-      "requireJobs": false
-    },
-    {
-      "type": "greenhouse",
-      "name": "Vercel",
-      "company": "Vercel",
-      "board": "vercel",
-      "group": "company",
-      "requireJobs": false
-    },
-    {
-      "type": "greenhouse",
-      "name": "Xendit",
-      "company": "Xendit",
-      "board": "xendit",
-      "group": "yc",
-      "requireJobs": false
-    },
-    {
       "type": "ashby",
-      "name": "Zapier",
-      "company": "Zapier",
-      "board": "zapier",
-      "group": "yc",
-      "requireJobs": false
+      "board": "trm-labs",
+      "group": "YC startup"
     },
     {
+      "company": "Twilio",
       "type": "greenhouse",
-      "name": "Zscaler",
+      "board": "twilio",
+      "group": "Company"
+    },
+    {
+      "company": "Unacademy",
+      "type": "smartrecruiters",
+      "board": "unacademy",
+      "group": "Added Nov 2026 (C)"
+    },
+    {
+      "company": "Vercel",
+      "type": "greenhouse",
+      "board": "vercel",
+      "group": "Company"
+    },
+    {
+      "company": "Western Digital",
+      "type": "smartrecruiters",
+      "board": "westerndigital",
+      "group": "Added Nov 2026 (A)"
+    },
+    {
+      "company": "Whatfix",
+      "type": "smartrecruiters",
+      "board": "whatfix",
+      "group": "Added Nov 2026 (C)"
+    },
+    {
+      "company": "Xendit",
+      "type": "greenhouse",
+      "board": "xendit",
+      "group": "YC startup"
+    },
+    {
+      "company": "Zapier",
+      "type": "ashby",
+      "board": "zapier",
+      "group": "YC startup"
+    },
+    {
+      "company": "Zeta",
+      "type": "lever",
+      "board": "zeta",
+      "group": "Added Nov 2026 (B)"
+    },
+    {
       "company": "Zscaler",
+      "type": "greenhouse",
       "board": "zscaler",
-      "group": "company",
-      "requireJobs": false
+      "group": "Company"
     }
   ]
 }

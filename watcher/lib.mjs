@@ -39,8 +39,7 @@ export function mergeRun(state, results, options, now = new Date()) {
   const jobs = new Map((state.jobs || []).map((job) => [job.id, { ...job }]));
   const sourceStatus = {};
   const seenThisRun = new Set();
-  const succeededCompanies = new Set();
-  const failedCompanies = new Set();
+  const checkedSources = new Set();
 
   for (const result of results) {
     const zeroFailure = result.ok && result.requireJobs && result.jobs.length === 0;
@@ -51,17 +50,15 @@ export function mergeRun(state, results, options, now = new Date()) {
       checkedAt: nowIso,
       error: result.error || (zeroFailure ? 'Zero jobs found: the page may have changed or blocked us' : null),
     };
-    if (!ok) {
-      failedCompanies.add(result.company);
-      continue;
-    }
-    if (result.authoritative !== false) succeededCompanies.add(result.company);
+    if (!ok) continue;
+    if (result.authoritative !== false) checkedSources.add(result.name);
 
     for (const incoming of result.jobs) {
       seenThisRun.add(incoming.id);
       const existing = jobs.get(incoming.id);
       if (existing) {
-        jobs.set(incoming.id, { ...existing, ...incoming, firstSeen: existing.firstSeen, lastSeen: nowIso, open: true });
+        const sources = [...new Set([...(existing.sources || [existing.source]), result.name])];
+        jobs.set(incoming.id, { ...existing, ...incoming, sources, firstSeen: existing.firstSeen, lastSeen: nowIso, open: true });
         continue;
       }
       const print = fingerprint(incoming);
@@ -71,6 +68,7 @@ export function mergeRun(state, results, options, now = new Date()) {
       );
       jobs.set(incoming.id, {
         ...incoming,
+        sources: [result.name],
         fingerprint: print,
         firstSeen: nowIso,
         lastSeen: nowIso,
@@ -82,8 +80,9 @@ export function mergeRun(state, results, options, now = new Date()) {
 
   const retentionMs = options.closedJobRetentionDays * DAY_MS;
   for (const [id, job] of jobs) {
-    const companyChecked = succeededCompanies.has(job.company) && !failedCompanies.has(job.company);
-    if (companyChecked && !seenThisRun.has(id)) job.open = false;
+    // A job closes only when a full listing it came from was read successfully without it.
+    const fullListingChecked = (job.sources || [job.source]).some((name) => checkedSources.has(name));
+    if (fullListingChecked && !seenThisRun.has(id)) job.open = false;
     if (!job.open && now - new Date(job.lastSeen) > retentionMs) jobs.delete(id);
   }
 
@@ -129,7 +128,7 @@ function decodeOnce(text) {
 
 // Order matters: "preferred qualifications" must win over "qualifications".
 const SECTION_RULES = [
-  ['skip', /benefit|perk|why join|why you|why this|what we offer|we offer|compensation|salary|pay range|equal (employment|opportunity)|office location|in.?office|hybrid work|how to apply|interview process|key trait|performance metric|non.negotiable|reporting|faq|how we work|life as an|life at|culture|our values|learn more/i],
+  ['skip', /benefit|perk|why join|why you|why this|what we offer|we offer|compensation|salary|pay range|equal (employment|opportunity)|office location|in.?office|hybrid work|how to apply|interview process|additional information|company description|key trait|performance metric|non.negotiable|reporting|faq|how we work|life as an|life at|culture|our values|learn more/i],
   ['preferred', /prefer|nice.to.have|good.to.have|bonus|would be a plus|added advantage|pluses/i],
   ['requirements', /minimum|must.?have|mandatory|require|qualification|who you are|looking for|you have|you bring|you.ll need|you need|skill|eligib|ideal candidate|about you|candidate profile/i],
   ['responsibilities', /responsib|what you.?ll|what you will|you will|on the job|day.to.day|what will you|the work|your impact|key result/i],
