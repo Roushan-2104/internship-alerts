@@ -1481,3 +1481,23 @@ test('the status page can run pending setup on request', () => {
   assert.match(world.sandbox.runSetupNow_(), /busy/);
 });
 
+test('signing up again with Telegram sends the new connect link', () => {
+  const world = telegramWorld('Email');
+  world.sent.length = 0;
+  signUp(world, 'r2', { __respondent: 'asha@example.com', [world.sandbox.FORM_TITLES.CHANNEL]: 'Email and Telegram' });
+  const student = world.table('Students').find((row) => row.responseId === 'r2');
+  const mail = world.sent.find((m) => /Connect Telegram/.test(m.subject));
+  assert.ok(mail);
+  assert.match(mail.body, new RegExp(`start=${student.telegramCode}`));
+});
+
+test('students who chose Telegram earlier but got no link are sent one, once', () => {
+  const world = telegramWorld('Telegram');
+  const row = world.table('Queue').find((r) => r.type === 'confirmation');
+  assert.ok(row);
+  world.sent.length = 0;
+  world.sandbox.sendMissingTelegramLinks_();
+  world.sandbox.sendMissingTelegramLinks_();
+  assert.equal(world.sent.filter((m) => /Connect Telegram/.test(m.subject)).length, 1);
+});
+
