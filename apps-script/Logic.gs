@@ -74,7 +74,12 @@ function studentSkillSet(student, synonyms) {
   var parsed = parseStudentSkills(student.skills, synonyms);
   var written = [student.experience, student.projects, student.privateProjects, student.interests].join('\n');
   var all = parsed.known.concat(parsed.unknown).concat(extractSkills(written, synonyms));
-  String(student.githubSkills || '').split(',').concat(String(student.resumeSkills || '').split(',')).forEach(function (skill) {
+  var profileFacts = parseFacts_(student.ai);
+  var aiSkills = profileFacts && profileFacts.skills ? profileFacts.skills.map(function (skill) {
+    var found = extractSkills(skill, synonyms);
+    return found.length ? found[0] : skill;
+  }) : [];
+  String(student.githubSkills || '').split(',').concat(String(student.resumeSkills || '').split(','), aiSkills).forEach(function (skill) {
     if (skill.trim()) all.push(skill.trim().toLowerCase());
   });
   return all.filter(function (skill, index) { return all.indexOf(skill) === index; });
@@ -117,8 +122,51 @@ function checkGraduationYear_(sentence, year) {
   return years.indexOf(year) !== -1;
 }
 
+function parseFacts_(value) {
+  if (!value) return null;
+  try {
+    return typeof value === 'string' ? JSON.parse(value) : value;
+  } catch (error) {
+    return null;
+  }
+}
+
+var LEVEL_NAMES = { Bachelor: 'bachelor', Master: 'master', PhD: 'phd' };
+
+/** Uses Gemini's facts when it found any. Returns null to fall back to the rules. */
+function eligibilityFromFacts_(job, student) {
+  var facts = parseFacts_(job.ai);
+  if (!facts) return null;
+  var quote = facts.evidence || '';
+  var level = degreeLevel_(student.degree);
+  var studentLevel = level === 'Other' && /diploma/i.test(student.degree) ? 'diploma' : LEVEL_NAMES[level] || 'other';
+  if (job.remote && facts.openToIndia === 'no') {
+    return { status: 'not_eligible', reason: 'Remote role not open to people in India', quote: quote };
+  }
+  if (facts.degreeLevels.length && facts.degreeLevels.indexOf('any') === -1 && facts.degreeLevels.indexOf(studentLevel) === -1) {
+    return { status: 'not_eligible', reason: 'Degree level is ' + facts.degreeLevels.join(' or ') + ' only', quote: quote };
+  }
+  if (job.roleType === 'newGrad' && facts.minYearsExperience > 0 && !facts.freshersWelcome) {
+    return { status: 'not_eligible', reason: 'Needs ' + facts.minYearsExperience + ' year(s) of experience', quote: quote };
+  }
+  var year = Number(student.gradYear);
+  if (year && (facts.gradYearMin || facts.gradYearMax)) {
+    var fits = (!facts.gradYearMin || year >= facts.gradYearMin) && (!facts.gradYearMax || year <= facts.gradYearMax);
+    return fits
+      ? { status: 'eligible', reason: 'Graduation year fits', quote: quote }
+      : { status: 'not_eligible', reason: 'Graduation year does not fit', quote: quote };
+  }
+  return { status: 'unclear', reason: 'Posting does not state a graduation year', quote: quote };
+}
+
 /** Returns eligible, unclear or not_eligible, with the sentence that decided it. */
 function evaluateEligibility(job, student) {
+  var fromFacts = eligibilityFromFacts_(job, student);
+  if (fromFacts) return fromFacts;
+  return eligibilityFromRules_(job, student);
+}
+
+function eligibilityFromRules_(job, student) {
   // Postings without a recognisable requirements section fall back to their full text.
   var qualifications = String(job.minQualifications || job.fullText || '');
   var levelText = job.title + '\n' + qualifications;
@@ -143,6 +191,14 @@ function evaluateEligibility(job, student) {
 
 function matchScore(job, student, synonyms) {
   var jobSkills = extractSkills([job.title, job.minQualifications, job.preferredQualifications, job.responsibilities, job.minQualifications ? '' : job.fullText].join('\n'), synonyms);
+  var facts = parseFacts_(job.ai);
+  if (facts && facts.skills.length) {
+    // Gemini's skill names are mapped onto the same synonym groups students' skills use.
+    jobSkills = facts.skills.map(function (skill) {
+      var found = extractSkills(skill, synonyms);
+      return found.length ? found[0] : skill;
+    }).filter(function (skill, index, all) { return all.indexOf(skill) === index; });
+  }
   var mine = studentSkillSet(student, synonyms);
   var shared = jobSkills.filter(function (skill) { return mine.indexOf(skill) !== -1; });
   return { score: shared.length, jobSkillCount: jobSkills.length, shared: shared };

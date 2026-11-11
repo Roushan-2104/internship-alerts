@@ -16,6 +16,8 @@ function tick() {
   try {
     run('jobs', function () { syncJobs_(feed, deadline); });
     run('watcher', function () { startWatcher_(feed); });
+    run('gemini', function () { readJobsWithGemini_(deadline); });
+    run('matching', function () { matchNewJobs_(deadline, false); });
     run('profiles', function () { refreshProfiles_(deadline); });
     run('email', function () { sendQueued_(deadline); });
     run('reminders', function () { queueReminders_(); });
@@ -99,7 +101,7 @@ function syncJobs_(feed, deadline) {
     }
     var record = {
       id: job.id, title: job.title, company: job.company, location: job.location, url: job.url,
-      priority: Boolean(job.priority), deadline: job.deadline || '', minQualifications: job.minQualifications || '',
+      priority: Boolean(job.priority), roleType: job.roleType || '', deadline: job.deadline || '', minQualifications: job.minQualifications || '',
       preferredQualifications: job.preferredQualifications || '', aboutRole: job.aboutRole || '',
       responsibilities: job.responsibilities || '', fullText: job.fullText || '', firstSeen: job.firstSeen || new Date().toISOString(),
       processedAt: firstSync || job.repostOf || job.open === false ? 'skipped' : '', open: job.open !== false, repostOf: job.repostOf || ''
@@ -107,11 +109,23 @@ function syncJobs_(feed, deadline) {
     appendRow_('Jobs', record);
   });
   if (firstSync) setProp_('FIRST_SYNC_DONE', 'true');
-  matchNewJobs_(deadline);
 }
 
-function matchNewJobs_(deadline) {
-  var waiting = readTable_('Jobs').filter(function (job) { return !job.processedAt; }).slice(0, CONFIG.JOBS_PER_TICK);
+/**
+ * A new job waits for Gemini to read it, unless Gemini is unavailable or the wait is over,
+ * so matching never stalls. sendNow skips the wait.
+ */
+function readyToMatch_(job, sendNow) {
+  if (job.aiReadAt || sendNow || geminiBlocked_()) return true;
+  var waitMinutes = isTrue_(job.priority) ? CONFIG.AI_WAIT_MINUTES_PRIORITY : CONFIG.AI_WAIT_MINUTES;
+  var stored = new Date(job.firstSeen).getTime();
+  return !stored || Date.now() - stored > waitMinutes * 60000;
+}
+
+function matchNewJobs_(deadline, sendNow) {
+  var waiting = readTable_('Jobs').filter(function (job) {
+    return !job.processedAt && readyToMatch_(job, sendNow);
+  }).slice(0, CONFIG.JOBS_PER_TICK);
   if (!waiting.length) return;
   var students = readTable_('Students').filter(function (student) { return student.status === 'active'; });
   var synonyms = buildSynonyms(readTable_('Skills'));
