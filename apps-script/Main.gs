@@ -14,13 +14,20 @@ function tick() {
   };
   var feed = { payload: null, error: null };
   try {
+    run('admin', function () { runAdminActions_(); });
+    run('signups', function () { processDeferredResponses_(); });
+    run('signups', function () { processDeferredResponses_(); });
     run('jobs', function () { syncJobs_(feed, deadline); });
     run('watcher', function () { startWatcher_(feed); });
     run('gemini', function () { readJobsWithGemini_(deadline); });
     run('matching', function () { matchNewJobs_(deadline, false); });
+    run('backfill', function () { backfillNewStudents_(deadline); });
+    run('telegram', function () { pollTelegram_(); });
     run('profiles', function () { refreshProfiles_(deadline); });
     run('email', function () { sendQueued_(deadline); });
     run('reminders', function () { queueReminders_(); });
+    run('cleanup', function () { pruneOldRows_(feed); });
+    run('cleanup', function () { pruneOldRows_(feed); });
     run('health', function () { checkHealth_(feed, errors); });
     setProp_('LAST_TICK_AT', new Date().toISOString());
   } finally {
@@ -57,6 +64,7 @@ function startWatcher_(feed) {
 
 /** Jobs from before role types existed have no roleType and are treated as internships. */
 function isLiveJob_(job) {
+  if (isLaunched_()) return true;
   if (job.roleType && CONFIG.LIVE_ROLE_TYPES.indexOf(job.roleType) === -1) return false;
   if (job.remote && !CONFIG.LIVE_REMOTE_ROLES && !/india|bengaluru|bangalore|hyderabad|pune|gurugram|gurgaon|mumbai|chennai|noida|delhi/i.test(job.location)) return false;
   return true;
@@ -81,14 +89,15 @@ function syncJobs_(feed, deadline) {
   // The first sync records what is already open, so launch day doesn't send a backlog.
   var firstSync = !prop_('FIRST_SYNC_DONE');
   feed.payload.jobs.filter(isLiveJob_).forEach(function (job) {
+    job.areas = Array.isArray(job.areas) ? job.areas.join(', ') : job.areas;
     var row = byId[job.id];
     if (row) {
       var open = job.open !== false;
-      var fields = ['minQualifications', 'preferredQualifications', 'aboutRole', 'responsibilities', 'fullText', 'deadline'];
+      var fields = ['minQualifications', 'preferredQualifications', 'aboutRole', 'responsibilities', 'fullText', 'deadline', 'roleType', 'areas', 'remote', 'partTime'];
       var changed = isTrue_(row.open) !== open;
       fields.forEach(function (field) {
         // An empty value still counts, so old messy text can't stay behind.
-        if (job[field] !== undefined && String(row[field]) !== String(job[field])) {
+        if (job[field] !== undefined && cellString_(row[field]) !== cellString_(job[field])) {
           row[field] = job[field];
           changed = true;
         }
@@ -104,7 +113,8 @@ function syncJobs_(feed, deadline) {
       priority: Boolean(job.priority), roleType: job.roleType || '', deadline: job.deadline || '', minQualifications: job.minQualifications || '',
       preferredQualifications: job.preferredQualifications || '', aboutRole: job.aboutRole || '',
       responsibilities: job.responsibilities || '', fullText: job.fullText || '', firstSeen: job.firstSeen || new Date().toISOString(),
-      processedAt: firstSync || job.repostOf || job.open === false ? 'skipped' : '', open: job.open !== false, repostOf: job.repostOf || ''
+      processedAt: firstSync || job.repostOf || job.open === false ? 'skipped' : '', open: job.open !== false, repostOf: job.repostOf || '',
+      areas: job.areas || '', remote: Boolean(job.remote), partTime: Boolean(job.partTime)
     };
     appendRow_('Jobs', record);
   });
@@ -134,6 +144,18 @@ function matchNewJobs_(deadline, sendNow) {
 
   waiting.forEach(function (job) {
     if (Date.now() > deadline) return;
+    // A job that closed while waiting is never sent.
+    if (!isTrue_(job.open)) {
+      job.processedAt = 'skipped';
+      updateRow_('Jobs', job);
+      return;
+    }
+    // A job that closed while waiting is never sent.
+    if (!isTrue_(job.open)) {
+      job.processedAt = 'skipped';
+      updateRow_('Jobs', job);
+      return;
+    }
     var finished = students.every(function (student) {
       if (Date.now() > deadline) return false;
       var key = job.id + '|' + student.responseId;
@@ -154,4 +176,59 @@ function matchNewJobs_(deadline, sendNow) {
       updateRow_('Jobs', job);
     }
   });
+}
+
+/**
+ * After launch, each new student is matched once against the jobs already open, so people
+ * who sign up later still get them. Backlog matches go in the digest, never as instant alerts.
+ */
+function backfillNewStudents_(deadline) {
+  if (!isLaunched_()) return;
+  var students = readTable_('Students').filter(function (student) { return student.status === 'active' && !student.backfilledAt; });
+  if (!students.length) return;
+  var openJobs = readTable_('Jobs').filter(function (job) {
+    return isTrue_(job.open) && job.processedAt && job.processedAt !== 'skipped';
+  });
+  var synonyms = buildSynonyms(readTable_('Skills'));
+  var existing = {};
+  readTable_('Matches').forEach(function (match) { existing[match.key] = true; });
+  for (var i = 0; i < students.length && Date.now() < deadline; i++) {
+    var student = students[i];
+    openJobs.forEach(function (job) {
+      if (Date.now() > deadline) return;
+      var key = job.id + '|' + student.responseId;
+      if (existing[key]) return;
+      var route = routeJob(job, student, synonyms);
+      var channel = route.channel === 'none' ? 'none' : 'digest';
+      appendRow_('Matches', {
+        key: key, jobId: job.id, responseId: student.responseId, status: route.status, score: route.score,
+        channel: channel, reason: route.reason, quote: route.quote, createdAt: new Date().toISOString()
+      });
+      existing[key] = true;
+      if (channel === 'digest') enqueue_('digest', student, job.id, route.checkEligibility);
+    });
+    if (Date.now() > deadline) return;
+    student.backfilledAt = new Date().toISOString();
+    updateRow_('Students', student);
+  }
+}
+
+/**
+ * Keeps the tabs small: sent, dropped and failed queue rows older than 30 days go, and so do
+ * closed jobs no longer in the watcher's data, with their matches.
+ */
+function pruneOldRows_(feed) {
+  var oldQueue = readTable_('Queue').filter(function (row) {
+    return row.status !== 'pending' && daysSince_(row.sentAt || row.createdAt) > CONFIG.KEEP_SENT_DAYS;
+  });
+  deleteRows_('Queue', oldQueue);
+  if (!feed.payload) return;
+  var inFeed = {};
+  feed.payload.jobs.forEach(function (job) { inFeed[job.id] = true; });
+  var goneJobs = readTable_('Jobs').filter(function (job) { return !inFeed[job.id] && !isTrue_(job.open); });
+  if (!goneJobs.length) return;
+  var goneIds = {};
+  goneJobs.forEach(function (job) { goneIds[job.id] = true; });
+  deleteRows_('Matches', readTable_('Matches').filter(function (match) { return goneIds[match.jobId]; }));
+  deleteRows_('Jobs', goneJobs);
 }

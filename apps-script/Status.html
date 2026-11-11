@@ -25,6 +25,12 @@
   <? if (data.problems.length) { ?><h2>Problems</h2><ul><? data.problems.forEach(function (item) { ?><li><?= item ?></li><? }); ?></ul><? } ?>
   <? if (data.warnings.length) { ?><h2>Warnings</h2><ul><? data.warnings.forEach(function (item) { ?><li><?= item ?></li><? }); ?></ul><? } ?>
 
+  <h2>Sign-up form</h2>
+  <? if (data.signUpFormUrl) { ?>
+    <p><?= data.launched ? 'Live.' : 'Not launched yet. Only share this link after launch.' ?></p>
+    <p><a href="<?= data.signUpFormUrl ?>">Open the sign-up form</a> | <a href="<?= data.signUpFormEditUrl ?>">Edit the form</a></p>
+  <? } else { ?><p class="muted">Not created yet. It is created on the next run.</p><? } ?>
+
   <h2>Watcher</h2>
   <p class="muted">Job data updated: <?= data.feedGeneratedAt ?></p>
   <table>
@@ -58,6 +64,8 @@
   <div class="grid">
     <div><span>Active</span><b><?= data.studentsActive ?></b></div>
     <div><span>Paused</span><b><?= data.studentsPaused ?></b></div>
+    <div><span>Weekly digest</span><b><?= data.studentsWeekly ?></b></div>
+    <div><span>Connected on Telegram</span><b><?= data.studentsTelegram ?></b></div>
     <div><span>Updated this week</span><b><?= data.profilesUpdatedThisWeek ?></b></div>
     <div><span>GitHub scans waiting</span><b><?= data.githubPending ?></b></div>
     <div><span>GitHub scans failed</span><b><?= data.githubFailed ?></b></div>

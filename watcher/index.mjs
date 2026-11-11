@@ -41,8 +41,8 @@ function baseResult(source) {
     name: source.name,
     company: source.company,
     requireJobs: Boolean(source.requireJobs),
-    // A filtered search can't prove a job closed; only full listings can.
-    authoritative: source.keep !== 'priority',
+    // Jobs close per source, so even a narrow search is a full list of its own results.
+    authoritative: true,
   };
 }
 

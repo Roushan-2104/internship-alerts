@@ -6,10 +6,13 @@ function findProblems_(feed, errors) {
     if (!(ageHours <= CONFIG.STALE_AFTER_HOURS)) {
       problems.stale = 'jobs.json has not updated for ' + Math.round(ageHours) + ' hours. GitHub Actions may have stopped.';
     }
-    Object.keys(feed.payload.sources || {}).forEach(function (name) {
-      var source = feed.payload.sources[name];
-      if (!source.ok) problems['source:' + name] = name + ' failed: ' + (source.error || 'unknown error');
-    });
+    // One alert for all failing sources, so a flaky board can't use up the email allowance.
+    var failing = Object.keys(feed.payload.sources || {}).filter(function (name) { return !feed.payload.sources[name].ok; }).sort();
+    if (failing.length) {
+      problems['sources:' + failing.join(',').slice(0, 200)] = failing.map(function (name) {
+        return name + ' failed: ' + (feed.payload.sources[name].error || 'unknown error');
+      }).join('\n');
+    }
   }
   if (MailApp.getRemainingDailyQuota() <= CONFIG.QUOTA_ALERT_REMAINING) {
     problems.quota = 'Only ' + MailApp.getRemainingDailyQuota() + ' email recipients left today.';
@@ -65,7 +68,8 @@ function sendHeartbeat() {
 }
 
 function getStatusData_() {
-  var today = new Date().toISOString().slice(0, 10);
+  var today = istDate_();
+  var istDay = function (iso) { return iso ? Utilities.formatDate(new Date(iso), 'Asia/Kolkata', 'yyyy-MM-dd') : ''; };
   var students = readTable_('Students');
   var jobs = readTable_('Jobs');
   var queue = readTable_('Queue');
@@ -76,8 +80,11 @@ function getStatusData_() {
   var warnings = [];
 
   var form = FormApp.openById(prop_('FORM_ID'));
-  var hasResume = form.getItems().some(function (item) { return item.getType() === FormApp.ItemType.FILE_UPLOAD; });
-  if (!hasResume) warnings.push('The resume upload question has not been added to the form yet.');
+  var hasUpload = function (f) { return f.getItems().some(function (item) { return item.getType() === FormApp.ItemType.FILE_UPLOAD; }); };
+  var signUpForm = prop_('NEW_FORM_ID') ? FormApp.openById(prop_('NEW_FORM_ID')) : form;
+  if (!hasUpload(signUpForm)) warnings.push('The sign-up form still needs its resume upload question.');
+  if (!isLaunched_()) warnings.push('Not launched yet: the old form is still in use, and new-grad and most remote roles are held back.');
+  if (prop_('TELEGRAM_BOT_TOKEN') && !CONFIG.TELEGRAM_BOT_USERNAME) warnings.push('Telegram token saved, but the bot username is not set yet.');
 
   var failed = queue.filter(function (row) { return row.status === 'failed'; }).length;
   if (failed) warnings.push(failed + ' email(s) failed after retries.');
@@ -96,14 +103,19 @@ function getStatusData_() {
       return { name: name, ok: source.ok, count: source.count, error: source.error || '' };
     }),
     jobsOpen: jobs.filter(function (job) { return isTrue_(job.open); }).length,
-    jobsNewToday: jobs.filter(function (job) { return String(job.firstSeen).slice(0, 10) === today; }).length,
+    jobsNewToday: jobs.filter(function (job) { return istDay(job.firstSeen) === today; }).length,
     checkEligibility: matches.filter(function (m) { return m.status === 'unclear' && m.channel !== 'none'; }).length,
     quotaRemaining: quota,
-    sentToday: queue.filter(function (row) { return String(row.sentAt).slice(0, 10) === today; }).length,
-    digestsToday: students.filter(function (s) { return String(s.lastDigestDate) === istDate_(); }).length,
+    sentToday: queue.filter(function (row) { return row.status === 'sent' && istDay(row.sentAt) === today; }).length,
+    digestsToday: students.filter(function (s) { return String(s.lastDigestDate) === today; }).length,
     queuePending: queue.filter(function (row) { return row.status === 'pending'; }).length,
     studentsActive: students.filter(function (s) { return s.status === 'active'; }).length,
     studentsPaused: students.filter(function (s) { return s.status === 'paused'; }).length,
+    signUpFormUrl: prop_('NEW_FORM_ID') ? FormApp.openById(prop_('NEW_FORM_ID')).getPublishedUrl() : '',
+    signUpFormEditUrl: prop_('NEW_FORM_ID') ? FormApp.openById(prop_('NEW_FORM_ID')).getEditUrl() : '',
+    launched: isLaunched_(),
+    studentsWeekly: students.filter(function (s) { return s.status === 'active' && s.frequency === 'weekly'; }).length,
+    studentsTelegram: students.filter(function (s) { return s.status === 'active' && s.telegramChatId; }).length,
     profilesUpdatedThisWeek: students.filter(function (s) { return daysSince_(s.updatedAt) <= 7; }).length,
     githubPending: students.filter(function (s) { return s.status === 'active' && s.githubUser && !s.githubScannedAt; }).length,
     githubFailed: students.filter(function (s) { return s.githubError; }).length,
@@ -113,7 +125,7 @@ function getStatusData_() {
     geminiDailyLimit: CONFIG.GEMINI_DAILY_LIMIT,
     jobsReadByGemini: jobs.filter(function (job) { return job.aiReadAt && !job.aiError; }).length,
     jobsGeminiFailed: jobs.filter(function (job) { return job.aiError; }).length,
-    profilesReadByGemini: CONFIG.AI_READS_PROFILES ? students.filter(function (s) { return s.aiReadAt; }).length + ' read' : 'Off until the new form asks for consent',
+    profilesReadByGemini: students.filter(function (s) { return s.aiReadAt && s.ai; }).length + ' read (only students who agreed)',
     logs: readTable_('Logs').filter(function (row) { return row.level !== 'INFO'; }).slice(-20).reverse()
   };
 }

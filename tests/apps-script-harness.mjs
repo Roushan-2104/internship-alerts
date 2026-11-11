@@ -23,6 +23,7 @@ class FakeSheet {
     return {
       setNumberFormat: () => {},
       setValues: (values) => { this.rows[row - 1] = [...values[0]]; },
+      clearContent: () => { this.rows = this.rows.slice(0, row - 1); },
     };
   }
 }
@@ -30,31 +31,53 @@ class FakeSheet {
 /** Builds a sandbox running the real script files on in-memory fakes of Google's services. */
 export function createWorld({ configured = true } = {}) {
   const world = {
-    sent: [], props: {}, sheets: {}, quota: 100, hour: 0, day: '2026-11-06', account: 'internshipalerts.roushan@gmail.com',
-    fetch: () => ({ code: 404, body: '' }), fetched: [], trashed: [], deletedResponses: [], triggers: [],
-    dispatches: [], dispatch: { code: 204 }, geminiCalls: [], gemini: null, formItems: [], ocrText: 'Skills: Python and Docker', ocrFails: false, created: 0,
+    sent: [], props: {}, sheets: {}, quota: 100, hour: 0, day: '2026-11-06', weekday: '5', account: 'internshipalerts.roushan@gmail.com',
+    fetch: () => ({ code: 404, body: '' }), fetched: [], trashed: [], deletedResponses: [], triggers: [], companyNames: null,
+    removed: [], tempCopies: [], dispatches: [], dispatch: { code: 204 }, geminiCalls: [], gemini: null, telegramCalls: [], telegram: null, formItems: [], ocrText: 'Skills: Python and Docker', ocrFails: false, created: 0,
   };
   const book = {
+    getSheets: () => [{ getDataRange: () => ({ getValues: () => [['Company'], ...(world.companyNames || []).map((n) => [n])] }) }],
     getId: () => 'sheet-id',
     getUrl: () => 'https://sheet',
     getSheetByName: (name) => world.sheets[name] || null,
     insertSheet: (name) => { world.sheets[name] = new FakeSheet(); return world.sheets[name]; },
     deleteSheet: () => {},
   };
-  const form = chain({
-    getId: () => 'form-id',
-    getEditUrl: () => 'https://edit',
-    getPublishedUrl: () => 'https://share',
-    getItems: () => world.formItems,
-    deleteResponse: (id) => world.deletedResponses.push(id),
-  });
+  const makeForm = (id) => {
+    const items = id === 'form-id' ? world.formItems : [];
+    const addItem = (kind) => () => {
+      const item = chain({
+        setTitle: (title) => { item.title = title; return item; },
+        getTitle: () => item.title,
+        getType: () => kind,
+        asTextItem: () => chain({ createResponse: (value) => ({ value }) }),
+      });
+      items.push(item);
+      return item;
+    };
+    const form = chain({
+      getId: () => id,
+      getEditUrl: () => `https://edit/${id}`,
+      getPublishedUrl: () => `https://share/${id}`,
+      getItems: () => items,
+      deleteResponse: (responseId) => world.deletedResponses.push(`${id}:${responseId}`),
+      addTextItem: addItem('TEXT'), addParagraphTextItem: addItem('PARAGRAPH_TEXT'), addCheckboxItem: addItem('CHECKBOX'),
+      addMultipleChoiceItem: addItem('MULTIPLE_CHOICE'), addListItem: addItem('LIST'),
+      createResponse: () => chain({ withItemResponse: (r) => chain({ toPrefilledUrl: () => `https://resume/${id}?code=${r.value}` }) }),
+    });
+    world.forms[id] = form;
+    return form;
+  };
+  world.forms = {};
+  let created = 0;
+  const form = makeForm('form-id');
   const triggerBuilder = (name) => chain({ create: () => world.triggers.push(name) });
   const sandbox = {
     console,
     Logger: { log: () => {} },
     PropertiesService: { getScriptProperties: () => ({ getProperty: (k) => world.props[k] ?? null, setProperty: (k, v) => { world.props[k] = String(v); } }) },
     SpreadsheetApp: { create: () => book, openById: () => book },
-    FormApp: { create: () => form, openById: () => form, createTextValidation: () => chain(), ItemType: { FILE_UPLOAD: 'FILE_UPLOAD' } },
+    FormApp: { create: () => (created++ === 0 ? form : makeForm(`form-${created}`)), openById: (id) => world.forms[id] || form, createTextValidation: () => chain(), ItemType: { FILE_UPLOAD: 'FILE_UPLOAD' } },
     MailApp: {
       getRemainingDailyQuota: () => world.quota,
       sendEmail: (message) => { if (world.mailFails) throw new Error('mail down'); world.quota -= 1; world.sent.push(message); },
@@ -62,6 +85,13 @@ export function createWorld({ configured = true } = {}) {
     UrlFetchApp: {
       fetch: (url, options) => {
         world.fetched.push(url);
+        if (url.includes('api.telegram.org')) {
+          const method = url.split('/').pop();
+          const payload = JSON.parse(options.payload);
+          world.telegramCalls.push({ url, method, payload });
+          const answer = world.telegram ? world.telegram(method, payload) : { code: 200, body: { ok: true, result: [] } };
+          return { getResponseCode: () => answer.code, getContentText: () => JSON.stringify(answer.body) };
+        }
         if (url.includes('generativelanguage.googleapis.com')) {
           world.geminiCalls.push({ url, options });
           const answer = world.gemini ? world.gemini(url, options) : { code: 500, body: '' };
@@ -75,11 +105,22 @@ export function createWorld({ configured = true } = {}) {
         return { getResponseCode: () => result.code, getContentText: () => result.body };
       },
     },
-    Utilities: { sleep: () => {}, getUuid: () => `id-${++world.created}`, formatDate: (date, zone, format) => (format === 'H' ? String(world.hour) : world.day) },
+    Utilities: { sleep: () => {}, getUuid: () => `00000000-0000-4000-8000-${String(++world.created).padStart(12, '0')}`, formatDate: (date, zone, format) => (format === 'H' ? String(world.hour) : format === 'u' ? world.weekday : world.day) },
     LockService: { getScriptLock: () => ({ tryLock: () => true, waitLock: () => {}, releaseLock: () => {} }) },
     Session: { getEffectiveUser: () => ({ getEmail: () => world.account }) },
-    DriveApp: { getFileById: (id) => ({ setTrashed: () => world.trashed.push(id) }) },
-    Drive: { Files: { copy: () => { if (world.ocrFails) throw new Error('OCR failed'); return { id: 'temp-doc' }; } } },
+    DriveApp: {
+      getFileById: (id) => ({ setTrashed: () => world.trashed.push(id) }),
+      getFilesByName: () => { const files = [...(world.tempCopies || [])]; world.tempCopies = []; return { hasNext: () => files.length > 0, next: () => { const id = files.shift(); return { getId: () => id }; } }; },
+      searchFolders: () => {
+        const files = [...(world.uploadFolderFiles || [])];
+        let given = false;
+        return {
+          hasNext: () => !given,
+          next: () => { given = true; return { getFiles: () => ({ hasNext: () => files.length > 0, next: () => { const id = files.shift(); return { getId: () => id, setTrashed: () => world.trashed.push(id) }; } }) }; },
+        };
+      },
+    },
+    Drive: { Files: { copy: () => { if (world.ocrFails) throw new Error('OCR failed'); return { id: 'temp-doc' }; }, remove: (id) => { world.removed.push(id); world.trashed.push(id); } } },
     DocumentApp: { openById: () => ({ getBody: () => ({ getText: () => world.ocrText }) }) },
     ScriptApp: {
       getProjectTriggers: () => [],
@@ -134,12 +175,18 @@ export function makeResponse(sandbox, id, overrides = {}) {
     [titles.STATUS]: sandbox.ALERT_STATUS.ACTIVE,
     ...overrides,
   };
+  delete answers.__formId;
+  delete answers.__respondent;
+  const respondent = overrides.__respondent;
+  delete answers.__respondent;
   return {
     getId: () => id,
+    getRespondentEmail: () => respondent || '',
     getEditResponseUrl: () => `https://edit/${id}`,
     getItemResponses: () => Object.entries(answers)
       .filter(([, value]) => value !== undefined)
       .map(([title, value]) => ({ getItem: () => ({ getTitle: () => title }), getResponse: () => value })),
+    formId: overrides.__formId,
   };
 }
 

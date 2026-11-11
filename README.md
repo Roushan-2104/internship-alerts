@@ -1,50 +1,64 @@
 # Internship Alerts
 
-Watches internship listings and emails students about new roles that match their profile, with instant alerts for priority roles and one digest a day.
+Watches internship and early-career listings in India and alerts students about new roles that match them, by email, Telegram or both. Priority roles are sent straight away, and everything else goes in a daily or weekly digest.
 
-- **GitHub Actions (public):** Playwright reads job sources and publishes `data/jobs.json`. It holds job data only. Apps Script starts each run, and the workflow's own schedule is a backup, because GitHub doesn't guarantee when scheduled runs start.
-- **Google Apps Script (private):** handles the form, student profiles, GitHub scans, resume reading, matching, Gmail, health alerts and the status page.
+- **GitHub Actions (public):** Playwright reads job sources and publishes `data/jobs.json`, which holds public job data only. Apps Script starts each run. The workflow's own schedule is a backup, because GitHub doesn't guarantee when scheduled runs start.
+- **Google Apps Script (private):** handles the sign-up form, student profiles, GitHub scans, resume reading, Gemini, matching, Gmail, Telegram, health alerts and the status page.
 
-No domain is needed. The only key is one GitHub token, limited to this repo, which lets Apps Script start the watcher.
+No domain is needed. Three keys live only in Script Properties, never in this repo:
+
+| Property | What it's for |
+|---|---|
+| `GITHUB_DISPATCH_TOKEN` | Starts the watcher |
+| `GEMINI_API_KEY` | Reads jobs, and the profiles of students who agreed |
+| `TELEGRAM_BOT_TOKEN` | Sends Telegram alerts |
 
 ## Rules the watcher must follow
 
 Google's `robots.txt` disallows paginated job result URLs (`page=`) for all crawlers, and Google's terms prohibit automated access that breaks those rules. The watcher therefore reads only the first page of a filtered search and refuses any `page=` URL. If a search ever fills its first page, narrow the filters rather than paginating. Re-check `robots.txt` from time to time, as it can change.
 
-## Setup
+YC's website terms ban scraping, so YC startups are only included through their own public job boards.
 
-### 1. Apps Script project
+## How setup works now
 
-Sign in to Google as `internshipalerts.roushan@gmail.com`, open <https://script.google.com> and create a project. `setup()` refuses to run from any other account.
+Code goes live with `clasp push --force` from this folder. One-time setup steps are **admin actions** in `apps-script/Admin.gs`: the next 30-minute run carries out each one once and logs it, so nobody has to click Run.
 
-1. In **Project Settings**, turn on "Show appsscript.json", then replace that file with `apps-script/appsscript.json`.
-2. Add every `.gs` file from `apps-script/`, plus an HTML file named `Status` containing `Status.html`.
-3. Run `setup` and click Allow. The execution log shows the links for the data sheet and form.
+### The sign-up form
 
-### 2. Resume question
+There is one form. Students sign in with Google, which confirms their email, so nobody can sign up, replace or delete someone else. The form is created automatically. One step has to be done by hand, because Google doesn't let scripts create file-upload questions:
 
-Google doesn't allow scripts to create file-upload questions, so add this one by hand:
-
-1. Open the form's edit link from the log.
+1. Open the form's edit link (it's in the Apps Script log, or find "Internship Alerts Sign-up" in Google Forms).
 2. Add a **File upload** question titled exactly `Resume (optional)`. Leave it not required.
-3. Move it above "Alert status".
 
-Adding it means everyone must sign in to Google to fill in the form. The status page shows a warning until this question exists.
+The status page shows a warning until this question exists.
 
-### 3. Status page
+### Telegram
 
-**Deploy > New deployment > Web app**, with "Execute as: Me" and "Who has access: Only myself". Bookmark the URL. Use **Manage deployments** to publish later code changes.
+1. Create a bot with **@BotFather** and save its token as `TELEGRAM_BOT_TOKEN`.
+2. Set `TELEGRAM_BOT_USERNAME` in `Config.gs` to the bot's username, then push.
 
-### 4. First test
+Students who choose Telegram get a connect link in their confirmation email. Until they connect, alerts come by email. The script reads the bot's messages on each run, so it needs no public web address.
 
-Fill in the form yourself, then run `tick` from the editor. You should get a confirmation email, and the status page should show one active student.
+### Launch and reset
 
-The first sync records jobs that are already open without emailing anyone. Only jobs that appear later are matched.
+Before launch, the old form keeps working, and new-grad and most remote roles are held back. Launch deletes **every** student's data and switches to the new form, so it only runs after the owner confirms. To launch, set `RESET_AND_LAUNCH` in `Config.gs` to the exact phrase in `Admin.gs` and push.
+
+The next run then:
+- deletes all form responses, resumes, students, matches, queued emails, stored jobs and learned skills;
+- closes the old form with a message pointing to the new one;
+- turns on all role types.
+
+Open jobs then come back as new. Everyone who signs up afterwards gets the open jobs that match them once, in their first digest.
+
+### Status page
+
+**Deploy > New deployment > Web app**, with "Execute as: Me" and "Who has access: Only myself". Bookmark the URL. Use **Manage deployments** to publish code changes to it.
 
 ## What students receive
 
 - **Instant alert:** a new priority role, usually within about an hour.
-- **Daily digest:** one email per India date, sent from the student's assigned hour (between 9 AM and 9 PM). It lists new matches, or says there are no new openings. Jobs found after it goes out wait for the next day.
+- **Digest:** daily, or weekly on Sundays, as each student chooses. It's sent from the student's assigned hour (between 9 AM and 9 PM India time), and lists new matches or says there are no new openings. Jobs found after it goes out wait for the next one.
+- **Preferences:** students can choose role types, locations, areas of work and companies. These are strict, except that eligible priority roles always go out unless the student excluded that company.
 
 Every active student gets a daily email. Personal Gmail allows about 100 recipients a day and 20 are held back for instant alerts, so this fits about 80 students. Past that, digests with jobs go first and "no openings" emails are dropped for the day.
 
@@ -66,7 +80,7 @@ It expires on the date you chose when creating it. When it does, you get a `step
 |---|---|
 | Priority role names | `priorityTitles` in `config/watch.json` |
 | Companies | The **Internship Alerts Companies** spreadsheet (see below) |
-| Skill synonyms | The `Skills` sheet: list extra names in `aliases`, separated by commas |
+| Skill synonyms | The `Skills` sheet. New skill names students type appear there with **approved** blank. Set it to `yes` to use one for everyone, or list extra names in `aliases` |
 | Limits and timing | `CONFIG` in `apps-script/Config.gs` |
 
 Companies are read from the **Internship Alerts Companies** spreadsheet, which is published as CSV and contains nothing else. Set **Enabled** to `no` to pause a company. To add one, fill in Company, Type (`greenhouse`, `lever`, `ashby` or `smartrecruiters`) and Board, which is the name in its careers URL. Changes reach the watcher within about 30 minutes.
@@ -87,7 +101,7 @@ You get one email when a problem starts and one when it clears, plus a "Still ru
 
 | Alert | Likely cause | Fix |
 |---|---|---|
-| `source:...` with zero jobs | Page changed or blocked the watcher | Check the Actions log, then update `watcher/sources.mjs` |
+| `sources:...` | One or more job sources failed (one alert covers them all) | Check the Actions log. For a company, check its board in the Companies sheet; for Google, update `watcher/sources.mjs` |
 | `step:watcher` | The GitHub token expired or lost access | Create a new token (see above) |
 | `stale` | The watcher ran but failed, or runs aren't starting | Check the Actions tab and re-enable the workflow if needed |
 | `feed` | `JOBS_URL` is wrong, or the repo is private | Open the URL while signed out |

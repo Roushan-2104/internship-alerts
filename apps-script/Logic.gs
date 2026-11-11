@@ -33,7 +33,8 @@ function buildSynonyms(sheetRows) {
   var groups = DEFAULT_SKILLS.map(function (group) { return group.slice(); });
   (sheetRows || []).forEach(function (row) {
     var skill = String(row.skill || '').trim();
-    if (!skill) return;
+    // Only rows the owner approved, or added with aliases, count for everyone.
+    if (!skill || !(/^yes$/i.test(String(row.approved || '')) || String(row.aliases || '').trim())) return;
     var aliases = String(row.aliases || '').split(',').map(function (a) { return a.trim(); }).filter(String);
     groups.push([skill].concat(aliases));
   });
@@ -51,6 +52,9 @@ function extractSkills(text, synonyms) {
 }
 
 // Reads the comma-separated skills field, where "go" or "c" clearly mean the language.
+// Words too common to count as skills, even if a student types them.
+var COMMON_WORDS = ['and', 'the', 'with', 'for', 'team', 'teamwork', 'work', 'good', 'basic', 'basics', 'knowledge', 'skills', 'other', 'etc', 'learning', 'communication', 'english', 'hindi', 'hardworking', 'leadership'];
+
 function parseStudentSkills(skillField, synonyms) {
   var known = [];
   var unknown = [];
@@ -63,7 +67,7 @@ function parseStudentSkills(skillField, synonyms) {
     })[0];
     if (group) {
       if (known.indexOf(group[0].toLowerCase()) === -1) known.push(group[0].toLowerCase());
-    } else if (token.length <= 30 && /^[A-Za-z0-9 .+#\-]+$/.test(token) && unknown.indexOf(lower) === -1) {
+    } else if (token.length >= 3 && token.length <= 30 && /^[A-Za-z0-9 .+#\-]+$/.test(token) && COMMON_WORDS.indexOf(lower) === -1 && unknown.indexOf(lower) === -1) {
       unknown.push(lower);
     }
   });
@@ -97,7 +101,8 @@ function requiredLevels_(text) {
   var levels = [];
   if (/bachelor|undergraduate|\bB\.?Tech\b|\bB\.E\b|\bB\.?S\b|\bBE\b/.test(text) || /bachelor|undergraduate/i.test(text)) levels.push('Bachelor');
   // Requires the possessive so a title like "Scrum Master" isn't read as a degree.
-  if (/\bmaster(['’]?s)\b|\bM\.?Tech\b|\bM\.S\b|\bMS\b/.test(text) || /\bmaster(['’]?s)\b/i.test(text)) levels.push('Master');
+  // "MS" alone often means Microsoft ("MS Excel"), so it only counts next to degree words.
+  if (/\bmaster(['’]?s)\b|\bM\.?Tech\b|\bM\.S\b|\bMS (in|degree|program)\b|\b(BS|B\.S\.?)\s*\/\s*MS\b/.test(text) || /\bmaster(['’]?s)\b/i.test(text)) levels.push('Master');
   if (/ph\.?d|doctora/i.test(text)) levels.push('PhD');
   return levels;
 }
@@ -114,8 +119,9 @@ function checkGraduationYear_(sentence, year) {
   var years = (sentence.match(/\b20\d{2}\b/g) || []).map(Number);
   if (/\b(before|prior to)\b/i.test(sentence) && years.length === 1) return year < years[0];
   if (/\b(by|no later than)\b/i.test(sentence) && years.length === 1) return year <= years[0];
+  if ((/\bon or after\b/i.test(sentence) || /\bor (later|after)\b/i.test(sentence)) && years.length === 1) return year >= years[0];
+  if (/\b(or earlier|or before)\b/i.test(sentence) && years.length === 1) return year <= years[0];
   if (/\b(after)\b/i.test(sentence) && years.length === 1) return year > years[0];
-  if (/\bon or after\b/i.test(sentence) && years.length === 1) return year >= years[0];
   if (/\b(between|from)\b/i.test(sentence) && years.length === 2) {
     return year >= Math.min(years[0], years[1]) && year <= Math.max(years[0], years[1]);
   }
@@ -140,10 +146,16 @@ function eligibilityFromFacts_(job, student) {
   var quote = facts.evidence || '';
   var level = degreeLevel_(student.degree);
   var studentLevel = level === 'Other' && /diploma/i.test(student.degree) ? 'diploma' : LEVEL_NAMES[level] || 'other';
-  if (job.remote && facts.openToIndia === 'no') {
+  if (isTrue_(job.remote) && facts.openToIndia === 'no') {
     return { status: 'not_eligible', reason: 'Remote role not open to people in India', quote: quote };
   }
   if (facts.degreeLevels.length && facts.degreeLevels.indexOf('any') === -1 && facts.degreeLevels.indexOf(studentLevel) === -1) {
+    // A Master's or PhD student may still qualify for a Bachelor's-level role, so they're asked to check.
+    var rank = { diploma: 1, bachelor: 2, master: 3, phd: 4 };
+    var highestAccepted = Math.max.apply(null, facts.degreeLevels.map(function (l) { return rank[l] || 0; }));
+    if ((rank[studentLevel] || 0) > highestAccepted && highestAccepted >= 2) {
+      return { status: 'unclear', reason: 'Posting names a lower degree level', quote: quote };
+    }
     return { status: 'not_eligible', reason: 'Degree level is ' + facts.degreeLevels.join(' or ') + ' only', quote: quote };
   }
   if (job.roleType === 'newGrad' && facts.minYearsExperience > 0 && !facts.freshersWelcome) {
@@ -214,6 +226,17 @@ function routeJob(job, student, synonyms) {
   var route = { status: result.status, reason: result.reason, quote: result.quote, score: match.score, channel: 'none', checkEligibility: false };
   if (result.status === 'not_eligible') return route;
   var priority = job.priority === true || String(job.priority).toUpperCase() === 'TRUE';
+  var preference = preferenceCheck_(job, student);
+  // Preferences are strict, except that eligible priority roles still go out unless the company was excluded.
+  if (!preference.ok && (preference.absolute || !priority)) {
+    route.reason = preference.reason;
+    return route;
+  }
+  if (preference.always && !priority) {
+    route.channel = 'digest';
+    route.checkEligibility = result.status === 'unclear';
+    return route;
+  }
   if (priority) {
     route.channel = 'instant';
     route.checkEligibility = result.status === 'unclear';
@@ -256,11 +279,20 @@ function safeUrl_(url) {
 }
 
 var JOB_SECTIONS = [
-  { field: 'aboutRole', heading: 'About the role', paragraphs: true, maxChars: 500 },
-  { field: 'responsibilities', heading: "What you'll do", maxItems: 6 },
-  { field: 'minQualifications', heading: 'What they ask for', maxItems: 8 },
-  { field: 'preferredQualifications', heading: 'Nice to have', maxItems: 4 }
+  { field: 'aboutRole', heading: 'About the role', paragraphs: true, maxChars: 300 },
+  { field: 'responsibilities', heading: "What you'll do", maxItems: 3 },
+  { field: 'minQualifications', heading: 'What they ask for', maxItems: 5 },
+  { field: 'preferredQualifications', heading: 'Nice to have', maxItems: 3 }
 ];
+
+var ROLE_LABELS = { internship: 'Internship', apprentice: 'Apprenticeship or trainee', newGrad: 'New-grad role', research: 'Student research', partTime: 'Part-time or contract' };
+
+function jobKind_(job) {
+  var parts = [ROLE_LABELS[job.roleType] || 'Internship'];
+  if (isTrue_(job.partTime) && job.roleType !== 'partTime') parts.push('part-time or contract');
+  if (isTrue_(job.remote)) parts.push('remote');
+  return parts.join(', ');
+}
 
 function trimToSentence_(text, maxChars) {
   var cut = text.slice(0, maxChars);
@@ -314,8 +346,8 @@ function jobBlockHtml_(job, checkEligibility) {
   }).join('');
   var missing = sections ? '' : '<p style="margin:12px 0 8px">This posting has no clear sections, so please read the details there.</p>';
   return '<div style="margin:0 0 28px;padding:0 0 20px;border-bottom:1px solid #ddd">'
-    + '<h3 style="margin:0 0 4px">' + escapeHtml(job.title) + '</h3>'
-    + '<p style="margin:0 0 8px;color:#555">' + escapeHtml(job.company) + ' | ' + escapeHtml(job.location) + '</p>'
+    + '<h2 style="margin:0 0 4px;font-size:18px">' + escapeHtml(job.title) + '</h2>'
+    + '<p style="margin:0 0 8px;color:#444">' + escapeHtml(job.company) + ' | ' + escapeHtml(job.location) + ' | ' + escapeHtml(jobKind_(job)) + '</p>'
     + '<p style="margin:0"><b>Deadline:</b> ' + escapeHtml(job.deadline || 'Not listed') + '</p>'
     + (checkEligibility ? '<p style="margin:8px 0 0"><b>Check eligibility:</b> the posting does not clearly say whether you qualify, so read it before applying.</p>' : '')
     + sections + missing
@@ -324,7 +356,7 @@ function jobBlockHtml_(job, checkEligibility) {
 }
 
 function jobBlockText_(job, checkEligibility) {
-  var parts = [job.title, job.company + ' | ' + job.location, 'Deadline: ' + (job.deadline || 'Not listed')];
+  var parts = [job.title, job.company + ' | ' + job.location + ' | ' + jobKind_(job), 'Deadline: ' + (job.deadline || 'Not listed')];
   if (checkEligibility) parts.push('Check eligibility: the posting does not clearly say whether you qualify.');
   var shortened = false;
   JOB_SECTIONS.forEach(function (section) {
@@ -335,7 +367,7 @@ function jobBlockText_(job, checkEligibility) {
     content.lines.forEach(function (line) { parts.push(section.paragraphs ? line : '- ' + line); });
   });
   if (shortened) parts.push('', 'Shortened for this email. The posting has the full details.');
-  parts.push('', 'Apply: ' + job.url);
+  parts.push('', 'Apply: ' + safeUrl_(job.url));
   return parts.join('\n');
 }
 
@@ -356,33 +388,54 @@ function buildInstantEmail(job, editUrl, checkEligibility) {
   };
 }
 
+/** Long digests show the first jobs in full and list the rest by title, to stay readable on a phone. */
 function buildDigestEmail(items, editUrl) {
   var count = items.length;
+  var full = items.slice(0, CONFIG.DIGEST_MAX_FULL_JOBS);
+  var rest = items.slice(CONFIG.DIGEST_MAX_FULL_JOBS);
+  var restHtml = rest.length ? '<h2 style="font-size:18px">More matches</h2><ul>' + rest.map(function (item) {
+    return '<li><a href="' + escapeHtml(safeUrl_(item.job.url)) + '">' + escapeHtml(item.job.title) + '</a>, ' + escapeHtml(item.job.company) + '</li>';
+  }).join('') + '</ul>' : '';
+  var restText = rest.length ? '\n\nMORE MATCHES\n' + rest.map(function (item) { return '- ' + item.job.title + ', ' + item.job.company + ': ' + safeUrl_(item.job.url); }).join('\n') : '';
+  var intro = 'These new roles match your profile. Please apply with the details they ask for.';
   return {
-    subject: count + (count === 1 ? ' new internship' : ' new internships') + ' matched to your profile',
-    htmlBody: '<p>These new internships match your profile. Please apply with the details they ask for.</p>'
-      + items.map(function (item) { return jobBlockHtml_(item.job, item.checkEligibility); }).join('') + footerHtml_(editUrl),
-    body: 'These new internships match your profile. Please apply with the details they ask for.\n\n'
-      + items.map(function (item) { return jobBlockText_(item.job, item.checkEligibility); }).join('\n\n') + footerText_(editUrl)
+    subject: count + (count === 1 ? ' new role' : ' new roles') + ' matched to your profile',
+    htmlBody: '<div lang="en" style="font-size:16px;line-height:1.5"><p>' + intro + '</p>'
+      + full.map(function (item) { return jobBlockHtml_(item.job, item.checkEligibility); }).join('') + restHtml + footerHtml_(editUrl) + '</div>',
+    body: intro + '\n\n' + full.map(function (item) { return jobBlockText_(item.job, item.checkEligibility); }).join('\n\n') + restText + footerText_(editUrl)
   };
 }
 
-function buildNoOpeningsEmail(name, editUrl) {
-  var intro = 'Hi ' + name + ', there are no new internship openings matching your profile today. We will keep watching.';
+function buildNoOpeningsEmail(name, editUrl, weekly) {
+  var period = weekly ? 'this week' : 'today';
+  var intro = 'Hi ' + name + ', there are no new openings matching your profile ' + period + '. We will keep watching.';
   return {
-    subject: 'No new internship openings today',
+    subject: 'No new openings ' + period,
     htmlBody: '<p>' + escapeHtml(intro) + '</p>' + footerHtml_(editUrl),
     body: intro + footerText_(editUrl)
   };
 }
 
-function buildConfirmationEmail(name, editUrl) {
-  var intro = 'Hi ' + name + ', you are signed up for internship alerts. You will only get emails about new internships that match your profile.';
+function buildConfirmationEmail(name, editUrl, unknownCompanies, telegramLink) {
+  var intro = 'Hi ' + name + ', you are signed up for internship alerts. You will only get emails about new roles that match your profile.';
   var spam = 'If this email is in spam, please mark it "Not spam" so you do not miss an alert.';
+  var telegram = telegramLink ? 'To get alerts on Telegram, open this link and press Start. Until then, alerts come by email.' : '';
+  var unknown = unknownCompanies ? 'We could not find these companies in our list, so they have no effect yet: ' + unknownCompanies + '. Check the spelling with your personal link.' : '';
   return {
     subject: 'You are signed up for internship alerts',
-    htmlBody: '<p>' + escapeHtml(intro) + '</p><p><b>' + escapeHtml(spam) + '</b></p>' + footerHtml_(editUrl),
-    body: intro + '\n\n' + spam + footerText_(editUrl)
+    htmlBody: '<div lang="en" style="font-size:16px;line-height:1.5"><p>' + escapeHtml(intro) + '</p><p><b>' + escapeHtml(spam) + '</b></p>'
+      + (telegram ? '<p>' + escapeHtml(telegram) + ' <a href="' + escapeHtml(safeUrl_(telegramLink)) + '">Connect Telegram</a></p>' : '')
+      + (unknown ? '<p>' + escapeHtml(unknown) + '</p>' : '') + footerHtml_(editUrl) + '</div>',
+    body: intro + '\n\n' + spam + (telegram ? '\n\n' + telegram + ' ' + telegramLink : '') + (unknown ? '\n\n' + unknown : '') + footerText_(editUrl)
+  };
+}
+
+function buildUnknownCompaniesEmail(name, editUrl, unknownCompanies) {
+  var text = 'Hi ' + name + ', your changes are saved. We could not find these companies in our list, so they have no effect yet: ' + unknownCompanies + '. Check the spelling with your personal link.';
+  return {
+    subject: 'Please check the company names you entered',
+    htmlBody: '<div lang="en" style="font-size:16px;line-height:1.5"><p>' + escapeHtml(text) + '</p>' + footerHtml_(editUrl) + '</div>',
+    body: text + footerText_(editUrl)
   };
 }
 
