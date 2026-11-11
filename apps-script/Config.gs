@@ -6,7 +6,7 @@ var CONFIG = {
   // Public, set once the bot exists. Its token goes in Script Properties as TELEGRAM_BOT_TOKEN.
   TELEGRAM_BOT_USERNAME: 'hire111bot',
   // Set to the exact reset phrase in Admin.gs only after the owner confirms deleting all student data.
-  RESET_AND_LAUNCH: '',
+  RESET_AND_LAUNCH: 'DELETE ALL STUDENT DATA',
   // Until the relaunch, only these role types are stored and emailed, and remote-only roles are skipped.
   LIVE_ROLE_TYPES: ['internship', 'apprentice', 'research'],
   LIVE_REMOTE_ROLES: false,
