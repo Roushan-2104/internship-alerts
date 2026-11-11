@@ -10,7 +10,9 @@ var ADMIN_ACTIONS = [
   // A form made by the earlier two-form version lacked the Telegram question and verified email.
   { id: 'upgrade-new-form-v2', run: function () { upgradeNewForm_(); } },
   // Students who chose Telegram before the link was being sent reliably get it now.
-  { id: 'send-missing-telegram-links-v1', run: function () { sendMissingTelegramLinks_(); } }
+  { id: 'send-missing-telegram-links-v1', run: function () { sendMissingTelegramLinks_(); } },
+  // The short form: one quick page, with optional pages for preferences and experience.
+  { id: 'replace-with-short-form-v3', run: function () { replaceWithShortForm_(); } }
 ];
 
 /** The reset deletes every student's data. It only runs when this exact phrase is in CONFIG. */

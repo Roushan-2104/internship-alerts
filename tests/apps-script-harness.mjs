@@ -52,6 +52,10 @@ export function createWorld({ configured = true } = {}) {
         getType: () => kind,
         getIndex: () => items.indexOf(item),
         asTextItem: () => chain({ createResponse: (value) => ({ value }) }),
+        setGoToPage: (target) => { item.goTo = target; return item; },
+        createChoice: (value, target) => ({ value, target }),
+        setChoices: (choices) => { item.choices = choices; return item; },
+        setRequired: (value) => { item.required = value; return item; },
       });
       items.push(item);
       return item;
@@ -67,7 +71,7 @@ export function createWorld({ configured = true } = {}) {
       setAcceptingResponses: (value) => { world.accepting[id] = value; return form; },
       deleteResponse: (responseId) => world.deletedResponses.push(`${id}:${responseId}`),
       addTextItem: addItem('TEXT'), addParagraphTextItem: addItem('PARAGRAPH_TEXT'), addCheckboxItem: addItem('CHECKBOX'),
-      addMultipleChoiceItem: addItem('MULTIPLE_CHOICE'), addListItem: addItem('LIST'),
+      addMultipleChoiceItem: addItem('MULTIPLE_CHOICE'), addListItem: addItem('LIST'), addPageBreakItem: addItem('PAGE_BREAK'),
       createResponse: () => chain({ withItemResponse: (r) => chain({ toPrefilledUrl: () => `https://resume/${id}?code=${r.value}` }) }),
     });
     world.forms[id] = form;
@@ -84,7 +88,7 @@ export function createWorld({ configured = true } = {}) {
     Logger: { log: () => {} },
     PropertiesService: { getScriptProperties: () => ({ getProperty: (k) => world.props[k] ?? null, setProperty: (k, v) => { world.props[k] = String(v); } }) },
     SpreadsheetApp: { create: () => book, openById: () => book },
-    FormApp: { EmailCollectionType: { VERIFIED: 'VERIFIED' }, create: () => (created++ === 0 ? form : makeForm(`form-${created}`)), openById: (id) => world.forms[id] || form, createTextValidation: () => chain(), ItemType: { FILE_UPLOAD: 'FILE_UPLOAD' } },
+    FormApp: { EmailCollectionType: { VERIFIED: 'VERIFIED' }, PageNavigationType: { SUBMIT: 'SUBMIT', CONTINUE: 'CONTINUE' }, create: () => (created++ === 0 ? form : makeForm(`form-${created}`)), openById: (id) => world.forms[id] || form, createTextValidation: () => chain(), ItemType: { FILE_UPLOAD: 'FILE_UPLOAD' } },
     MailApp: {
       getRemainingDailyQuota: () => world.quota,
       sendEmail: (message) => { if (world.mailFails) throw new Error('mail down'); world.quota -= 1; world.sent.push(message); },
