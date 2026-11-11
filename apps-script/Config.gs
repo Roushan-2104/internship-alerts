@@ -4,7 +4,7 @@ var CONFIG = {
   WORKFLOW_DISPATCH_URL: 'https://api.github.com/repos/Roushan-2104/internship-alerts/actions/workflows/watch.yml/dispatches',
   WATCHER_FRESH_MINUTES: 20,
   // Public, set once the bot exists. Its token goes in Script Properties as TELEGRAM_BOT_TOKEN.
-  TELEGRAM_BOT_USERNAME: '',
+  TELEGRAM_BOT_USERNAME: 'hire111bot',
   // Set to the exact reset phrase in Admin.gs only after the owner confirms deleting all student data.
   RESET_AND_LAUNCH: '',
   // Until the relaunch, only these role types are stored and emailed, and remote-only roles are skipped.
