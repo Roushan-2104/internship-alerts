@@ -526,6 +526,7 @@ test('heartbeat and status page render with real data and escape it', () => {
   world.forms[world.props.NEW_FORM_ID].getItems().push({ getType: () => 'FILE_UPLOAD' });
   assert.match(world.sandbox.getStatusData_().warnings.join(' '), /Not launched yet/);
   world.props.LAUNCHED = 'yes';
+  world.props.TELEGRAM_BOT_TOKEN = 'token';
   assert.equal(world.sandbox.getStatusData_().overall, 'Green');
   const html = renderStatus(world.sandbox.getStatusData_());
   assert.match(html, /Status: Green/);
@@ -1404,3 +1405,28 @@ test('the 5-minute trigger is installed', () => {
   const world = ready([]);
   assert.ok(world.triggers.includes('quickTick'));
 });
+
+test('Telegram: students who have not connected get the link in later emails, and missing setup is flagged', () => {
+  const world = telegramWorld('Email and Telegram');
+  world.sandbox.tick();
+  world.sent.length = 0;
+  world.hour = 23;
+  world.jobs = [makeJob('a')];
+  world.sandbox.tick();
+  const digest = world.sent.find((mail) => mail.to === 'asha@example.com');
+  assert.match(digest.body, /t\.me\/alerts_test_bot\?start=/);
+  assert.match(world.sandbox.getStatusData_().warnings.join(' '), /chose Telegram but have not connected/);
+  delete world.props.TELEGRAM_BOT_TOKEN;
+  assert.match(world.sandbox.getStatusData_().warnings.join(' '), /no TELEGRAM_BOT_TOKEN/);
+
+  world.props.TELEGRAM_BOT_TOKEN = '123:secret-telegram-token';
+  world.updates = [startMessage(1, 777, `/start ${world.table('Students')[0].telegramCode}`)];
+  world.sandbox.quickTick();
+  world.sent.length = 0;
+  world.day = '2026-11-07';
+  world.jobs.push(makeJob('b'));
+  world.sandbox.tick();
+  const later = world.sent.find((mail) => mail.to === 'asha@example.com');
+  assert.equal(later.body.includes('t.me/'), false, 'no link once connected');
+});
+

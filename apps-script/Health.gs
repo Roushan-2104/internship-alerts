@@ -85,6 +85,9 @@ function getStatusData_() {
   if (!hasUpload(signUpForm)) warnings.push('The sign-up form still needs its resume upload question.');
   if (!isLaunched_()) warnings.push('Not launched yet: the old form is still in use, and new-grad and most remote roles are held back.');
   if (prop_('TELEGRAM_BOT_TOKEN') && !CONFIG.TELEGRAM_BOT_USERNAME) warnings.push('Telegram token saved, but the bot username is not set yet.');
+  if (CONFIG.TELEGRAM_BOT_USERNAME && !prop_('TELEGRAM_BOT_TOKEN')) warnings.push('Telegram is off: no TELEGRAM_BOT_TOKEN in Script Properties, so students get no connect link.');
+  var waitingForTelegram = students.filter(function (s) { return s.status === 'active' && wantsTelegram_(s) && !s.telegramChatId; }).length;
+  if (waitingForTelegram) warnings.push(waitingForTelegram + ' student(s) chose Telegram but have not connected yet.');
 
   var failed = queue.filter(function (row) { return row.status === 'failed'; }).length;
   if (failed) warnings.push(failed + ' email(s) failed after retries.');

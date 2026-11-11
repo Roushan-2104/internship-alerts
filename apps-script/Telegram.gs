@@ -139,7 +139,7 @@ function deliver_(student, message) {
   }
   if (needsEmail_(student) || !reached) {
     try {
-      sendMail_(student.email, message);
+      sendMail_(student.email, withConnectLink_(student, message));
       reached = true;
     } catch (error) {
       // Already delivered on Telegram, so the row isn't retried (which would repeat that message).
@@ -149,3 +149,16 @@ function deliver_(student, message) {
   }
   return reached;
 }
+
+/** Students who chose Telegram but haven't connected get the link in every email until they do. */
+function withConnectLink_(student, message) {
+  var link = wantsTelegram_(student) && !student.telegramChatId ? telegramLink_(student) : '';
+  if (!link) return message;
+  var line = 'You chose Telegram alerts but have not connected yet. Open this link in Telegram and press Start:';
+  return {
+    subject: message.subject,
+    body: line + ' ' + link + '\n\n' + message.body,
+    htmlBody: '<p style="font-size:16px">' + escapeHtml(line) + ' <a href="' + escapeHtml(safeUrl_(link)) + '">Connect Telegram</a></p>' + message.htmlBody
+  };
+}
+
