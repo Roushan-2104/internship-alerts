@@ -195,4 +195,4 @@ Code reaches the live script with `clasp push --force`. Changes to the status pa
 
 ## License
 
-No license has been chosen yet. Until one is added, the code is visible but not licensed for reuse.
+[MIT](LICENSE). You're free to use, copy, modify and share this code, including in your own projects, as long as the license notice is kept.
