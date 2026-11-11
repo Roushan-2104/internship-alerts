@@ -59,6 +59,8 @@ var FORM_TITLES = {
   INTERESTS: 'Roles you are interested in',
   RESUME: 'Resume (optional)',
   STATUS: 'Alert status',
+  NEXT_STEP: 'What next?',
+  EXPERIENCE_AND_PROJECTS: 'Experience and projects',
   ROLE_TYPES: 'Role types you want',
   LOCATIONS: 'Where you can work',
   AREAS: 'Areas of work',

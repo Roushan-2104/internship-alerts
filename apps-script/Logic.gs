@@ -372,12 +372,12 @@ function jobBlockText_(job, checkEligibility) {
 }
 
 function footerHtml_(editUrl) {
-  return '<hr><p style="color:#555;font-size:13px">To update your profile, pause alerts, or delete your data, use '
+  return '<hr><p style="color:#555;font-size:13px">To add preferences, update your profile, pause alerts, or delete your data, use '
     + '<a href="' + escapeHtml(safeUrl_(editUrl)) + '">your personal link</a>. Please do not share it: anyone with it can change your answers.</p>';
 }
 
 function footerText_(editUrl) {
-  return '\n--\nUpdate your profile, pause alerts, or delete your data: ' + editUrl + '\nPlease do not share this link.';
+  return '\n--\nAdd preferences, update your profile, pause alerts, or delete your data: ' + editUrl + '\nPlease do not share this link.';
 }
 
 function buildInstantEmail(job, editUrl, checkEligibility) {

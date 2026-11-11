@@ -25,10 +25,12 @@ Code goes live with `clasp push --force` from this folder. One-time setup steps 
 
 ### The sign-up form
 
-There is one form. Students sign in with Google, which confirms their email, so nobody can sign up, replace or delete someone else. The form is created automatically. One step has to be done by hand, because Google doesn't let scripts create file-upload questions:
+There is one form, and its first page takes about a minute: name, degree, graduation year, skills, how to get alerts, and consent. Students then choose to finish, add preferences and experience on two optional pages, or pause or delete their alerts on a page of its own. Students sign in with Google, which confirms their email, so nobody can sign up, replace or delete someone else.
+
+The form is created automatically. One step has to be done by hand, because Google doesn't let scripts create file-upload questions:
 
 1. Open the form's edit link (it's in the Apps Script log, or find "Internship Alerts Sign-up" in Google Forms).
-2. Add a **File upload** question titled exactly `Resume (optional)`. Leave it not required.
+2. On the **Your experience** page, add a **File upload** question titled exactly `Resume (optional)`. Leave it not required.
 
 The status page shows a warning until this question exists.
 

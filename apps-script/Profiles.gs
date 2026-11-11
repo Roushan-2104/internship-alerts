@@ -32,7 +32,7 @@ function responseFields_(response) {
     degree: answers[FORM_TITLES.DEGREE] || '',
     gradYear: answers[FORM_TITLES.GRAD_YEAR] || '',
     skills: answers[FORM_TITLES.SKILLS] || '',
-    experience: answers[FORM_TITLES.EXPERIENCE] || '',
+    experience: answers[FORM_TITLES.EXPERIENCE] || answers[FORM_TITLES.EXPERIENCE_AND_PROJECTS] || '',
     projects: answers[FORM_TITLES.PROJECTS] || '',
     privateProjects: answers[FORM_TITLES.PRIVATE_PROJECTS] || '',
     github: String(answers[FORM_TITLES.GITHUB] || '').trim(),

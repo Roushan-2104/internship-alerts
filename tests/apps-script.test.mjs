@@ -938,21 +938,56 @@ test('priority roles bypass preferences, but not an excluded company', () => {
   assert.equal(channel(priority, prefStudent({ excludeCompanies: 'Google' })), 'none');
 });
 
-test('new form: one form, verified email, required questions, consent naming Gemini', () => {
+test('short form: page 1 is quick, the rest is optional, and pausing has its own page', () => {
   const world = ready([]);
   world.sandbox.setupNewForm();
-  const newForm = world.forms[world.props.NEW_FORM_ID];
-  const titles = newForm.getItems().map((item) => item.title);
+  const form = world.forms[world.props.NEW_FORM_ID];
+  const items = form.getItems();
   const t = world.sandbox.FORM_TITLES;
-  for (const title of [t.NAME, t.DEGREE, t.GRAD_YEAR, t.SKILLS, t.CONSENT, t.ROLE_TYPES, t.LOCATIONS, t.AREAS, t.ALWAYS_COMPANIES, t.NEVER_COMPANIES, t.FREQUENCY, t.CHANNEL, t.STATUS]) {
-    assert.ok(titles.includes(title), `missing ${title}`);
+  const firstBreak = items.findIndex((item) => item.getType() === 'PAGE_BREAK');
+  const pageOne = items.slice(0, firstBreak).map((item) => item.title);
+  assert.deepEqual(pageOne, [t.NAME, t.DEGREE, t.GRAD_YEAR, t.SKILLS, t.CHANNEL, t.CONSENT, t.NEXT_STEP]);
+  for (const removed of [t.EMAIL, t.PROJECTS, t.PRIVATE_PROJECTS, t.INTERESTS]) {
+    assert.equal(items.some((item) => item.title === removed), false, `${removed} removed`);
   }
-  assert.equal(titles.includes(t.EMAIL), false, 'email comes from the Google sign-in');
+  const optional = items.slice(firstBreak).filter((item) => item.getType() !== 'PAGE_BREAK' && item.title !== t.STATUS);
+  assert.ok(optional.every((item) => item.required !== true), 'everything after page 1 is optional');
+  const next = items.find((item) => item.title === t.NEXT_STEP);
+  assert.equal(next.choices[0].target, 'SUBMIT', 'finish submits straight away');
+  assert.equal(next.choices[1].target.title, 'What you want (optional)');
+  assert.equal(next.choices[2].target.title, 'Pause or delete');
+  assert.equal(next.choices[2].target.goTo, 'SUBMIT', 'the experience page submits instead of running on');
+  assert.equal(items.at(-1).title, t.STATUS);
   assert.match(world.sandbox.CONSENT_TEXT, /Gemini/);
-  assert.match(world.sandbox.CONSENT_TEXT, /free tier/);
   assert.equal(world.props.RESUME_FORM_ID, undefined, 'no second form');
   assert.ok(world.triggers.filter((name) => name === 'onFormSubmit').length >= 2, 'both forms are connected');
   assert.match(world.sandbox.getStatusData_().warnings.join(' '), /needs its resume upload question/);
+});
+
+test('short form answers from page 1 only are enough, and the merged experience box is read', () => {
+  const world = ready([]);
+  const t = world.sandbox.FORM_TITLES;
+  signUp(world, 'q1', { [t.EMAIL]: undefined, __respondent: 'quick@gmail.com', [t.NEXT_STEP]: world.sandbox.NEXT_STEP_CHOICES.FINISH, [t.STATUS]: undefined });
+  const quick = world.table('Students').find((row) => row.responseId === 'q1');
+  assert.equal(quick.status, 'active');
+  assert.equal(quick.frequency, 'daily');
+  assert.equal(quick.channel, 'email');
+  signUp(world, 'q2', { [t.EMAIL]: undefined, __respondent: 'full@gmail.com', [t.EXPERIENCE_AND_PROJECTS]: 'Built a Flask API', [t.STATUS]: undefined });
+  assert.equal(world.table('Students').find((row) => row.responseId === 'q2').experience, 'Built a Flask API');
+});
+
+test('the pre-launch form is replaced by the short form once, and never after launch', () => {
+  const world = ready([]);
+  world.sandbox.setupNewForm();
+  const oldId = world.props.NEW_FORM_ID;
+  world.sandbox.tick();
+  assert.notEqual(world.props.NEW_FORM_ID, oldId);
+  assert.ok(world.trashed.includes(oldId));
+  const shortId = world.props.NEW_FORM_ID;
+  world.sandbox.tick();
+  assert.equal(world.props.NEW_FORM_ID, shortId, 'only once');
+  world.props.LAUNCHED = 'yes';
+  assert.throws(() => world.sandbox.replaceWithShortForm_(), /already live/);
 });
 
 test('new form answers are stored with the verified email, and weekly students wait for Sunday', () => {
