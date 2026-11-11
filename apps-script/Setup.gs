@@ -40,7 +40,7 @@ function createTables_(spreadsheetId) {
     if (sheet.getLastRow() === 0) sheet.appendRow(TABLES[name]);
     else sheet.getRange(1, 1, 1, TABLES[name].length).setValues([TABLES[name]]);
     // Plain text keeps ids, years and timestamps exactly as written.
-    sheet.getRange('A:Z').setNumberFormat('@');
+    sheet.getRange('A:AZ').setNumberFormat('@');
     sheet.setFrozenRows(1);
   });
   var blank = book.getSheetByName('Sheet1');
@@ -80,6 +80,8 @@ function installTriggers_(formId) {
   ScriptApp.newTrigger('tick').timeBased().everyMinutes(30).create();
   ScriptApp.newTrigger('sendHeartbeat').timeBased().onWeekDay(ScriptApp.WeekDay.MONDAY).atHour(9).create();
   ScriptApp.newTrigger('onFormSubmit').forForm(formId).onFormSubmit().create();
+  var newFormId = prop_('NEW_FORM_ID');
+  if (newFormId && newFormId !== formId) ScriptApp.newTrigger('onFormSubmit').forForm(newFormId).onFormSubmit().create();
 }
 
 var COMPANY_HEADERS = ['Company', 'Type', 'Board', 'Enabled', 'Group', 'Notes'];

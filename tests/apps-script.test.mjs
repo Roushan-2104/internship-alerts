@@ -177,7 +177,7 @@ test('digest waits for its hour, combines jobs, labels unclear ones, and skips n
   world.sandbox.tick();
   const mail = toStudents(world);
   assert.equal(mail.length, 1);
-  assert.match(mail[0].subject, /2 new internships/);
+  assert.match(mail[0].subject, /2 new roles/);
   assert.match(mail[0].body, /Check eligibility/);
   assert.equal(mail[0].body.includes('PhD Intern'), false);
   assert.equal(mail[0].body.includes('other Intern'), false);
@@ -193,7 +193,7 @@ test('reposts and closed jobs are not sent to students', () => {
   world.jobs = [makeJob('re', { repostOf: 'old' }), makeJob('shut', { open: false })];
   world.sandbox.tick();
   assert.equal(world.sent.length, 1);
-  assert.match(world.sent[0].subject, /No new internship openings/);
+  assert.match(world.sent[0].subject, /No new openings/);
 });
 
 test('digest goes out once a day, and later jobs wait for the next day', () => {
@@ -235,7 +235,7 @@ test('no-openings email goes once a day to active students only', () => {
   world.sandbox.tick();
   world.sandbox.tick();
   assert.equal(toStudents(world).length, 1);
-  assert.match(toStudents(world)[0].subject, /No new internship openings/);
+  assert.match(toStudents(world)[0].subject, /No new openings/);
   assert.match(toStudents(world)[0].body, /https:\/\/edit\/r1/);
   assert.equal(toStudents(world, 'paused@example.com').length, 0);
   world.day = '2026-11-07';
@@ -279,7 +279,7 @@ test('profile updates affect future jobs only, without another sign-up email', (
   world.hour = 23;
   world.sandbox.tick();
   assert.equal(world.sent.length, 1);
-  assert.match(world.sent[0].subject, /No new internship openings/, 'no Rust skill yet');
+  assert.match(world.sent[0].subject, /No new openings/, 'no Rust skill yet');
 
   world.sent.length = 0;
   signUp(world, 'r1', { [titles.SKILLS]: 'Python, SQL, Rust' });
@@ -302,16 +302,25 @@ test('new skills from students are added to the synonym list once', () => {
   assert.deepEqual(world.table('Skills').map((row) => row.skill), ['solidity']);
 });
 
-test('a second sign-up from the same address replaces the first', () => {
+test('a second verified sign-up from the same address replaces the first', () => {
   const world = ready();
-  signUp(world, 'r1');
-  signUp(world, 'r2', { [world.sandbox.FORM_TITLES.SKILLS]: 'Java' });
+  signUp(world, 'r1', { __respondent: 'asha@example.com' });
+  signUp(world, 'r2', { __respondent: 'asha@example.com', [world.sandbox.FORM_TITLES.SKILLS]: 'Java' });
   const students = world.table('Students');
   assert.equal(students.length, 1);
   assert.equal(students[0].responseId, 'r2');
-  assert.ok(world.deletedResponses.includes('r1'));
+  assert.ok(world.deletedResponses.includes('form-id:r1'));
   world.sandbox.tick();
   assert.equal(world.sent.filter((mail) => /signed up/.test(mail.subject)).length, 0);
+});
+
+test('an unverified submission can never replace or delete someone else', () => {
+  const world = ready();
+  signUp(world, 'victim', { __respondent: 'victim@gmail.com' });
+  signUp(world, 'attacker', { [world.sandbox.FORM_TITLES.EMAIL]: 'victim@gmail.com', [world.sandbox.FORM_TITLES.STATUS]: world.sandbox.ALERT_STATUS.DELETE });
+  signUp(world, 'attacker2', { [world.sandbox.FORM_TITLES.EMAIL]: 'victim@gmail.com', [world.sandbox.FORM_TITLES.SKILLS]: 'Cobol' });
+  assert.ok(world.table('Students').some((row) => row.responseId === 'victim'));
+  assert.equal(world.deletedResponses.includes('form-id:victim'), false);
 });
 
 test('pausing stops emails and clears waiting ones', () => {
@@ -344,7 +353,7 @@ test('delete removes the student, matches, queue, form response and resume', () 
   assert.equal(world.table('Students').length, 0);
   assert.equal(world.table('Matches').length, 0);
   assert.equal(world.table('Queue').filter((row) => row.status === 'pending').length, 0);
-  assert.ok(world.deletedResponses.includes('r1'));
+  assert.ok(world.deletedResponses.includes('form-id:r1'));
   assert.ok(world.trashed.includes('resume-1'));
 });
 
@@ -446,7 +455,7 @@ test('health: stale data, failed source and bad feed alert once, then report fix
   world.fetch = () => feed([], { sources: { Google: { ok: false, error: 'Zero jobs found' } } });
   world.sandbox.tick();
   assert.equal(world.sent.filter((m) => /Fixed: stale/.test(m.subject)).length, 1);
-  assert.equal(world.sent.filter((m) => /Problem: source:Google/.test(m.subject)).length, 1);
+  assert.equal(world.sent.filter((m) => /Problem: sources:Google/.test(m.subject)).length, 1);
 
   world.fetch = () => ({ code: 500, body: '' });
   world.sandbox.tick();
@@ -513,6 +522,9 @@ test('heartbeat and status page render with real data and escape it', () => {
   assert.match(data.warnings.join(' '), /resume upload question/);
   assert.equal(data.overall, 'Yellow');
   world.formItems.push({ getType: () => 'FILE_UPLOAD' });
+  world.forms[world.props.NEW_FORM_ID].getItems().push({ getType: () => 'FILE_UPLOAD' });
+  assert.match(world.sandbox.getStatusData_().warnings.join(' '), /Not launched yet/);
+  world.props.LAUNCHED = 'yes';
   assert.equal(world.sandbox.getStatusData_().overall, 'Green');
   const html = renderStatus(world.sandbox.getStatusData_());
   assert.match(html, /Status: Green/);
@@ -599,9 +611,9 @@ test('send now matches every new job and ignores the assigned hour', () => {
   const summary = world.sandbox.sendDigestNow();
   assert.equal(summary.jobsNotYetMatched, 0);
   assert.equal(summary.matchedJobsWaiting, 23);
-  assert.equal(summary.digestEmailsSent, 1);
+  assert.equal(summary.digestsSent, 1);
   assert.equal(world.sent.length, 1);
-  assert.match(world.sent[0].subject, /23 new internships/);
+  assert.match(world.sent[0].subject, /23 new roles/);
   assert.equal(world.table('Queue').filter((row) => row.type === 'digest' && row.status === 'pending').length, 0);
 });
 
@@ -612,7 +624,7 @@ test('send now works after today\'s digest, without repeating jobs or sending em
   world.hour = 23;
   world.sandbox.tick();
   world.sent.length = 0;
-  assert.equal(world.sandbox.sendDigestNow().digestEmailsSent, 0, 'nothing waiting means no email');
+  assert.equal(world.sandbox.sendDigestNow().digestsSent, 0, 'nothing waiting means no email');
   assert.equal(world.sent.length, 0);
 
   world.jobs = [makeJob('late')];
@@ -660,8 +672,8 @@ test('empty sections show no heading, and long sections say they were shortened'
   assert.equal(none.htmlBody.includes('What they ask for'), false);
   assert.match(none.htmlBody, /no clear sections/);
   const long = logic.buildInstantEmail({ title: 'Intern', company: 'A', location: 'I', url: 'https://x', minQualifications: Array.from({ length: 20 }, (_, i) => `Skill ${i}`).join('\n') }, 'https://e', false);
-  assert.equal(long.htmlBody.includes('Skill 7'), true);
-  assert.equal(long.htmlBody.includes('Skill 8'), false);
+  assert.equal(long.htmlBody.includes('Skill 4'), true);
+  assert.equal(long.htmlBody.includes('Skill 5'), false);
   assert.match(long.htmlBody, /Shortened for this email/);
 });
 
@@ -855,18 +867,20 @@ test('one unreadable job is recorded and the rest continue', () => {
   assert.equal(world.sent.filter((mail) => /Problem/.test(mail.subject)).length, 0);
 });
 
-test('profiles are not sent to Gemini until the consent switch is on', () => {
+test('profiles go to Gemini only for students whose consent names it', () => {
   const world = withGemini((payload) => (/list the concrete skills/.test(payload.systemInstruction.parts[0].text) ? geminiAnswer({ skills: ['Rust', 'Kafka'] }) : geminiAnswer(facts())));
-  signUp(world);
+  const titles = world.sandbox.FORM_TITLES;
+  signUp(world, 'old', { [titles.EMAIL]: 'old@example.com', [titles.CONSENT]: ['I agree to my answers being stored.'] });
+  signUp(world, 'new', { [titles.EMAIL]: 'new@example.com', [titles.CONSENT]: [world.sandbox.CONSENT_TEXT] });
   world.sandbox.tick();
-  assert.equal(world.geminiCalls.filter((call) => /concrete skills/.test(call.options.payload)).length, 0);
-  world.sandbox.CONFIG.AI_READS_PROFILES = true;
-  world.sandbox.tick();
-  const student = world.table('Students')[0];
+  const profileCalls = world.geminiCalls.filter((call) => /concrete skills/.test(call.options.payload));
+  assert.equal(profileCalls.length, 1);
+  assert.equal(profileCalls[0].options.payload.includes('old@example.com'), false);
+  const student = world.table('Students').find((row) => row.responseId === 'new');
   assert.deepEqual(JSON.parse(student.ai).skills, ['rust', 'kafka']);
   assert.ok(logic.studentSkillSet({ ...student, ai: student.ai }, synonyms).includes('rust'));
-  signUp(world, 'r1', { [world.sandbox.FORM_TITLES.SKILLS]: 'Python, Go' });
-  assert.equal(world.table('Students')[0].aiReadAt, '', 'an edit means it is read again');
+  signUp(world, 'new', { [titles.EMAIL]: 'new@example.com', [titles.CONSENT]: [world.sandbox.CONSENT_TEXT], [titles.SKILLS]: 'Python, Go' });
+  assert.equal(world.table('Students').find((row) => row.responseId === 'new').aiReadAt, '', 'an edit means it is read again');
 });
 
 test('status page shows Gemini usage', () => {
@@ -878,7 +892,476 @@ test('status page shows Gemini usage', () => {
   assert.equal(data.geminiStatus, 'Working');
   assert.equal(data.geminiUsedToday, 1);
   assert.equal(data.jobsReadByGemini, 1);
-  assert.match(data.profilesReadByGemini, /Off until/);
+  assert.match(data.profilesReadByGemini, /only students who agreed/);
   assert.match(renderStatus(data), /Requests today/);
 });
 
+// Phase 4: new form, preferences and timing --------------------------------------------------------
+const roleJob = (overrides = {}) => ({ title: 'Software Intern', company: 'Acme', location: 'Bengaluru, India', roleType: 'internship', areas: 'engineering', remote: false, partTime: false, minQualifications: "Bachelor's, graduating in 2029. Python.", ...overrides });
+const prefStudent = (overrides = {}) => ({ degree: "Bachelor's (BTech)", gradYear: '2029', skills: 'Python', ...overrides });
+const channel = (job, student) => logic.routeJob(job, student, synonyms).channel;
+
+test('blank preferences allow every eligible match', () => {
+  assert.equal(channel(roleJob(), prefStudent()), 'digest');
+});
+
+test('role type, location and area preferences are strict', () => {
+  assert.equal(channel(roleJob({ roleType: 'newGrad' }), prefStudent({ roleTypes: 'internship' })), 'none');
+  assert.equal(channel(roleJob(), prefStudent({ roleTypes: 'internship, newGrad' })), 'digest');
+  assert.equal(channel(roleJob({ partTime: true }), prefStudent({ roleTypes: 'internship' })), 'none');
+  assert.equal(channel(roleJob({ partTime: true }), prefStudent({ roleTypes: 'internship, partTime' })), 'digest');
+  assert.equal(channel(roleJob({ location: 'Pune' }), prefStudent({ locations: 'Bengaluru, Hyderabad' })), 'none');
+  assert.equal(channel(roleJob({ location: 'Gurgaon, India' }), prefStudent({ locations: 'Delhi NCR (including Gurugram and Noida)' })), 'digest');
+  assert.equal(channel(roleJob({ location: 'Jaipur, India' }), prefStudent({ locations: 'Other Indian city' })), 'digest');
+  assert.equal(channel(roleJob({ location: 'India' }), prefStudent({ locations: 'Pune' })), 'digest', 'no city named, so it may be in Pune');
+  assert.equal(channel(roleJob({ location: 'Remote - APAC', remote: true }), prefStudent({ locations: 'Bengaluru' })), 'none');
+  assert.equal(channel(roleJob({ location: 'Remote - APAC', remote: true }), prefStudent({ locations: 'Remote (open to India)' })), 'digest');
+  assert.equal(channel(roleJob({ areas: 'marketing' }), prefStudent({ areas: 'Engineering, Design' })), 'none');
+  assert.equal(channel(roleJob({ areas: 'people' }), prefStudent({ areas: 'People (HR)' })), 'digest');
+  assert.equal(channel(roleJob({ areas: 'other' }), prefStudent({ areas: 'Engineering' })), 'digest', 'untagged jobs are not hidden');
+});
+
+test('company lists: always overrides choices and skills, never is absolute', () => {
+  const marketing = roleJob({ company: 'Stripe', areas: 'marketing', location: 'Pune', minQualifications: "Bachelor's, graduating in 2029. Figma." });
+  assert.equal(channel(marketing, prefStudent({ areas: 'Engineering', locations: 'Bengaluru' })), 'none');
+  assert.equal(channel(marketing, prefStudent({ areas: 'Engineering', locations: 'Bengaluru', includeCompanies: 'stripe' })), 'digest');
+  assert.equal(channel(roleJob({ minQualifications: "Bachelor's. Graduating in 2027." }), prefStudent({ includeCompanies: 'Acme' })), 'none', 'still must be eligible');
+  assert.equal(channel(roleJob(), prefStudent({ excludeCompanies: 'Acme Corp, Other' })), 'digest', 'a longer name is a different company');
+  assert.equal(channel(roleJob(), prefStudent({ excludeCompanies: 'acme' })), 'none');
+});
+
+test('priority roles bypass preferences, but not an excluded company', () => {
+  const priority = roleJob({ priority: true, company: 'Google', roleType: 'internship', areas: 'engineering', location: 'Hyderabad' });
+  assert.equal(channel(priority, prefStudent({ locations: 'Pune', areas: 'Design', roleTypes: 'newGrad' })), 'instant');
+  assert.equal(channel(priority, prefStudent({ excludeCompanies: 'Google' })), 'none');
+});
+
+test('new form: one form, verified email, required questions, consent naming Gemini', () => {
+  const world = ready([]);
+  world.sandbox.setupNewForm();
+  const newForm = world.forms[world.props.NEW_FORM_ID];
+  const titles = newForm.getItems().map((item) => item.title);
+  const t = world.sandbox.FORM_TITLES;
+  for (const title of [t.NAME, t.DEGREE, t.GRAD_YEAR, t.SKILLS, t.CONSENT, t.ROLE_TYPES, t.LOCATIONS, t.AREAS, t.ALWAYS_COMPANIES, t.NEVER_COMPANIES, t.FREQUENCY, t.CHANNEL, t.STATUS]) {
+    assert.ok(titles.includes(title), `missing ${title}`);
+  }
+  assert.equal(titles.includes(t.EMAIL), false, 'email comes from the Google sign-in');
+  assert.match(world.sandbox.CONSENT_TEXT, /Gemini/);
+  assert.match(world.sandbox.CONSENT_TEXT, /free tier/);
+  assert.equal(world.props.RESUME_FORM_ID, undefined, 'no second form');
+  assert.ok(world.triggers.filter((name) => name === 'onFormSubmit').length >= 2, 'both forms are connected');
+  assert.match(world.sandbox.getStatusData_().warnings.join(' '), /needs its resume upload question/);
+});
+
+test('new form answers are stored with the verified email, and weekly students wait for Sunday', () => {
+  const world = ready([]);
+  world.sandbox.setupNewForm();
+  const t = world.sandbox.FORM_TITLES;
+  world.sandbox.onFormSubmit({
+    source: world.forms[world.props.NEW_FORM_ID],
+    response: makeResponse(world.sandbox, 'w1', {
+      __respondent: 'Verified@Gmail.com', [t.EMAIL]: undefined,
+      [t.ROLE_TYPES]: ['Internships', 'New-grad full-time roles'], [t.LOCATIONS]: ['Bengaluru', 'Remote (open to India)'],
+      [t.AREAS]: ['Engineering'], [t.FREQUENCY]: 'Weekly (Sundays)', [t.CONSENT]: [world.sandbox.CONSENT_TEXT], [t.RESUME]: ['resume-1'],
+    }),
+  });
+  const student = world.table('Students')[0];
+  assert.equal(student.email, 'verified@gmail.com');
+  assert.equal(student.roleTypes, 'internship, newGrad');
+  assert.equal(student.frequency, 'weekly');
+  assert.equal(student.channel, 'email');
+  assert.equal(student.resumeFileId, 'resume-1');
+  assert.equal(student.formId, world.props.NEW_FORM_ID);
+  world.sandbox.tick();
+  assert.ok(world.sent.some((mail) => mail.to === 'verified@gmail.com' && /signed up/.test(mail.subject)));
+
+  world.sent.length = 0;
+  world.hour = 23;
+  world.weekday = '3';
+  world.jobs = [makeJob('a')];
+  world.sandbox.tick();
+  assert.equal(world.sent.length, 0, 'weekly digests wait for Sunday');
+  world.weekday = '7';
+  world.sandbox.tick();
+  assert.equal(world.sent.length, 1);
+  assert.match(world.sent[0].body, /a Intern/);
+  world.sent.length = 0;
+  world.day = '2026-11-08';
+  world.sandbox.tick();
+  assert.match(world.sent[0].subject, /No new openings this week/);
+});
+
+test('a sign-up with no email is rejected and reported', () => {
+  const world = ready([]);
+  assert.throws(() => signUp(world, 'x', { [world.sandbox.FORM_TITLES.EMAIL]: undefined }), /no email/);
+  assert.equal(world.table('Students').length, 0);
+});
+
+// Telegram ----------------------------------------------------------------------------------------
+function telegramWorld(channelLabel = 'Telegram') {
+  const world = ready([]);
+  world.props.TELEGRAM_BOT_TOKEN = '123:secret-telegram-token';
+  world.sandbox.CONFIG.TELEGRAM_BOT_USERNAME = 'alerts_test_bot';
+  world.updates = [];
+  world.blocked = false;
+  world.telegram = (method) => {
+    if (method === 'getUpdates') { const result = world.updates; world.updates = []; return { code: 200, body: { ok: true, result } }; }
+    if (method === 'sendMessage') return world.blocked ? { code: 403, body: { ok: false } } : { code: 200, body: { ok: true } };
+    return { code: 404, body: {} };
+  };
+  signUp(world, 'r1', { [world.sandbox.FORM_TITLES.CHANNEL]: channelLabel });
+  return world;
+}
+const startMessage = (id, chatId, text) => ({ update_id: id, message: { chat: { id: chatId, type: 'private' }, text } });
+const sentTo = (world, chatId) => world.telegramCalls.filter((c) => c.method === 'sendMessage' && String(c.payload.chat_id) === String(chatId));
+
+test('Telegram: the confirmation email has a connect link, and /start with the code connects', () => {
+  const world = telegramWorld();
+  world.sandbox.tick();
+  const code = world.table('Students')[0].telegramCode;
+  assert.ok(code.length >= 8);
+  const confirmation = world.sent.find((mail) => /signed up/.test(mail.subject));
+  assert.match(confirmation.body, new RegExp(`https://t.me/alerts_test_bot\\?start=${code}`));
+  world.updates = [startMessage(5, 777, `/start ${code}`)];
+  world.sandbox.tick();
+  assert.equal(world.table('Students')[0].telegramChatId, '777');
+  assert.match(sentTo(world, 777)[0].payload.text, /Connected/);
+  assert.equal(world.props.TELEGRAM_OFFSET, '6');
+});
+
+test('Telegram: alerts go there instead of email, in plain text, and never reveal the token', () => {
+  const world = telegramWorld();
+  world.sandbox.tick();
+  world.updates = [startMessage(1, 777, `/start ${world.table('Students')[0].telegramCode}`)];
+  world.sandbox.tick();
+  world.sent.length = 0;
+  world.hour = 23;
+  world.jobs = [makeJob('a', { title: '<b>Intern</b> *bold*' })];
+  world.sandbox.tick();
+  assert.equal(world.sent.filter((mail) => mail.to === 'asha@example.com').length, 0, 'no email for Telegram-only');
+  const digest = sentTo(world, 777).at(-1);
+  assert.match(digest.payload.text, /<b>Intern<\/b> \*bold\*/);
+  assert.equal(digest.payload.parse_mode, undefined);
+  const everything = JSON.stringify(world.sent) + JSON.stringify(world.table('Logs')) + JSON.stringify(world.sandbox.getStatusData_());
+  assert.equal(everything.includes('secret-telegram-token'), false);
+});
+
+test('Telegram: wrong codes, group chats and /stop are handled', () => {
+  const world = telegramWorld();
+  world.sandbox.tick();
+  const code = world.table('Students')[0].telegramCode;
+  world.updates = [startMessage(1, 900, '/start notarealcode123'), { update_id: 2, message: { chat: { id: -5, type: 'group' }, text: `/start ${code}` } }];
+  world.sandbox.tick();
+  assert.equal(world.table('Students')[0].telegramChatId, '');
+  assert.match(sentTo(world, 900)[0].payload.text, /not valid/);
+  assert.equal(sentTo(world, -5).length, 0);
+  world.updates = [startMessage(3, 777, `/start ${code}`), startMessage(4, 777, '/stop')];
+  world.sandbox.tick();
+  assert.equal(world.table('Students')[0].telegramChatId, '');
+});
+
+test('Telegram: not connected yet, or bot blocked, means email instead', () => {
+  const world = telegramWorld();
+  world.sandbox.tick();
+  world.sent.length = 0;
+  world.hour = 23;
+  world.jobs = [makeJob('a')];
+  world.sandbox.tick();
+  assert.equal(world.sent.filter((mail) => mail.to === 'asha@example.com').length, 1, 'not connected yet, so email');
+
+  world.updates = [startMessage(1, 777, `/start ${world.table('Students')[0].telegramCode}`)];
+  world.blocked = true;
+  world.day = '2026-11-07';
+  world.jobs.push(makeJob('b'));
+  world.sent.length = 0;
+  world.sandbox.tick();
+  assert.equal(world.table('Students')[0].telegramChatId, '', 'blocked bot disconnects them');
+  assert.equal(world.sent.filter((mail) => mail.to === 'asha@example.com').length, 1, 'and the message comes by email');
+});
+
+test('Telegram: "both" sends on both routes, long digests are split', () => {
+  const world = telegramWorld('Email and Telegram');
+  world.sandbox.tick();
+  world.updates = [startMessage(1, 777, `/start ${world.table('Students')[0].telegramCode}`)];
+  world.sandbox.tick();
+  world.sent.length = 0;
+  world.hour = 23;
+  world.jobs = Array.from({ length: 30 }, (_, i) => makeJob(`j${i}`, { minQualifications: `Bachelor's. Python. ${'Detail. '.repeat(60)}` }));
+  world.sandbox.tick();
+  assert.equal(world.sent.filter((mail) => mail.to === 'asha@example.com').length, 1);
+  const parts = sentTo(world, 777).filter((c) => !/Connected/.test(c.payload.text));
+  assert.ok(parts.length >= 2, 'split into several messages');
+  assert.ok(parts.every((c) => c.payload.text.length <= 4096));
+});
+
+test('Telegram: a rejected token is reported once', () => {
+  const world = telegramWorld();
+  world.telegram = () => ({ code: 401, body: { ok: false } });
+  world.sandbox.tick();
+  world.sandbox.tick();
+  assert.equal(world.sent.filter((mail) => /Problem: step:telegram/.test(mail.subject)).length, 1);
+});
+
+// Admin actions, launch and reset ---------------------------------------------------------------
+test('admin actions run once on the next tick', () => {
+  const world = ready([]);
+  world.sandbox.tick();
+  assert.ok(world.props.NEW_FORM_ID, 'the new form is created automatically');
+  assert.ok(world.props['ADMIN_DONE_create-new-form-v1']);
+  const formId = world.props.NEW_FORM_ID;
+  world.sandbox.tick();
+  assert.equal(world.props.NEW_FORM_ID, formId, 'not created twice');
+});
+
+test('reset needs the exact phrase, then deletes all student data and launches the new form', () => {
+  const world = ready([]);
+  const t = world.sandbox.FORM_TITLES;
+  signUp(world, 'r1', { [t.RESUME]: ['resume-1'] });
+  world.sandbox.tick();
+  world.jobs = [makeJob('a'), makeJob('grad', { roleType: 'newGrad' })];
+  world.sandbox.tick();
+  assert.ok(world.table('Students').length && world.table('Matches').length);
+  assert.equal(world.table('Jobs').some((j) => j.id === 'grad'), false, 'held back before launch');
+
+  world.sandbox.CONFIG.RESET_AND_LAUNCH = 'delete all';
+  world.sandbox.tick();
+  assert.equal(world.table('Students').length, 1, 'a wrong phrase does nothing');
+
+  world.uploadFolderFiles = ['upload-1', 'upload-2'];
+  world.sandbox.CONFIG.RESET_AND_LAUNCH = world.sandbox.RESET_PHRASE;
+  world.sandbox.tick();
+  for (const name of ['Students', 'Matches', 'Queue', 'Skills']) assert.equal(world.table(name).length, 0, `${name} emptied`);
+  assert.ok(world.trashed.includes('resume-1') && world.trashed.includes('upload-1') && world.trashed.includes('upload-2'));
+  assert.equal(world.props.LAUNCHED, 'yes');
+  assert.equal(world.props.FORM_ID, world.props.NEW_FORM_ID);
+  assert.equal(world.props.OLD_FORM_ID, 'form-id');
+  assert.ok(world.table('Jobs').some((j) => j.id === 'grad'), 'all role types after launch');
+  const formId = world.props.FORM_ID;
+  world.sandbox.tick();
+  assert.equal(world.props.FORM_ID, formId, 'reset runs only once');
+});
+
+test('after the reset, a new sign-up gets the open jobs once', () => {
+  const world = ready([makeJob('open1')]);
+  world.sandbox.tick();
+  world.sandbox.CONFIG.RESET_AND_LAUNCH = world.sandbox.RESET_PHRASE;
+  world.sandbox.tick();
+  world.sandbox.onFormSubmit({ source: world.forms[world.props.NEW_FORM_ID], response: makeResponse(world.sandbox, 'n1', { __respondent: 'new@gmail.com' }) });
+  world.hour = 23;
+  world.sandbox.tick();
+  const digest = world.sent.find((mail) => mail.to === 'new@gmail.com' && /matched/.test(mail.subject));
+  assert.ok(digest, 'open jobs arrive as new after launch');
+  assert.match(digest.body, /open1 Intern/);
+});
+
+test('unknown company names are reported to the student once', () => {
+  const world = ready([]);
+  world.props.COMPANIES_SHEET_ID = 'companies';
+  world.companyNames = ['Stripe', 'HackerRank'];
+  const t = world.sandbox.FORM_TITLES;
+  signUp(world, 'r1', { [t.ALWAYS_COMPANIES]: 'Stripe, Strpe' });
+  world.sandbox.tick();
+  const confirmation = world.sent.find((mail) => /signed up/.test(mail.subject));
+  assert.match(confirmation.body, /Strpe/);
+  assert.equal(confirmation.body.includes('Stripe,'), false);
+  world.sent.length = 0;
+  signUp(world, 'r1', { [t.ALWAYS_COMPANIES]: 'Stripe, Hackerrnk' });
+  signUp(world, 'r1', { [t.ALWAYS_COMPANIES]: 'Stripe, Hackerrnk', [t.SKILLS]: 'Python, Go' });
+  world.sandbox.tick();
+  const notices = world.sent.filter((mail) => /check the company names/.test(mail.subject));
+  assert.equal(notices.length, 1, 'the same unknown names are not repeated');
+  assert.match(notices[0].body, /Hackerrnk/);
+});
+
+test('deleting a student removes their response from the form they used', () => {
+  const world = ready([]);
+  world.sandbox.setupNewForm();
+  const t = world.sandbox.FORM_TITLES;
+  world.sandbox.onFormSubmit({ source: world.forms[world.props.NEW_FORM_ID], response: makeResponse(world.sandbox, 'n1') });
+  world.sandbox.onFormSubmit({ source: world.forms[world.props.NEW_FORM_ID], response: makeResponse(world.sandbox, 'n1', { [t.STATUS]: world.sandbox.ALERT_STATUS.DELETE }) });
+  assert.equal(world.table('Students').length, 0);
+  assert.ok(world.deletedResponses.includes(`${world.props.NEW_FORM_ID}:n1`));
+});
+
+test('long digests show the first jobs in full and list the rest', () => {
+  const items = Array.from({ length: 15 }, (_, i) => ({ job: { title: `Role ${i}`, company: 'Acme', location: 'India', url: `https://x/${i}`, minQualifications: 'Python' }, checkEligibility: false }));
+  const mail = logic.buildDigestEmail(items, 'https://e');
+  assert.match(mail.subject, /15 new roles/);
+  assert.match(mail.htmlBody, /More matches/);
+  assert.equal((mail.htmlBody.match(/<h2 style="margin:0 0 4px/g) || []).length, 12);
+  assert.match(mail.body, /- Role 14, Acme: https:\/\/x\/14/);
+  assert.match(mail.htmlBody, /lang="en"/);
+});
+
+test('emails say what kind of role each job is', () => {
+  const mail = logic.buildInstantEmail({ title: 'Analyst', company: 'A', location: 'Remote', url: 'https://x', roleType: 'newGrad', remote: true }, 'https://e', false);
+  assert.match(mail.body, /New-grad role, remote/);
+});
+
+test('backlog matching: once per new student, only after launch, and never as an instant alert', () => {
+  const world = ready([makeJob('vip', { priority: true, title: 'Associate Software Developer Intern', minQualifications: "Bachelor's, graduating in 2029." })]);
+  world.sandbox.tick();
+  world.sandbox.CONFIG.RESET_AND_LAUNCH = world.sandbox.RESET_PHRASE;
+  world.sandbox.tick();
+  world.sent.length = 0;
+  world.sandbox.onFormSubmit({ source: world.forms[world.props.NEW_FORM_ID], response: makeResponse(world.sandbox, 'n1', { __respondent: 'late@gmail.com' }) });
+  world.sandbox.tick();
+  assert.equal(world.sent.filter((mail) => /is open: apply now/.test(mail.subject)).length, 0, 'backlog is not instant');
+  assert.equal(world.table('Queue').filter((row) => row.type === 'digest' && row.responseId === 'n1').length, 1);
+  world.sandbox.tick();
+  assert.equal(world.table('Matches').filter((row) => row.responseId === 'n1').length, 1, 'only once');
+});
+
+
+// Audit fixes -------------------------------------------------------------------------------------
+test('audit: "Data and AI" matches data jobs whatever the capitals', () => {
+  assert.equal(channel(roleJob({ areas: 'data and AI', minQualifications: "Bachelor's, graduating in 2029. Python." }), prefStudent({ areas: 'Data and AI' })), 'digest');
+});
+
+test('audit: junk and short skills cannot make every job match', () => {
+  const world = ready();
+  signUp(world, 'r1', { [world.sandbox.FORM_TITLES.SKILLS]: 'and, the, IT, team, Solidity' });
+  const listed = world.table('Skills').map((row) => row.skill);
+  assert.deepEqual(listed, ['solidity'], 'only real, longer skills are listed');
+  const synonymsNow = world.sandbox.buildSynonyms(world.table('Skills'));
+  assert.equal(synonymsNow.some((group) => group[0] === 'solidity'), false, 'not used for everyone until approved');
+  const approved = world.sandbox.buildSynonyms([{ skill: 'solidity', aliases: '', approved: 'yes' }]);
+  assert.ok(approved.some((group) => group[0] === 'solidity'));
+});
+
+test('audit: "MS Excel" is not a Master degree requirement, but "MS in Computer Science" is', () => {
+  const check = (q) => logic.evaluateEligibility({ title: 'Ops Intern', minQualifications: q }, { degree: "Bachelor's", gradYear: '2029' }).status;
+  assert.equal(check('Proficiency in MS Excel and MS Office.'), 'unclear');
+  assert.equal(check('Pursuing an MS in Computer Science.'), 'not_eligible');
+});
+
+test('audit: "on or after" and "or later" include the named year', () => {
+  const check = (q, y) => logic.evaluateEligibility({ title: 'Intern', minQualifications: q }, { degree: "Bachelor's", gradYear: String(y) }).status;
+  assert.equal(check('Graduating on or after 2026.', 2026), 'eligible');
+  assert.equal(check('Graduating in 2026 or later.', 2027), 'eligible');
+  assert.equal(check('Graduating in 2026 or later.', 2025), 'not_eligible');
+});
+
+test('audit: a Master student is asked to check a Bachelor-level role, not rejected', () => {
+  const job = { title: 'Intern', minQualifications: '', ai: JSON.stringify(facts({ degreeLevels: ['bachelor'] })) };
+  assert.equal(logic.evaluateEligibility(job, { degree: "Master's", gradYear: '2029' }).status, 'unclear');
+  assert.equal(logic.evaluateEligibility(job, { degree: 'Diploma', gradYear: '2029' }).status, 'not_eligible');
+});
+
+test('audit: closed jobs are never sent, and their queued rows are dropped', () => {
+  const world = ready([]);
+  signUp(world);
+  world.sandbox.tick();
+  world.sent.length = 0;
+  world.jobs = [makeJob('a')];
+  world.sandbox.tick();
+  assert.equal(world.table('Queue').filter((r) => r.type === 'digest' && r.status === 'pending').length, 1);
+  world.jobs = [makeJob('a', { open: false }), makeJob('b', { open: false })];
+  world.hour = 23;
+  world.sandbox.tick();
+  assert.equal(world.table('Queue').find((r) => r.jobId === 'a').status, 'dropped');
+  assert.ok(world.sent.every((mail) => !/a Intern/.test(mail.body)));
+});
+
+test('audit: a sign-up arriving while a run holds the lock is handled on the next run', () => {
+  const world = ready([]);
+  world.sandbox.LockService.getScriptLock = () => ({ tryLock: () => false, waitLock: () => {}, releaseLock: () => {} });
+  const response = makeResponse(world.sandbox, 'late1');
+  world.forms['form-id'].getResponse = (id) => (id === 'late1' ? response : null);
+  world.sandbox.onFormSubmit({ source: world.forms['form-id'], response });
+  assert.equal(world.table('Students').length, 0);
+  world.sandbox.LockService.getScriptLock = () => ({ tryLock: () => true, waitLock: () => {}, releaseLock: () => {} });
+  world.sandbox.tick();
+  assert.equal(world.table('Students').length, 1);
+  assert.equal(world.props.DEFERRED_RESPONSES, '[]');
+});
+
+test('audit: deleting a student removes sent rows too, and resumes are removed permanently', () => {
+  const world = ready([]);
+  const t = world.sandbox.FORM_TITLES;
+  signUp(world, 'r1', { [t.RESUME]: ['resume-1'] });
+  world.sandbox.tick();
+  assert.ok(world.table('Queue').some((row) => row.status === 'sent'));
+  signUp(world, 'r1', { [t.STATUS]: world.sandbox.ALERT_STATUS.DELETE, [t.RESUME]: ['resume-1'] });
+  assert.equal(world.table('Queue').filter((row) => row.responseId === 'r1').length, 0);
+  assert.ok(world.removed.includes('resume-1'));
+});
+
+test('audit: leftover temporary resume copies are removed', () => {
+  const world = ready([]);
+  world.tempCopies = ['orphan-1'];
+  world.sandbox.tick();
+  assert.ok(world.removed.includes('orphan-1'));
+});
+
+test('audit: contact details are removed before a resume goes to Gemini', () => {
+  const cleaned = logic.stripContactDetails_('Asha, asha.k@gmail.com, +91 98765 43210, https://asha.dev. Python and SQL.');
+  assert.equal(cleaned.includes('gmail'), false);
+  assert.equal(cleaned.includes('98765'), false);
+  assert.equal(cleaned.includes('asha.dev'), false);
+  assert.match(cleaned, /Python and SQL/);
+});
+
+test('audit: old sent rows are pruned, and jobs gone from the data are removed with their matches', () => {
+  const world = ready([]);
+  signUp(world);
+  world.sandbox.tick();
+  const row = world.table('Queue')[0];
+  row.sentAt = new Date(Date.now() - 40 * 86400000).toISOString();
+  world.sandbox.updateRow_('Queue', row);
+  world.jobs = [makeJob('a')];
+  world.sandbox.tick();
+  assert.equal(world.table('Queue').some((r) => r.type === 'confirmation'), false);
+  world.jobs = [makeJob('a', { open: false })];
+  world.sandbox.tick();
+  world.jobs = [];
+  world.sandbox.tick();
+  assert.equal(world.table('Jobs').some((j) => j.id === 'a'), false);
+  assert.equal(world.table('Matches').some((m) => m.jobId === 'a'), false);
+});
+
+test('audit: a failing Telegram reply cannot make the same message repeat', () => {
+  const world = telegramWorld();
+  world.sandbox.tick();
+  let replies = 0;
+  world.telegram = (method) => {
+    if (method === 'getUpdates') return { code: 200, body: { ok: true, result: world.updates.splice(0) } };
+    replies += 1;
+    return { code: 500, body: {} };
+  };
+  world.updates = [startMessage(10, 900, 'hello'), startMessage(11, 901, 'hi')];
+  world.sandbox.tick();
+  world.sandbox.tick();
+  assert.equal(world.props.TELEGRAM_OFFSET, '12');
+  assert.equal(replies, 2, 'each message handled once');
+});
+
+test('audit: when email fails after Telegram delivered, the message is not sent again', () => {
+  const world = telegramWorld('Email and Telegram');
+  world.sandbox.tick();
+  world.updates = [startMessage(1, 777, `/start ${world.table('Students')[0].telegramCode}`)];
+  world.sandbox.tick();
+  world.hour = 23;
+  world.jobs = [makeJob('a')];
+  world.mailFails = true;
+  world.sandbox.tick();
+  world.sandbox.tick();
+  world.mailFails = false;
+  const digests = sentTo(world, 777).filter((c) => /matched/.test(c.payload.text));
+  assert.equal(digests.length, 1);
+});
+
+test('audit: booleans are stored as text, so unchanged jobs are not rewritten every run', () => {
+  const world = ready([]);
+  world.sandbox.tick();
+  world.jobs = [makeJob('a', { remote: false, partTime: false, priority: false })];
+  world.sandbox.tick();
+  const before = world.sheets.Jobs.rows.map((r) => r.join('|')).join('\n');
+  let writes = 0;
+  const original = world.sandbox.updateRow_;
+  world.sandbox.updateRow_ = (name, record) => { if (name === 'Jobs') writes += 1; return original(name, record); };
+  world.sandbox.tick();
+  assert.equal(writes, 0);
+  assert.equal(world.sheets.Jobs.rows.map((r) => r.join('|')).join('\n'), before);
+  assert.ok(world.sheets.Jobs.rows[1].includes('FALSE'));
+});

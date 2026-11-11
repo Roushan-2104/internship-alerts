@@ -5,8 +5,8 @@ on:
     - cron: '7,37 * * * *'
   workflow_dispatch:
 
-permissions:
-  contents: write
+# Nothing gets write access by default. Only the publish job can write, and it runs no third-party code.
+permissions: {}
 
 concurrency:
   group: watcher
@@ -16,10 +16,16 @@ jobs:
   watch:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    permissions:
+      contents: read
+    outputs:
+      watcher: ${{ steps.watcher.outcome }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: 22
           cache: npm
@@ -37,6 +43,26 @@ jobs:
         continue-on-error: true
         run: npm run watch
 
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: jobs
+          path: data/jobs.json
+          retention-days: 1
+
+  publish:
+    needs: watch
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: jobs
+          path: data
+
       - name: Publish job data
         run: |
           git config user.name "internship-alerts-bot"
@@ -44,7 +70,7 @@ jobs:
           bash scripts/publish-data.sh "${GITHUB_REF_NAME}"
 
       - name: Fail the run if a source failed
-        if: steps.watcher.outcome == 'failure'
+        if: needs.watch.outputs.watcher == 'failure'
         run: |
-          echo "One or more job sources failed. See the 'Read job sources' step."
+          echo "One or more required job sources failed. See the 'Read job sources' step."
           exit 1

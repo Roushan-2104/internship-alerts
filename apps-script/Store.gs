@@ -10,11 +10,17 @@ function sheet_(name) {
   return SpreadsheetApp.openById(prop_('SPREADSHEET_ID')).getSheetByName(name);
 }
 
+/** The text a value is stored as. Booleans become TRUE/FALSE, so comparisons are stable. */
+function cellString_(value) {
+  if (value === null || value === undefined) return '';
+  if (typeof value === 'boolean') return value ? 'TRUE' : 'FALSE';
+  return String(value);
+}
+
 // Stops student-entered text from being treated as a spreadsheet formula.
 function safeCell_(value) {
-  if (value === null || value === undefined) return '';
-  if (typeof value === 'string' && /^[=+\-@]/.test(value)) return "'" + value;
-  return value;
+  var text = cellString_(value);
+  return /^[=+\-@]/.test(text) ? "'" + text : text;
 }
 
 function readTable_(name) {

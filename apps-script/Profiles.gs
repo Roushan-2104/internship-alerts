@@ -1,9 +1,16 @@
 /** Fires for new sign-ups and for edits made through a student's personal link. */
 function onFormSubmit(e) {
   var lock = LockService.getScriptLock();
-  lock.waitLock(30000);
+  var formId = e.source ? e.source.getId() : prop_('FORM_ID');
+  // A run may hold the lock for minutes. Rather than lose the sign-up, the next run handles it.
+  if (!lock.tryLock(25000)) {
+    var deferred = JSON.parse(prop_('DEFERRED_RESPONSES') || '[]');
+    deferred.push({ formId: formId, responseId: e.response.getId() });
+    setProp_('DEFERRED_RESPONSES', JSON.stringify(deferred));
+    return;
+  }
   try {
-    handleResponse_(e.response);
+    handleResponse_(e.response, formId);
   } catch (error) {
     log_('ERROR', 'form', error.message);
     throw error;
@@ -19,8 +26,9 @@ function responseFields_(response) {
   });
   var resume = answers[FORM_TITLES.RESUME];
   return {
-    name: String(answers[FORM_TITLES.NAME] || '').trim(),
-    email: String(answers[FORM_TITLES.EMAIL] || '').trim().toLowerCase(),
+    name: String(answers[FORM_TITLES.NAME] || '').replace(/\s+/g, ' ').trim().slice(0, CONFIG.NAME_MAX_CHARS),
+    // The new form confirms the email through Google sign-in. The old form asked for it.
+    email: String((response.getRespondentEmail && response.getRespondentEmail()) || answers[FORM_TITLES.EMAIL] || '').trim().toLowerCase(),
     degree: answers[FORM_TITLES.DEGREE] || '',
     gradYear: answers[FORM_TITLES.GRAD_YEAR] || '',
     skills: answers[FORM_TITLES.SKILLS] || '',
@@ -30,18 +38,29 @@ function responseFields_(response) {
     github: String(answers[FORM_TITLES.GITHUB] || '').trim(),
     interests: answers[FORM_TITLES.INTERESTS] || '',
     resumeFileId: Array.isArray(resume) && resume.length ? resume[0] : '',
-    alertStatus: answers[FORM_TITLES.STATUS] || ALERT_STATUS.ACTIVE
+    alertStatus: answers[FORM_TITLES.STATUS] || ALERT_STATUS.ACTIVE,
+    consent: String(answers[FORM_TITLES.CONSENT] || ''),
+    roleTypes: roleCodes_(answers[FORM_TITLES.ROLE_TYPES]).join(', '),
+    locations: splitList_(answers[FORM_TITLES.LOCATIONS]).join(', '),
+    areas: splitList_(answers[FORM_TITLES.AREAS]).join(', '),
+    includeCompanies: String(answers[FORM_TITLES.ALWAYS_COMPANIES] || '').trim(),
+    excludeCompanies: String(answers[FORM_TITLES.NEVER_COMPANIES] || '').trim(),
+    frequency: /weekly/i.test(answers[FORM_TITLES.FREQUENCY] || '') ? 'weekly' : 'daily',
+    channel: (CHANNEL_CHOICES.filter(function (pair) { return pair[0] === answers[FORM_TITLES.CHANNEL]; })[0] || ['', 'email'])[1]
   };
 }
 
-function handleResponse_(response) {
+function handleResponse_(response, formId) {
   var fields = responseFields_(response);
+  if (!fields.email) throw new Error('A sign-up had no email address, so it was skipped.');
   var responseId = response.getId();
   var students = readTable_('Students');
   var current = students.filter(function (row) { return row.responseId === responseId; })[0];
 
   // A second sign-up from the same address replaces the first, so nobody gets duplicate emails.
-  var duplicates = students.filter(function (row) { return row.email === fields.email && row.responseId !== responseId; });
+  // Only a Google-verified email can do this, so nobody can replace or delete someone else.
+  var verified = Boolean(response.getRespondentEmail && response.getRespondentEmail());
+  var duplicates = verified ? students.filter(function (row) { return row.email === fields.email && row.responseId !== responseId; }) : [];
   var signedUpBefore = Boolean(current) || duplicates.length > 0;
   deleteStudents_(duplicates);
 
@@ -50,8 +69,8 @@ function handleResponse_(response) {
       current = readTable_('Students').filter(function (row) { return row.responseId === responseId; })[0];
       deleteStudents_([current]);
     } else {
-      deleteFormResponse_(responseId);
-      trashFile_(fields.resumeFileId);
+      deleteFormResponse_(responseId, formId);
+      removeFile_(fields.resumeFileId);
     }
     return;
   }
@@ -60,10 +79,13 @@ function handleResponse_(response) {
   var record = current ? readTable_('Students').filter(function (row) { return row.responseId === responseId; })[0] : {};
   var githubChanged = record.github !== fields.github;
   var resumeChanged = String(record.resumeFileId || '') !== String(fields.resumeFileId);
-  if (resumeChanged && record.resumeFileId) trashFile_(record.resumeFileId);
+  if (resumeChanged && record.resumeFileId) removeFile_(record.resumeFileId);
 
   Object.keys(fields).forEach(function (key) { if (key !== 'alertStatus') record[key] = fields[key]; });
   record.responseId = responseId;
+  record.formId = formId;
+  if (!record.telegramCode) record.telegramCode = Utilities.getUuid().replace(/-/g, '').slice(0, 20);
+  if (!wantsTelegram_(record)) record.telegramChatId = '';
   record.status = fields.alertStatus === ALERT_STATUS.PAUSED ? 'paused' : 'active';
   record.editUrl = response.getEditResponseUrl();
   record.updatedAt = now;
@@ -82,10 +104,15 @@ function handleResponse_(response) {
   // Any edit means Gemini should read the profile again.
   record.aiReadAt = '';
   rememberNewSkills_(fields.skills);
+  var unknown = unknownCompanies_([fields.includeCompanies, fields.excludeCompanies].join(','));
+  var unknownChanged = unknown.join(', ') !== String(record.unknownCompanies || '');
+  record.unknownCompanies = unknown.join(', ');
 
   if (current) {
     updateRow_('Students', record);
     if (record.status === 'paused') dropPendingFor_(responseId);
+    // Unknown company names are told to the student, so a typo doesn't silently do nothing.
+    if (unknown.length && unknownChanged) enqueue_('notice', record, '', false);
     return;
   }
   record.createdAt = now;
@@ -94,17 +121,25 @@ function handleResponse_(response) {
   if (!signedUpBefore) enqueue_('confirmation', record, '', false);
 }
 
+/**
+ * New skill names are listed for the owner to approve. They only affect matching for everyone
+ * once approved, so junk words can't make every job match.
+ */
 function rememberNewSkills_(skillField) {
   var rows = readTable_('Skills');
+  var listed = rows.map(function (row) { return String(row.skill).toLowerCase(); });
   var parsed = parseStudentSkills(skillField, buildSynonyms(rows));
-  parsed.unknown.forEach(function (skill) { appendRow_('Skills', { skill: skill, aliases: '' }); });
+  parsed.unknown.forEach(function (skill) {
+    if (listed.indexOf(skill) === -1) appendRow_('Skills', { skill: skill, aliases: '', approved: '' });
+  });
 }
 
 function deleteStudents_(records) {
   records.forEach(function (student) {
-    dropPendingFor_(student.responseId);
-    trashFile_(student.resumeFileId);
-    deleteFormResponse_(student.responseId);
+    // Every queue row for them goes, including sent ones, which hold their email address.
+    deleteRows_('Queue', readTable_('Queue').filter(function (row) { return row.responseId === student.responseId; }));
+    removeFile_(student.resumeFileId);
+    deleteFormResponse_(student.responseId, student.formId);
     var matches = readTable_('Matches').filter(function (row) { return row.responseId === student.responseId; });
     deleteRows_('Matches', matches);
     var fresh = readTable_('Students').filter(function (row) { return row.responseId === student.responseId; });
@@ -119,9 +154,9 @@ function dropPendingFor_(responseId) {
   deleteRows_('Queue', pending);
 }
 
-function deleteFormResponse_(responseId) {
+function deleteFormResponse_(responseId, formId) {
   try {
-    FormApp.openById(prop_('FORM_ID')).deleteResponse(responseId);
+    FormApp.openById(formId || prop_('FORM_ID')).deleteResponse(responseId);
   } catch (error) {
     log_('ERROR', 'delete', 'Could not delete a form response: ' + error.message);
   }
@@ -142,11 +177,14 @@ function refreshProfiles_(deadline) {
   scanGithubBatch_(students, synonyms, deadline);
   readResumeBatch_(students, synonyms, deadline);
   readProfilesBatch_(deadline);
+  sweepTempCopies_();
 }
 
 function readProfilesBatch_(deadline) {
   if (!CONFIG.AI_READS_PROFILES) return;
   var due = readTable_('Students').filter(function (student) {
+    // Only students who agreed to the wording that names Gemini.
+    if (!/gemini/i.test(student.consent)) return false;
     // Waits for a pending resume read, so Gemini sees the resume too.
     var resumePending = student.resumeFileId && String(student.resumeReadFileId) !== String(student.resumeFileId);
     return student.status === 'active' && !student.aiReadAt && !resumePending;
@@ -205,8 +243,38 @@ function readResumeBatch_(students, synonyms, deadline) {
       student.resumeError = error.message;
       log_('WARN', 'resume', 'A resume could not be read: ' + error.message);
     }
-    if (copyId) trashFile_(copyId);
+    if (copyId) removeFile_(copyId);
     student.resumeReadFileId = student.resumeFileId;
     updateRow_('Students', student);
   });
+}
+
+/** Handles sign-ups that arrived while a run held the lock. Runs inside tick, which has the lock. */
+function processDeferredResponses_() {
+  var deferred = JSON.parse(prop_('DEFERRED_RESPONSES') || '[]');
+  if (!deferred.length) return;
+  setProp_('DEFERRED_RESPONSES', '[]');
+  deferred.forEach(function (item) {
+    try {
+      handleResponse_(FormApp.openById(item.formId).getResponse(item.responseId), item.formId);
+    } catch (error) {
+      log_('ERROR', 'form', 'A delayed sign-up could not be processed: ' + error.message);
+    }
+  });
+}
+
+/** Permanent deletion where possible, so personal files don't sit in the trash for 30 days. */
+function removeFile_(fileId) {
+  if (!fileId) return;
+  try {
+    Drive.Files.remove(fileId);
+  } catch (error) {
+    trashFile_(fileId);
+  }
+}
+
+/** Temporary resume copies left by a run that was cut off. */
+function sweepTempCopies_() {
+  var files = DriveApp.getFilesByName('resume-text-temp');
+  while (files.hasNext()) removeFile_(files.next().getId());
 }

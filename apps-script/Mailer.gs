@@ -29,23 +29,30 @@ function markResult_(rows, error) {
   });
 }
 
-function attemptSend_(rows, email, message) {
+/** Sends by the student's chosen route. emailOnly is for messages that must carry their edit link. */
+function attemptSend_(rows, student, message, emailOnly) {
   try {
-    sendMail_(email, message);
+    if (emailOnly) sendMail_(student.email, message);
+    else deliver_(student, message);
     markResult_(rows, null);
     return true;
   } catch (error) {
     markResult_(rows, error.message);
-    log_('ERROR', 'email', 'A ' + rows[0].type + ' email failed: ' + error.message);
+    log_('ERROR', 'email', 'A ' + rows[0].type + ' message failed: ' + error.message);
     return false;
   }
+}
+
+/** 1 is Monday and 7 is Sunday, in India time. */
+function istWeekday_() {
+  return Number(Utilities.formatDate(new Date(), 'Asia/Kolkata', 'u'));
 }
 
 function istDate_() {
   return Utilities.formatDate(new Date(), 'Asia/Kolkata', 'yyyy-MM-dd');
 }
 
-/** Sends instant alerts first, then each student's daily digest, then reminders. */
+/** Sends instant alerts first, then each student's digest, then reminders. */
 function sendQueued_(deadline) {
   var pending = readTable_('Queue').filter(function (row) { return row.status === 'pending'; });
   var students = {};
@@ -53,35 +60,58 @@ function sendQueued_(deadline) {
   var jobs = {};
   readTable_('Jobs').forEach(function (row) { jobs[row.id] = row; });
 
+  // Rows that can never be sent are dropped, so they don't wait forever.
+  pending = pending.filter(function (row) {
+    var job = jobs[row.jobId];
+    var dead = !students[row.responseId] || ((row.type === 'instant' || row.type === 'digest') && (!job || !isTrue_(job.open)));
+    if (dead) {
+      row.status = 'dropped';
+      updateRow_('Queue', row);
+    }
+    return !dead;
+  });
   var ofType = function (type) { return pending.filter(function (row) { return row.type === type; }); };
   var hasRoom = function (minimum) { return MailApp.getRemainingDailyQuota() > minimum && Date.now() < deadline; };
+  // Telegram-only students don't use the Gmail allowance.
+  var roomFor = function (student, minimum) { return Date.now() < deadline && (!needsEmail_(student) || hasRoom(minimum)); };
 
-  ofType('instant').concat(ofType('confirmation')).forEach(function (row) {
+  ofType('notice').forEach(function (row) {
     var student = students[row.responseId];
-    if (!student || !hasRoom(0)) return;
-    if (row.type === 'confirmation') {
-      attemptSend_([row], row.email, buildConfirmationEmail(student.name, student.editUrl));
-    } else if (jobs[row.jobId]) {
-      attemptSend_([row], row.email, buildInstantEmail(jobs[row.jobId], student.editUrl, isTrue_(row.checkEligibility)));
+    if (student && student.unknownCompanies && hasRoom(CONFIG.QUOTA_RESERVED_FOR_INSTANT)) {
+      attemptSend_([row], student, buildUnknownCompaniesEmail(student.name, student.editUrl, student.unknownCompanies), true);
+    } else if (student && !student.unknownCompanies) {
+      markResult_([row], null);
     }
   });
 
-  sendDailyDigests_(students, ofType('digest'), jobs, hasRoom);
+  ofType('confirmation').forEach(function (row) {
+    var student = students[row.responseId];
+    if (!student || !hasRoom(CONFIG.QUOTA_RESERVED_FOR_INSTANT)) return;
+    attemptSend_([row], student, buildConfirmationEmail(student.name, student.editUrl, student.unknownCompanies, wantsTelegram_(student) ? telegramLink_(student) : ''), true);
+  });
+
+  ofType('instant').forEach(function (row) {
+    var student = students[row.responseId];
+    if (!student || !jobs[row.jobId] || !roomFor(student, 0)) return;
+    attemptSend_([row], student, buildInstantEmail(jobs[row.jobId], student.editUrl, isTrue_(row.checkEligibility)));
+  });
+
+  sendDailyDigests_(students, ofType('digest'), jobs, roomFor);
 
   ofType('reminder').forEach(function (row) {
     var student = students[row.responseId];
-    if (student && hasRoom(CONFIG.QUOTA_MIN_FOR_REMINDERS)) {
-      attemptSend_([row], row.email, buildReminderEmail(student.name, student.editUrl));
+    if (student && roomFor(student, CONFIG.QUOTA_MIN_FOR_REMINDERS)) {
+      attemptSend_([row], student, buildReminderEmail(student.name, student.editUrl));
     }
   });
 }
 
 /**
- * Each active student gets one digest per India date, from their assigned hour. Jobs found
- * after it goes out wait for the next day. Digests with jobs go first, so "no openings"
- * emails are the first to be dropped when the daily limit is close.
+ * Each active student gets one digest per India date (weekly students on Sundays), from their
+ * assigned hour. Jobs found after it goes out wait for the next one. Digests with jobs go
+ * first, so "no openings" messages are the first to be dropped when the daily limit is close.
  */
-function sendDailyDigests_(students, digestRows, jobs, hasRoom, sendNow) {
+function sendDailyDigests_(students, digestRows, jobs, roomFor, sendNow) {
   var hour = istHour_();
   var today = istDate_();
   var rowsFor = {};
@@ -90,20 +120,22 @@ function sendDailyDigests_(students, digestRows, jobs, hasRoom, sendNow) {
   });
   var due = Object.keys(students).map(function (id) { return students[id]; }).filter(function (student) {
     if (student.status !== 'active') return false;
-    return sendNow || (String(student.lastDigestDate) !== today && hour >= digestHour(student.email));
+    if (sendNow) return true;
+    if (student.frequency === 'weekly' && istWeekday_() !== 7) return false;
+    return String(student.lastDigestDate) !== today && hour >= digestHour(student.email);
   });
   var withJobs = due.filter(function (student) { return rowsFor[student.responseId]; });
   var withoutJobs = sendNow ? [] : due.filter(function (student) { return !rowsFor[student.responseId]; });
 
   withJobs.concat(withoutJobs).forEach(function (student) {
-    if (!hasRoom(CONFIG.QUOTA_RESERVED_FOR_INSTANT)) return;
+    if (!roomFor(student, CONFIG.QUOTA_RESERVED_FOR_INSTANT)) return;
     var rows = rowsFor[student.responseId];
     var sent;
     if (rows) {
       var items = rows.map(function (row) {
         return { job: jobs[row.jobId], checkEligibility: isTrue_(row.checkEligibility) };
       });
-      sent = attemptSend_(rows, student.email, buildDigestEmail(items, student.editUrl));
+      sent = attemptSend_(rows, student, buildDigestEmail(items, student.editUrl));
     } else {
       sent = attemptNoOpenings_(student);
     }
@@ -116,10 +148,10 @@ function sendDailyDigests_(students, digestRows, jobs, hasRoom, sendNow) {
 
 function attemptNoOpenings_(student) {
   try {
-    sendMail_(student.email, buildNoOpeningsEmail(student.name, student.editUrl));
+    deliver_(student, buildNoOpeningsEmail(student.name, student.editUrl, student.frequency === 'weekly'));
     return true;
   } catch (error) {
-    log_('ERROR', 'email', 'A no-openings email failed: ' + error.message);
+    log_('ERROR', 'email', 'A no-openings message failed: ' + error.message);
     return false;
   }
 }
@@ -127,7 +159,7 @@ function attemptNoOpenings_(student) {
 /**
  * Run by hand from the editor. Fetches the latest jobs, matches all of them, and sends any
  * waiting digests to every active student straight away, ignoring their assigned hour. A
- * student with nothing waiting gets no email, so this can't send a second "no openings".
+ * student with nothing waiting gets nothing, so this can't send a second "no openings".
  */
 function sendDigestNow() {
   var lock = LockService.getScriptLock();
@@ -147,14 +179,19 @@ function sendDigestNow() {
     var jobs = {};
     readTable_('Jobs').forEach(function (row) { jobs[row.id] = row; });
     var waiting = readTable_('Queue').filter(function (row) { return row.type === 'digest' && row.status === 'pending'; });
-    var before = MailApp.getRemainingDailyQuota();
-    var hasRoom = function (minimum) { return MailApp.getRemainingDailyQuota() > minimum && Date.now() < deadline; };
-    sendDailyDigests_(students, waiting, jobs, hasRoom, true);
+    var sentBefore = readTable_('Queue').filter(function (row) { return row.type === 'digest' && row.status === 'sent'; }).length;
+    var roomFor = function (student, minimum) {
+      return Date.now() < deadline && (!needsEmail_(student) || MailApp.getRemainingDailyQuota() > minimum);
+    };
+    sendDailyDigests_(students, waiting, jobs, roomFor, true);
+    var studentsReached = {};
+    readTable_('Queue').filter(function (row) { return row.type === 'digest' && row.status === 'sent'; }).slice(sentBefore)
+      .forEach(function (row) { studentsReached[row.responseId] = true; });
 
     var summary = {
       jobsNotYetMatched: unmatched(),
       matchedJobsWaiting: waiting.length,
-      digestEmailsSent: before - MailApp.getRemainingDailyQuota(),
+      digestsSent: Object.keys(studentsReached).length,
       activeStudents: Object.keys(students).filter(function (id) { return students[id].status === 'active'; }).length
     };
     Logger.log(JSON.stringify(summary, null, 2));

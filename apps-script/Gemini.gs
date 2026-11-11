@@ -137,7 +137,10 @@ function readJobsWithGemini_(deadline) {
   if (geminiBlocked_()) return 0;
   var unread = readTable_('Jobs').filter(function (job) {
     return !job.aiReadAt && isTrue_(job.open) && job.processedAt !== 'skipped';
-  }).sort(function (a, b) { return Number(isTrue_(b.priority)) - Number(isTrue_(a.priority)); }).slice(0, CONFIG.GEMINI_READS_PER_TICK);
+  }).sort(function (a, b) {
+    // Jobs still waiting to be matched come first, priority roles before others.
+    return (Number(!b.processedAt) - Number(!a.processedAt)) || (Number(isTrue_(b.priority)) - Number(isTrue_(a.priority)));
+  }).slice(0, CONFIG.GEMINI_READS_PER_TICK);
   var read = 0;
   for (var i = 0; i < unread.length && Date.now() < deadline; i++) {
     var job = unread[i];
@@ -168,7 +171,7 @@ function readProfileWithGemini_(student) {
   if (!CONFIG.AI_READS_PROFILES || geminiBlocked_()) return false;
   var text = ['Skills: ' + student.skills, 'Experience: ' + student.experience, 'Projects: ' + student.projects,
     'Private projects: ' + student.privateProjects, 'Interests: ' + student.interests,
-    'Resume:\n' + String(student.resumeText || '').slice(0, 8000)].join('\n');
+    'Resume:\n' + stripContactDetails_(String(student.resumeText || '')).slice(0, 8000)].join('\n');
   try {
     student.ai = JSON.stringify({ skills: cleanList_(callGemini_(PROFILE_INSTRUCTIONS, text, PROFILE_SCHEMA).skills, 25) });
   } catch (error) {
@@ -196,4 +199,12 @@ function testGemini() {
   var facts = cleanJobFacts_(callGemini_(JOB_INSTRUCTIONS, jobText_(job), JOB_SCHEMA));
   Logger.log('Read "' + job.title + '" at ' + job.company + ':\n' + JSON.stringify(facts, null, 2));
   Logger.log('Requests used today: ' + geminiUsedToday_() + ' of ' + CONFIG.GEMINI_DAILY_LIMIT);
+}
+
+/** Emails, phone numbers and web links aren't needed to read skills, so they aren't sent. */
+function stripContactDetails_(text) {
+  return text
+    .replace(/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/g, '[email]')
+    .replace(/(\+?\d[\d\s().-]{8,}\d)/g, '[phone]')
+    .replace(/https?:\/\/\S+/g, '[link]');
 }

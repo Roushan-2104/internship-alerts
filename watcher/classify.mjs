@@ -8,10 +8,32 @@ const PART_TIME = /part.?time|contract|contractual|freelance|temporary/i;
 
 const ROLE_RULES = [
   ['research', /student researcher|research (assistant|intern|associate|fellow)/i],
-  ['internship', /\b(intern|internship|co-?op)\b/i],
-  ['apprentice', /\b(apprentice|apprenticeship|trainee|traineeship)\b/i],
-  ['newGrad', /new.?grad|university grad|(graduate|grad) (engineer|trainee|program|programme|hire|analyst)|freshers?\b|entry.?level|early career|campus (hire|hiring|recruit)|\bjunior\b|\b(software (engineer|developer)|sde|engineer|developer|analyst) ?(I|1)\b(?! ?I)|associate (software|engineer|developer|product manager)/i],
+  ['internship', /\b(intern|internship|co-?op)\b|\bsummer (analyst|associate)\b/i],
+  // "GET" (Graduate Engineer Trainee) only counts in capitals, so the word "get" doesn't match.
+  ['apprentice', { test: (text) => /\b(apprentice|apprenticeship|trainee|traineeship)\b/i.test(text) || /\bGET\b/.test(text) }],
+  ['newGrad', /new.?grad|university grad|(graduate|grad) (engineer|trainee|program|programme|hire|analyst)|freshers?\b|entry.?level|early career|campus (hire|hiring)|\bjunior\b|\b(software (engineer|developer)|sde|engineer|developer|analyst|data scientist|data analyst)\s*[-–]?\s*(I|1)\b(?![\s-]*[I\d])|associate (software|engineer|developer|product manager)/i],
 ];
+
+// Jobs that run a programme or hire students, rather than being for students.
+const STAFF_NOUN = /\b(manager|director|recruiter|coordinator|lead|head|partner|specialist|advisor|officer)s?\b/i;
+const HIRING_STAFF = /\b(recruiter|recruiting|hiring|talent acquisition)\b/i;
+const STUDENT_WORD = /\b(intern|internship|interns|trainee|apprentice|apprenticeship|student|researcher)\b/gi;
+
+/** "Intern Recruiter" or "Internship Program Manager" name the job after the student word. */
+function isStaffRole(title) {
+  // Entry-level titles that happen to contain a staff word.
+  if (/associate product manager|\bAPM\b/i.test(title)) return false;
+  if (EXPLICIT_GRAD.test(title) && !HIRING_STAFF.test(title)) return false;
+  // "Manager, Internship Programs" runs a programme.
+  if (/intern(ship)? programs?\b/i.test(title) && STAFF_NOUN.test(title)) return true;
+  let lastStudentWord = -1;
+  for (const found of title.matchAll(STUDENT_WORD)) lastStudentWord = found.index;
+  const staff = title.match(STAFF_NOUN);
+  if (!staff) return false;
+  let lastStaff = -1;
+  for (const found of title.matchAll(new RegExp(STAFF_NOUN.source, 'gi'))) lastStaff = found.index;
+  return lastStaff > lastStudentWord;
+}
 
 /**
  * Returns the role type, or null when the posting isn't a student or early-career role.
@@ -21,8 +43,12 @@ export function classifyRole(title, employmentType = '') {
   const text = `${title} ${employmentType}`;
   const match = ROLE_RULES.find(([, pattern]) => pattern.test(text));
   if (match) {
+    if (isStaffRole(title)) return null;
+    // "Senior Research Associate" or "Postdoctoral Research Fellow" aren't student research.
+    if (match[0] === 'research' && (SENIOR.test(title) || /postdoc|post-doc/i.test(title))) return null;
     // "Senior Associate Software Engineer" or "Engineering Manager I" aren't early-career.
-    if (match[0] === 'newGrad' && SENIOR.test(title) && !EXPLICIT_GRAD.test(title)) return null;
+    const entryTitle = EXPLICIT_GRAD.test(title) || /^associate product manager\b|\bAPM\b/i.test(title);
+    if (match[0] === 'newGrad' && (HIRING_STAFF.test(title) || (SENIOR.test(title) && !entryTitle))) return null;
     return match[0];
   }
   if (PART_TIME.test(text) && STUDENT_MARKER.test(title)) return 'partTime';

@@ -58,7 +58,12 @@ export function mergeRun(state, results, options, now = new Date()) {
       const existing = jobs.get(incoming.id);
       if (existing) {
         const sources = [...new Set([...(existing.sources || [existing.source]), result.name])];
-        jobs.set(incoming.id, { ...existing, ...incoming, sources, firstSeen: existing.firstSeen, lastSeen: nowIso, open: true });
+        const merged = { ...existing, ...incoming, sources, firstSeen: existing.firstSeen, lastSeen: nowIso, open: true };
+        // A Google listing card is shorter than the detail page, so details already read are kept.
+        if (existing.detailVersion) {
+          for (const field of ['minQualifications', 'preferredQualifications', 'responsibilities', 'aboutRole', 'deadline']) merged[field] = existing[field];
+        }
+        jobs.set(incoming.id, merged);
         continue;
       }
       const print = fingerprint(incoming);
@@ -79,10 +84,14 @@ export function mergeRun(state, results, options, now = new Date()) {
   }
 
   const retentionMs = options.closedJobRetentionDays * DAY_MS;
+  const sourcesThisRun = new Set(results.map((result) => result.name));
   for (const [id, job] of jobs) {
-    // A job closes only when a full listing it came from was read successfully without it.
-    const fullListingChecked = (job.sources || [job.source]).some((name) => checkedSources.has(name));
-    if (fullListingChecked && !seenThisRun.has(id)) job.open = false;
+    const jobSources = job.sources || [job.source];
+    // A job closes only when a full listing it came from was read successfully without it,
+    // or when every source it came from has been removed, such as a company taken off the sheet.
+    const fullListingChecked = jobSources.some((name) => checkedSources.has(name));
+    const sourcesRemoved = !jobSources.some((name) => sourcesThisRun.has(name));
+    if ((fullListingChecked || sourcesRemoved) && !seenThisRun.has(id)) job.open = false;
     if (!job.open && now - new Date(job.lastSeen) > retentionMs) jobs.delete(id);
   }
 
@@ -140,6 +149,8 @@ export function classifyHeading(heading) {
   return match ? match[0] : 'other';
 }
 
+const BULLET = '\u0001';
+
 function looksLikeHeading(line) {
   return line.length <= 60 && !/[.!?]$/.test(line) && classifyHeading(line) !== 'other';
 }
@@ -151,14 +162,20 @@ export function parseDescription(html, limits = { aboutRole: 1500, responsibilit
     .replace(/<div class="content-(intro|conclusion)">[\s\S]*?<\/div>/gi, ' ')
     .replace(/<h[1-6][^>]*>([\s\S]*?)<\/h[1-6]>/gi, (_, inner) => `\n##${inner.replace(/<[^>]+>/g, ' ')}\n`)
     .replace(/<(p|div)[^>]*>\s*(?:<(?:strong|b|u|em|span)[^>]*>\s*)+([^<]{2,90})(?:\s*<\/(?:strong|b|u|em|span)>)+\s*(?:<br\s*\/?>\s*)*<\/\1>/gi, (_, __, inner) => `\n##${inner}\n`)
-    .replace(/<li[^>]*>/gi, '\n')
+    // List items are marked, so a bullet such as "Strong communication skills" is never taken as a heading.
+    .replace(/<li[^>]*>/gi, `\n${BULLET}`)
     .replace(/<\/(p|div|li|ul|ol|tr)>|<br\s*\/?>/gi, '\n')
     .replace(/<[^>]+>/g, ' ');
 
   const sections = [{ kind: 'intro', lines: [] }];
   for (const raw of text.split('\n')) {
-    const line = raw.replace(/\s+/g, ' ').trim();
+    const isBullet = raw.includes(BULLET);
+    const line = raw.replace(BULLET, '').replace(/\s+/g, ' ').trim();
     if (!line) continue;
+    if (isBullet && !line.startsWith('##')) {
+      sections.at(-1).lines.push(line.replace(/^[•·▪◦\-*–]\s+/, ''));
+      continue;
+    }
     const marked = line.startsWith('##');
     const value = line.replace(/^##\s*/, '').replace(/[:\s]+$/, '').trim();
     if (!value) continue;
