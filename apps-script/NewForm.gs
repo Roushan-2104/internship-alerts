@@ -83,3 +83,49 @@ function unknownCompanies_(typed) {
   if (!known) return [];
   return splitList_(typed).filter(function (name) { return !companyListed_(name, known) && !known.some(function (k) { return companyListed_(k, [name]); }); });
 }
+
+/**
+ * Brings a sign-up form made by an earlier version up to date without recreating it, so
+ * questions added by hand (such as the resume upload) are kept.
+ */
+function upgradeNewForm_() {
+  if (!prop_('NEW_FORM_ID')) {
+    setupNewForm();
+    return;
+  }
+  var form = FormApp.openById(prop_('NEW_FORM_ID'));
+  var find = function (title) { return form.getItems().filter(function (item) { return item.getTitle() === title; })[0]; };
+
+  var verified = false;
+  try {
+    form.setEmailCollectionType(FormApp.EmailCollectionType.VERIFIED);
+    verified = true;
+  } catch (error) {
+    log_('WARN', 'form', 'Could not turn on verified email collection: ' + error.message);
+  }
+  // The email comes from the Google sign-in, so the typed question goes, but only once that works.
+  var typedEmail = find(FORM_TITLES.EMAIL);
+  if (typedEmail && verified) form.deleteItem(typedEmail);
+
+  if (!find(FORM_TITLES.CHANNEL)) {
+    form.addMultipleChoiceItem().setTitle(FORM_TITLES.CHANNEL)
+      .setHelpText('For Telegram, we email you a link to connect. Until you connect, alerts come by email.')
+      .setChoiceValues(CHANNEL_CHOICES.map(function (pair) { return pair[0]; }));
+    var frequency = find(FORM_TITLES.FREQUENCY);
+    if (frequency) form.moveItem(form.getItems().length - 1, frequency.getIndex() + 1);
+  }
+
+  // The separate resume form from an earlier version is closed and removed.
+  var resumeFormId = prop_('RESUME_FORM_ID');
+  if (resumeFormId) {
+    try {
+      FormApp.openById(resumeFormId).setAcceptingResponses(false);
+      DriveApp.getFileById(resumeFormId).setTrashed(true);
+    } catch (error) {
+      log_('WARN', 'form', 'Could not remove the old resume form: ' + error.message);
+    }
+    setProp_('RESUME_FORM_ID', '');
+  }
+  installTriggers_(prop_('FORM_ID'));
+}
+

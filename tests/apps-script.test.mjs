@@ -1430,3 +1430,29 @@ test('Telegram: students who have not connected get the link in later emails, an
   assert.equal(later.body.includes('t.me/'), false, 'no link once connected');
 });
 
+test('a form from the earlier two-form version is upgraded in place', () => {
+  const world = ready([]);
+  const t = world.sandbox.FORM_TITLES;
+  // Recreate what the earlier version made: a typed email question, no Telegram question, and a resume form.
+  const old = world.sandbox.FormApp.create();
+  for (const title of [t.NAME, t.EMAIL, t.DEGREE, t.FREQUENCY, t.EXPERIENCE]) old.addTextItem().setTitle(title);
+  old.addTextItem().setTitle(t.RESUME);
+  world.props.NEW_FORM_ID = old.getId();
+  world.props['ADMIN_DONE_create-new-form-v1'] = 'x';
+  const resume = world.sandbox.FormApp.create();
+  world.props.RESUME_FORM_ID = resume.getId();
+
+  world.sandbox.tick();
+  const titles = old.getItems().map((item) => item.title);
+  assert.equal(titles.includes(t.EMAIL), false, 'typed email removed');
+  assert.equal(world.emailCollection[old.getId()], 'VERIFIED');
+  assert.equal(titles.indexOf(t.CHANNEL), titles.indexOf(t.FREQUENCY) + 1, 'Telegram question placed after timing');
+  assert.ok(titles.includes(t.RESUME), 'hand-added upload question kept');
+  assert.equal(world.accepting[resume.getId()], false);
+  assert.ok(world.trashed.includes(resume.getId()));
+  assert.equal(world.props.RESUME_FORM_ID, '');
+
+  world.sandbox.tick();
+  assert.equal(old.getItems().filter((item) => item.title === t.CHANNEL).length, 1, 'runs once');
+});
+
