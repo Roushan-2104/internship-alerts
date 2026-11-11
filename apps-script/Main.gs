@@ -232,3 +232,23 @@ function pruneOldRows_(feed) {
   deleteRows_('Matches', readTable_('Matches').filter(function (match) { return goneIds[match.jobId]; }));
   deleteRows_('Jobs', goneJobs);
 }
+
+/**
+ * Runs every 5 minutes. Light work only: sign-ups that arrived while the script was busy,
+ * waiting confirmations, and Telegram messages. Skips quietly if the main run is going.
+ */
+function quickTick() {
+  var lock = LockService.getScriptLock();
+  if (!lock.tryLock(1000)) return;
+  try {
+    [processDeferredResponses_, sendConfirmationsNow_, pollTelegram_].forEach(function (step) {
+      try {
+        step();
+      } catch (error) {
+        log_('ERROR', 'quick', error.message);
+      }
+    });
+  } finally {
+    lock.releaseLock();
+  }
+}

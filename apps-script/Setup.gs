@@ -78,6 +78,7 @@ function createForm_() {
 function installTriggers_(formId) {
   ScriptApp.getProjectTriggers().forEach(function (trigger) { ScriptApp.deleteTrigger(trigger); });
   ScriptApp.newTrigger('tick').timeBased().everyMinutes(30).create();
+  ScriptApp.newTrigger('quickTick').timeBased().everyMinutes(5).create();
   ScriptApp.newTrigger('sendHeartbeat').timeBased().onWeekDay(ScriptApp.WeekDay.MONDAY).atHour(9).create();
   ScriptApp.newTrigger('onFormSubmit').forForm(formId).onFormSubmit().create();
   var newFormId = prop_('NEW_FORM_ID');
