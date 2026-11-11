@@ -155,6 +155,14 @@ function looksLikeHeading(line) {
   return line.length <= 60 && !/[.!?]$/.test(line) && classifyHeading(line) !== 'other';
 }
 
+// A short line that only introduces the list after it, such as "You'll thrive in this role if you"
+// or "In this role, you will:". It would read as a requirement on its own, so it's left out.
+function isLeadIn(line) {
+  const value = line.replace(/^##\s*/, '').trim();
+  if (value.length > 90 || /[.!?]$/.test(value)) return false;
+  return /:$/.test(value) || /\b(if you|you will|you'll|you|who|to|that|with|including|like)$/i.test(value);
+}
+
 /** Turns a job description into named sections, so nothing lands under the wrong heading. */
 export function parseDescription(html, limits = { aboutRole: 1500, responsibilities: 2000, minQualifications: 3000, preferredQualifications: 1500, fullText: 8000 }) {
   const text = decodeEntities(html)
@@ -173,7 +181,7 @@ export function parseDescription(html, limits = { aboutRole: 1500, responsibilit
     const line = raw.replace(BULLET, '').replace(/\s+/g, ' ').trim();
     if (!line) continue;
     if (isBullet && !line.startsWith('##')) {
-      sections.at(-1).lines.push(line.replace(/^[•·▪◦\-*–]\s+/, ''));
+      if (!isLeadIn(line)) sections.at(-1).lines.push(line.replace(/^[•·▪◦\-*–]\s+/, ''));
       continue;
     }
     const marked = line.startsWith('##');
@@ -188,7 +196,7 @@ export function parseDescription(html, limits = { aboutRole: 1500, responsibilit
       const isSubHeading = kind === 'other' && !/^(about|who we are|company|our |the team)/i.test(value)
         && ['responsibilities', 'requirements', 'preferred'].includes(current);
       if (!isSubHeading) sections.push({ kind, lines: [] });
-    } else {
+    } else if (!isLeadIn(line)) {
       sections.at(-1).lines.push(value.replace(/^[•·▪◦\-*–]\s+/, ''));
     }
   }
