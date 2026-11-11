@@ -263,10 +263,11 @@ test('near the limit, digests with jobs go first and no-openings emails are drop
 test('test emails only go to the alerts inbox', () => {
   const world = ready([]);
   signUp(world);
+  world.sent.length = 0;
   world.sandbox.sendTestEmails();
   assert.equal(world.sent.length, 3);
   assert.ok(world.sent.every((mail) => mail.to === 'owner@example.com' && mail.subject.startsWith('[Test] ')));
-  assert.equal(world.table('Queue').filter((row) => row.status === 'sent').length, 0);
+  assert.equal(world.table('Queue').filter((row) => row.status === 'sent' && row.type !== 'confirmation').length, 0, 'test emails are not queued');
 });
 
 test('profile updates affect future jobs only, without another sign-up email', () => {
@@ -311,7 +312,7 @@ test('a second verified sign-up from the same address replaces the first', () =>
   assert.equal(students[0].responseId, 'r2');
   assert.ok(world.deletedResponses.includes('form-id:r1'));
   world.sandbox.tick();
-  assert.equal(world.sent.filter((mail) => /signed up/.test(mail.subject)).length, 0);
+  assert.equal(world.sent.filter((mail) => /signed up/.test(mail.subject)).length, 1, 'only the first sign-up is confirmed');
 });
 
 test('an unverified submission can never replace or delete someone else', () => {
@@ -427,8 +428,8 @@ test('quota: digests stop at the reserve, instant alerts still go, and waiting m
 
 test('failed sends retry, then stop and show on the status page', () => {
   const world = ready([]);
-  signUp(world);
   world.mailFails = true;
+  signUp(world);
   world.quota = 100;
   // Health alerts use the same mail service, so the fake failure stops them too; that must not break a run.
   world.sandbox.tick();
@@ -1364,4 +1365,42 @@ test('audit: booleans are stored as text, so unchanged jobs are not rewritten ev
   assert.equal(writes, 0);
   assert.equal(world.sheets.Jobs.rows.map((r) => r.join('|')).join('\n'), before);
   assert.ok(world.sheets.Jobs.rows[1].includes('FALSE'));
+});
+
+// Fast confirmation and the 5-minute check --------------------------------------------------------
+test('the confirmation is sent as soon as someone signs up', () => {
+  const world = ready([]);
+  signUp(world);
+  assert.ok(world.sent.some((mail) => mail.to === 'asha@example.com' && /signed up/.test(mail.subject)), 'sent before any run');
+  world.sandbox.tick();
+  assert.equal(world.sent.filter((mail) => /signed up/.test(mail.subject)).length, 1, 'not sent twice');
+});
+
+test('quickTick handles Telegram messages, and skips while the main run is busy', () => {
+  const world = telegramWorld();
+  const code = world.table('Students')[0].telegramCode;
+  world.updates = [startMessage(1, 777, `/start ${code}`)];
+  world.sandbox.LockService.getScriptLock = () => ({ tryLock: () => false, waitLock: () => {}, releaseLock: () => {} });
+  world.sandbox.quickTick();
+  assert.equal(world.table('Students')[0].telegramChatId, '', 'busy, so nothing happens');
+  world.sandbox.LockService.getScriptLock = () => ({ tryLock: () => true, waitLock: () => {}, releaseLock: () => {} });
+  world.sandbox.quickTick();
+  assert.equal(world.table('Students')[0].telegramChatId, '777');
+});
+
+test('quickTick picks up a sign-up that arrived while the script was busy', () => {
+  const world = ready([]);
+  world.sandbox.LockService.getScriptLock = () => ({ tryLock: () => false, waitLock: () => {}, releaseLock: () => {} });
+  const response = makeResponse(world.sandbox, 'late2');
+  world.forms['form-id'].getResponse = () => response;
+  world.sandbox.onFormSubmit({ source: world.forms['form-id'], response });
+  world.sandbox.LockService.getScriptLock = () => ({ tryLock: () => true, waitLock: () => {}, releaseLock: () => {} });
+  world.sandbox.quickTick();
+  assert.equal(world.table('Students').length, 1);
+  assert.ok(world.sent.some((mail) => /signed up/.test(mail.subject)));
+});
+
+test('the 5-minute trigger is installed', () => {
+  const world = ready([]);
+  assert.ok(world.triggers.includes('quickTick'));
 });

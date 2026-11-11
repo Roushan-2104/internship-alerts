@@ -118,7 +118,11 @@ function handleResponse_(response, formId) {
   record.createdAt = now;
   record.lastReminderAt = now;
   appendRow_('Students', record);
-  if (!signedUpBefore) enqueue_('confirmation', record, '', false);
+  if (!signedUpBefore) {
+    enqueue_('confirmation', record, '', false);
+    // Sent now rather than on the next run, so students hear back within a minute.
+    sendConfirmationsNow_();
+  }
 }
 
 /**
