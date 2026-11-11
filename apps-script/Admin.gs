@@ -6,7 +6,9 @@ var ADMIN_ACTIONS = [
   // Adds new column headers and makes every column plain text, so Sheets can't change values.
   { id: 'refresh-tables-v2', run: function () { createTables_(prop_('SPREADSHEET_ID')); } },
   // Adds the 5-minute quickTick trigger alongside the existing ones.
-  { id: 'install-quick-tick-v1', run: function () { installTriggers_(prop_('FORM_ID')); } }
+  { id: 'install-quick-tick-v1', run: function () { installTriggers_(prop_('FORM_ID')); } },
+  // A form made by the earlier two-form version lacked the Telegram question and verified email.
+  { id: 'upgrade-new-form-v2', run: function () { upgradeNewForm_(); } }
 ];
 
 /** The reset deletes every student's data. It only runs when this exact phrase is in CONFIG. */
