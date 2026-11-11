@@ -128,7 +128,23 @@ function handleResponse_(response, formId) {
     enqueue_('confirmation', record, '', false);
     // Sent now rather than on the next run, so students hear back within a minute.
     sendConfirmationsNow_();
+  } else if (wantsTelegram_(record) && telegramLink_(record)) {
+    // Signing up again replaces the old sign-up, so the new Telegram code needs sending.
+    enqueue_('telegram', record, '', false);
+    sendConfirmationsNow_();
   }
+}
+
+/** Sends the connect link to every student who chose Telegram but hasn't connected or been sent one. */
+function sendMissingTelegramLinks_() {
+  var alreadySent = {};
+  readTable_('Queue').forEach(function (row) { if (row.type === 'telegram' || row.type === 'confirmation') alreadySent[row.responseId + '|' + row.type] = row.status; });
+  readTable_('Students').forEach(function (student) {
+    if (student.status !== 'active' || !wantsTelegram_(student) || student.telegramChatId || !telegramLink_(student)) return;
+    if (alreadySent[student.responseId + '|telegram']) return;
+    enqueue_('telegram', student, '', false);
+  });
+  sendConfirmationsNow_();
 }
 
 /**
