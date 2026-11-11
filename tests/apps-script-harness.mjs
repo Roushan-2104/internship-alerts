@@ -149,6 +149,8 @@ export function createWorld({ configured = true } = {}) {
     sandbox.CONFIG.JOBS_URL = 'https://raw/jobs.json';
     sandbox.CONFIG.SENDER_NAME = 'Test Sender';
     sandbox.CONFIG.ALERT_EMAIL = 'owner@example.com';
+    // Tests start from a pre-launch state, whatever the live config says; reset tests set the phrase themselves.
+    sandbox.CONFIG.RESET_AND_LAUNCH = '';
   }
   world.sandbox = sandbox;
   world.table = (name) => sandbox.readTable_(name);
