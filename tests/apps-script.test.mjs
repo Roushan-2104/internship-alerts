@@ -1536,3 +1536,31 @@ test('students who chose Telegram earlier but got no link are sent one, once', (
   assert.equal(world.sent.filter((m) => /Connect Telegram/.test(m.subject)).length, 1);
 });
 
+test('launch: a failure closing the old form cannot block the launch or repeat the deletion', () => {
+  const world = ready([]);
+  world.sandbox.setupNewForm();
+  world.forms['form-id'].setCustomClosedFormMessage = () => { throw new Error('Invalid data updating form.'); };
+  world.forms['form-id'].setAcceptingResponses = () => { throw new Error('Invalid data updating form.'); };
+  world.sandbox.CONFIG.RESET_AND_LAUNCH = world.sandbox.RESET_PHRASE;
+  world.sandbox.tick();
+  assert.equal(world.props.LAUNCHED, 'yes');
+  assert.equal(world.props.FORM_ID, world.props.NEW_FORM_ID);
+  assert.ok(world.table('Logs').some((row) => /Could not close the old form/.test(row.message)));
+});
+
+test('launch: if a step after the deletion fails, the retry does not delete new sign-ups', () => {
+  const world = ready([]);
+  world.sandbox.setupNewForm();
+  world.sandbox.tick();
+  world.sandbox.CONFIG.RESET_AND_LAUNCH = world.sandbox.RESET_PHRASE;
+  const install = world.sandbox.installTriggers_;
+  world.sandbox.installTriggers_ = () => { throw new Error('trigger limit'); };
+  world.sandbox.tick();
+  assert.ok(world.props.RESET_DATA_DONE);
+  world.sandbox.installTriggers_ = install;
+  world.sandbox.onFormSubmit({ source: world.forms[world.props.NEW_FORM_ID], response: makeResponse(world.sandbox, 'after', { __respondent: 'new@gmail.com' }) });
+  world.sandbox.tick();
+  assert.equal(world.props.LAUNCHED, 'yes');
+  assert.ok(world.table('Students').some((row) => row.responseId === 'after'), 'the new sign-up survived the retry');
+});
+
