@@ -19,7 +19,8 @@
 </head>
 <body>
   <h1>Internship Alerts</h1>
-  <p class="muted">Last run: <?= data.lastTickAt ?></p>
+  <p class="muted">Last run: <?= data.lastTickAt ?> | <a href="<?= data.runSetupUrl ?>" target="_top">Run pending setup now</a></p>
+  <? if (data.ranNow) { ?><p><b><?= data.ranNow ?></b></p><? } ?>
   <p class="status" style="color: var(--<?= data.overall ?>)">Status: <?= data.overall ?></p>
 
   <? if (data.problems.length) { ?><h2>Problems</h2><ul><? data.problems.forEach(function (item) { ?><li><?= item ?></li><? }); ?></ul><? } ?>

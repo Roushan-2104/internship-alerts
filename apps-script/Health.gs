@@ -134,8 +134,31 @@ function getStatusData_() {
 }
 
 /** Status page. The deployment is set to "Only myself", so Google enforces who can open it. */
-function doGet() {
+function doGet(e) {
+  var ranNow = '';
+  // "?run=setup" carries out pending setup straight away. Only the owner can open this page.
+  if (e && e.parameter && e.parameter.run === 'setup') ranNow = runSetupNow_();
   var template = HtmlService.createTemplateFromFile('Status');
   template.data = getStatusData_();
+  template.data.ranNow = ranNow;
+  template.data.runSetupUrl = ScriptApp.getService().getUrl() + '?run=setup';
   return template.evaluate().setTitle('Internship Alerts Status');
+}
+
+/** Runs pending admin actions and the quick checks now, instead of waiting for the next run. */
+function runSetupNow_() {
+  var lock = LockService.getScriptLock();
+  if (!lock.tryLock(20000)) return 'The script is busy with a run. Try again in a minute.';
+  try {
+    runAdminActions_();
+    processDeferredResponses_();
+    sendConfirmationsNow_();
+    pollTelegram_();
+    return 'Setup ran at ' + new Date().toISOString() + '.';
+  } catch (error) {
+    log_('ERROR', 'admin', error.message);
+    return 'Setup failed: ' + error.message;
+  } finally {
+    lock.releaseLock();
+  }
 }

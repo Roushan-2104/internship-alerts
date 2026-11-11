@@ -1468,3 +1468,16 @@ test('switching to Telegram sends the connect link straight away, once', () => {
   assert.equal(world.sent.filter((m) => /Connect Telegram/.test(m.subject)).length, 0, 'not repeated on later edits');
 });
 
+test('the status page can run pending setup on request', () => {
+  const world = ready([]);
+  world.sandbox.ScriptApp.getService = () => ({ getUrl: () => 'https://script/exec' });
+  world.sandbox.HtmlService.createTemplateFromFile = () => ({ evaluate: () => ({ setTitle: () => 'page' }) });
+  assert.equal(world.props.NEW_FORM_ID, undefined);
+  world.sandbox.doGet({ parameter: { run: 'setup' } });
+  assert.ok(world.props.NEW_FORM_ID, 'admin actions ran');
+  const message = world.sandbox.runSetupNow_();
+  assert.match(message, /Setup ran/);
+  world.sandbox.LockService.getScriptLock = () => ({ tryLock: () => false, releaseLock: () => {} });
+  assert.match(world.sandbox.runSetupNow_(), /busy/);
+});
+
