@@ -3,6 +3,10 @@ var CONFIG = {
   JOBS_URL: 'https://raw.githubusercontent.com/Roushan-2104/internship-alerts/main/data/jobs.json',
   WORKFLOW_DISPATCH_URL: 'https://api.github.com/repos/Roushan-2104/internship-alerts/actions/workflows/watch.yml/dispatches',
   WATCHER_FRESH_MINUTES: 20,
+  // Until the relaunch, only these role types are stored and emailed, and remote-only roles are skipped.
+  LIVE_ROLE_TYPES: ['internship', 'apprentice', 'research'],
+  LIVE_REMOTE_ROLES: false,
+  COMPANIES_SOURCE_URL: 'https://raw.githubusercontent.com/Roushan-2104/internship-alerts/main/config/watch.json',
   SENDER_NAME: 'Internship Alerts',
   ALERT_EMAIL: 'internshipalerts.roushan@gmail.com',
 

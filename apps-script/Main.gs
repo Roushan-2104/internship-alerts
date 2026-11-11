@@ -53,6 +53,13 @@ function startWatcher_(feed) {
   throw new Error('GitHub could not start the watcher (HTTP ' + code + ').');
 }
 
+/** Jobs from before role types existed have no roleType and are treated as internships. */
+function isLiveJob_(job) {
+  if (job.roleType && CONFIG.LIVE_ROLE_TYPES.indexOf(job.roleType) === -1) return false;
+  if (job.remote && !CONFIG.LIVE_REMOTE_ROLES && !/india|bengaluru|bangalore|hyderabad|pune|gurugram|gurgaon|mumbai|chennai|noida|delhi/i.test(job.location)) return false;
+  return true;
+}
+
 function syncJobs_(feed, deadline) {
   var response;
   try {
@@ -71,7 +78,7 @@ function syncJobs_(feed, deadline) {
 
   // The first sync records what is already open, so launch day doesn't send a backlog.
   var firstSync = !prop_('FIRST_SYNC_DONE');
-  feed.payload.jobs.forEach(function (job) {
+  feed.payload.jobs.filter(isLiveJob_).forEach(function (job) {
     var row = byId[job.id];
     if (row) {
       var open = job.open !== false;

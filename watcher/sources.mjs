@@ -1,4 +1,5 @@
-import { assertAllowedGoogleUrl, containsKeyword, matchesPriority, parseDescription } from './lib.mjs';
+import { assertAllowedGoogleUrl, matchesPriority, parseDescription } from './lib.mjs';
+import { classifyRole, isPartTime, placeFor, tagAreas } from './classify.mjs';
 
 export async function readGoogle(page, source, config) {
   assertAllowedGoogleUrl(source.url);
@@ -39,6 +40,11 @@ export async function readGoogle(page, source, config) {
       company: source.company,
       source: source.name,
       priority: matchesPriority(card.title, config.priorityTitles),
+      // Google's own filters already limit these searches to India and early-career roles.
+      roleType: classifyRole(card.title) || (source.keep === 'search' ? 'newGrad' : 'internship'),
+      partTime: isPartTime(card.title),
+      areas: tagAreas(card.title),
+      remote: false,
     }));
 }
 
@@ -68,19 +74,26 @@ export async function readGoogleDetail(page, url) {
   });
 }
 
-function toJob(source, config, fields) {
+/**
+ * Builds a job from any board, or returns null if it isn't a student or early-career
+ * role in India or remote and open to India.
+ */
+function toJob(source, config, fields, extra = {}) {
+  const roleType = classifyRole(fields.title, extra.employmentType);
+  if (!roleType) return null;
+  const place = placeFor(extra.locationText || fields.location, fields.fullText || '');
+  if (!place.relevant) return null;
   return {
     ...fields,
     company: source.company,
     source: source.name,
     priority: matchesPriority(fields.title, config.priorityTitles),
+    roleType,
+    partTime: isPartTime(fields.title, extra.employmentType),
+    areas: tagAreas(fields.title, extra.department),
+    remote: place.remote,
     deadline: '',
   };
-}
-
-function keepAtsJob(job, config, isInternType = false) {
-  const internRole = isInternType || containsKeyword(job.title, config.internKeywords);
-  return internRole && containsKeyword(job.location, config.locationKeywords);
 }
 
 async function fetchJson(url) {
@@ -99,18 +112,14 @@ export async function readGreenhouse(source, config) {
       url: job.absolute_url,
       location: job.location?.name || '',
       ...parseDescription(job.content),
-    }))
-    .filter((job) => keepAtsJob(job, config));
+    }, { department: (job.departments || []).map((d) => d.name).join(' ') }))
+    .filter(Boolean);
 }
 
 export async function readLever(source, config) {
   const url = `https://api.lever.co/v0/postings/${encodeURIComponent(source.board)}?mode=json`;
   const data = await fetchJson(url);
   return data
-    .filter((job) => {
-      const location = [job.categories?.location, ...(job.categories?.allLocations || [])].join('; ');
-      return keepAtsJob({ title: job.text, location }, config, /intern/i.test(job.categories?.commitment || ''));
-    })
     .map((job) => toJob(source, config, {
       id: `lever-${source.board}-${job.id}`,
       title: job.text,
@@ -121,23 +130,65 @@ export async function readLever(source, config) {
         job.description,
         ...(job.lists || []).map((list) => `<h4>${list.text}</h4><ul>${list.content}</ul>`),
       ].join('')),
-    }));
+    }, {
+      employmentType: job.categories?.commitment || '',
+      department: [job.categories?.department, job.categories?.team].join(' '),
+      locationText: [job.categories?.location, ...(job.categories?.allLocations || []), job.workplaceType === 'remote' ? 'Remote' : ''].join('; '),
+    }))
+    .filter(Boolean);
 }
 
 export async function readAshby(source, config) {
   const url = `https://api.ashbyhq.com/posting-api/job-board/${encodeURIComponent(source.board)}`;
   const data = await fetchJson(url);
   return data.jobs
-    .filter((job) => {
-      if (job.isListed === false) return false;
+    .filter((job) => job.isListed !== false)
+    .map((job) => {
       const location = [job.location, ...(job.secondaryLocations || []).map((item) => item.location)].join('; ');
-      return keepAtsJob({ title: job.title, location }, config, job.employmentType === 'Intern');
+      return toJob(source, config, {
+        id: `ashby-${source.board}-${job.id}`,
+        title: job.title,
+        url: job.jobUrl,
+        location,
+        ...parseDescription(job.descriptionHtml),
+      }, {
+        employmentType: job.employmentType === 'Intern' ? 'Intern' : job.employmentType || '',
+        department: [job.department, job.team].join(' '),
+        locationText: `${location}${job.isRemote ? '; Remote' : ''}`,
+      });
     })
-    .map((job) => toJob(source, config, {
-      id: `ashby-${source.board}-${job.id}`,
-      title: job.title,
-      url: job.jobUrl,
-      location: [job.location, ...(job.secondaryLocations || []).map((item) => item.location)].join('; '),
-      ...parseDescription(job.descriptionHtml),
-    }));
+    .filter(Boolean);
+}
+
+/** SmartRecruiters lists postings without descriptions, so details are read only for kept jobs. */
+export async function readSmartRecruiters(source, config) {
+  const base = `https://api.smartrecruiters.com/v1/companies/${encodeURIComponent(source.board)}/postings`;
+  const list = await fetchJson(`${base}?limit=100`);
+  const jobs = [];
+  for (const posting of list.content || []) {
+    const location = posting.location || {};
+    const locationText = [location.fullLocation || [location.city, location.country].join(', '), location.country === 'in' ? 'India' : '', location.remote ? 'Remote' : ''].join('; ');
+    const quick = toJob(source, config, { id: '', title: posting.name, url: '', location: locationText }, {
+      employmentType: posting.typeOfEmployment?.label || '',
+      department: posting.function?.label || '',
+      locationText,
+    });
+    // Remote postings outside India need their description checked, so they go on to the detail read.
+    if (!quick && !location.remote) continue;
+    const detail = await fetchJson(`${base}/${encodeURIComponent(posting.id)}`);
+    const sections = detail.jobAd?.sections || {};
+    const html = ['jobDescription', 'qualifications']
+      .filter((key) => sections[key]?.text)
+      .map((key) => `<h4>${sections[key].title || key}</h4>${sections[key].text}`)
+      .join('');
+    const job = toJob(source, config, {
+      id: `smartrecruiters-${source.board}-${posting.id}`,
+      title: posting.name,
+      url: detail.postingUrl || `https://jobs.smartrecruiters.com/${source.board}/${posting.id}`,
+      location: location.fullLocation || [location.city, 'India'].filter(Boolean).join(', '),
+      ...parseDescription(html),
+    }, { employmentType: posting.typeOfEmployment?.label || '', department: posting.function?.label || '', locationText });
+    if (job) jobs.push(job);
+  }
+  return jobs;
 }

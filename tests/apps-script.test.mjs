@@ -702,3 +702,24 @@ test('old messy text is replaced when a job no longer has that section', () => {
   assert.equal(row.aboutRole, 'Clean text');
 });
 
+test('until the relaunch, only internship-style roles are stored and remote-only roles wait', () => {
+  const world = ready([]);
+  signUp(world);
+  world.sandbox.tick();
+  world.sent.length = 0;
+  world.hour = 23;
+  world.jobs = [
+    makeJob('intern', { roleType: 'internship' }),
+    makeJob('trainee', { roleType: 'apprentice' }),
+    makeJob('grad', { roleType: 'newGrad' }),
+    makeJob('parttime', { roleType: 'partTime' }),
+    makeJob('remote', { roleType: 'internship', remote: true, location: 'Remote - APAC' }),
+    makeJob('remoteIndia', { roleType: 'internship', remote: true, location: 'Remote - India' }),
+    makeJob('legacy'),
+  ];
+  world.sandbox.tick();
+  assert.deepEqual(world.table('Jobs').map((row) => row.id).sort(), ['intern', 'legacy', 'remoteIndia', 'trainee']);
+  assert.equal(world.sent.length, 1);
+  assert.equal(world.sent[0].body.includes('grad Intern'), false);
+});
+
