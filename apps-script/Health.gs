@@ -108,6 +108,12 @@ function getStatusData_() {
     githubPending: students.filter(function (s) { return s.status === 'active' && s.githubUser && !s.githubScannedAt; }).length,
     githubFailed: students.filter(function (s) { return s.githubError; }).length,
     resumeFailed: students.filter(function (s) { return s.resumeError; }).length,
+    geminiStatus: geminiBlocked_() || 'Working',
+    geminiUsedToday: geminiUsedToday_(),
+    geminiDailyLimit: CONFIG.GEMINI_DAILY_LIMIT,
+    jobsReadByGemini: jobs.filter(function (job) { return job.aiReadAt && !job.aiError; }).length,
+    jobsGeminiFailed: jobs.filter(function (job) { return job.aiError; }).length,
+    profilesReadByGemini: CONFIG.AI_READS_PROFILES ? students.filter(function (s) { return s.aiReadAt; }).length + ' read' : 'Off until the new form asks for consent',
     logs: readTable_('Logs').filter(function (row) { return row.level !== 'INFO'; }).slice(-20).reverse()
   };
 }

@@ -45,6 +45,15 @@
     <div><span>Emails waiting</span><b><?= data.queuePending ?></b></div>
   </div>
 
+  <h2>Gemini</h2>
+  <div class="grid">
+    <div><span>Status</span><b><?= data.geminiStatus ?></b></div>
+    <div><span>Requests today</span><b><?= data.geminiUsedToday ?> of <?= data.geminiDailyLimit ?></b></div>
+    <div><span>Jobs read</span><b><?= data.jobsReadByGemini ?></b></div>
+    <div><span>Jobs it couldn't read</span><b><?= data.jobsGeminiFailed ?></b></div>
+    <div><span>Profiles</span><b><?= data.profilesReadByGemini ?></b></div>
+  </div>
+
   <h2>Students</h2>
   <div class="grid">
     <div><span>Active</span><b><?= data.studentsActive ?></b></div>

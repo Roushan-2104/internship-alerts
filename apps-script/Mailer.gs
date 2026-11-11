@@ -140,7 +140,7 @@ function sendDigestNow() {
     var unmatched = function () {
       return readTable_('Jobs').filter(function (job) { return !job.processedAt; }).length;
     };
-    while (unmatched() > 0 && Date.now() < deadline) matchNewJobs_(deadline);
+    while (unmatched() > 0 && Date.now() < deadline) matchNewJobs_(deadline, true);
 
     var students = {};
     readTable_('Students').forEach(function (row) { students[row.responseId] = row; });

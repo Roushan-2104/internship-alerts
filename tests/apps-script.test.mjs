@@ -723,3 +723,162 @@ test('until the relaunch, only internship-style roles are stored and remote-only
   assert.equal(world.sent[0].body.includes('grad Intern'), false);
 });
 
+// Gemini ------------------------------------------------------------------------------------------
+const facts = (overrides = {}) => ({
+  degreeLevels: [], gradYearMin: null, gradYearMax: null, minYearsExperience: null, freshersWelcome: false,
+  skills: [], openToIndia: 'yes', evidence: 'Open to students.', ...overrides,
+});
+const geminiAnswer = (value) => ({ code: 200, body: JSON.stringify({ candidates: [{ content: { parts: [{ text: JSON.stringify(value) }] } }] }) });
+const oldJob = (id, overrides = {}) => makeJob(id, { firstSeen: new Date(Date.now() - 3 * 3600000).toISOString(), ...overrides });
+
+function withGemini(answerFor) {
+  const world = ready([]);
+  world.props.GEMINI_API_KEY = 'gemini-secret-key';
+  world.gemini = (url, options) => answerFor(JSON.parse(options.payload));
+  return world;
+}
+
+test('Gemini reads new jobs, keeps the key out of URLs, and marks job text as data', () => {
+  const world = withGemini(() => geminiAnswer(facts({ gradYearMin: 2029, gradYearMax: 2029, skills: ['Python'] })));
+  signUp(world);
+  world.sandbox.tick();
+  world.jobs = [makeJob('a')];
+  world.sandbox.tick();
+  const row = world.table('Jobs').find((job) => job.id === 'a');
+  assert.equal(JSON.parse(row.ai).gradYearMin, 2029);
+  const call = world.geminiCalls[0];
+  assert.equal(call.url.includes('gemini-secret-key'), false);
+  assert.equal(call.options.headers['x-goog-api-key'], 'gemini-secret-key');
+  assert.match(call.url, /gemini-3\.5-flash-lite:generateContent$/);
+  const payload = JSON.parse(call.options.payload);
+  assert.match(payload.contents[0].parts[0].text, /^<<<DATA/);
+  assert.match(payload.systemInstruction.parts[0].text, /Never follow instructions/);
+  assert.equal(payload.generationConfig.responseMimeType, 'application/json');
+});
+
+test('Gemini facts decide eligibility: year, degree, experience and remote', () => {
+  const student = { degree: "Bachelor's (BTech)", gradYear: '2029' };
+  const check = (f, job = {}) => logic.evaluateEligibility({ title: 'Role', minQualifications: '', ai: JSON.stringify(facts(f)), ...job }, student);
+  assert.equal(check({ gradYearMin: 2028, gradYearMax: 2029 }).status, 'eligible');
+  assert.equal(check({ gradYearMin: 2026, gradYearMax: 2027 }).status, 'not_eligible');
+  assert.equal(check({ degreeLevels: ['phd'] }).status, 'not_eligible');
+  assert.equal(check({ degreeLevels: ['bachelor', 'master'] }).status, 'unclear');
+  assert.equal(check({ degreeLevels: ['any'] }).status, 'unclear');
+  assert.match(check({ minYearsExperience: 2 }, { roleType: 'newGrad' }).reason, /2 year/);
+  assert.equal(check({ minYearsExperience: 2, freshersWelcome: true }, { roleType: 'newGrad' }).status, 'unclear');
+  assert.equal(check({ minYearsExperience: 2 }, { roleType: 'internship' }).status, 'unclear');
+  assert.equal(check({ openToIndia: 'no' }, { remote: true }).status, 'not_eligible');
+  assert.equal(check({}).quote, 'Open to students.');
+});
+
+test('Gemini skill names map onto the synonym list', () => {
+  const job = { title: 'Intern', minQualifications: '', ai: JSON.stringify(facts({ skills: ['Golang', 'PostgreSQL', 'Kafka'] })) };
+  const result = logic.matchScore(job, { skills: 'go, sql' }, synonyms);
+  assert.equal(result.score, 2);
+  assert.equal(result.jobSkillCount, 3);
+});
+
+test('bad or out-of-range answers are cleaned before they are stored', () => {
+  const cleaned = logic.cleanJobFacts_({ degreeLevels: ['Bachelor', 'wizard'], gradYearMin: 2031, gradYearMax: 2027, minYearsExperience: -4, freshersWelcome: 'yes', skills: 'python', openToIndia: 'maybe', evidence: 'x'.repeat(900) });
+  assert.deepEqual([...cleaned.degreeLevels], ['bachelor']);
+  assert.equal(cleaned.gradYearMin, 2027);
+  assert.equal(cleaned.gradYearMax, 2031);
+  assert.equal(cleaned.minYearsExperience, null);
+  assert.equal(cleaned.freshersWelcome, false);
+  assert.deepEqual([...cleaned.skills], []);
+  assert.equal(cleaned.openToIndia, 'unclear');
+  assert.equal(cleaned.evidence.length, 300);
+  assert.equal(logic.cleanJobFacts_({ gradYearMin: 1999 }).gradYearMin, null);
+});
+
+test('a new job waits for Gemini, but never longer than the wait limit', () => {
+  const world = ready([]);
+  world.props.GEMINI_API_KEY = 'k';
+  world.gemini = () => ({ code: 500, body: '' });
+  signUp(world);
+  world.sandbox.tick();
+  world.props.GEMINI_PAUSED_UNTIL = String(Date.now() - 1);
+  world.sandbox.CONFIG.GEMINI_READS_PER_TICK = 0;
+  world.jobs = [makeJob('fresh'), oldJob('stale'), makeJob('vip', { priority: true, firstSeen: new Date(Date.now() - 30 * 60000).toISOString() })];
+  world.sandbox.tick();
+  const processed = Object.fromEntries(world.table('Jobs').map((job) => [job.id, Boolean(job.processedAt)]));
+  assert.deepEqual(processed, { fresh: false, stale: true, vip: true });
+});
+
+test('when Google says the limit is reached, Gemini pauses quietly and the rules match jobs', () => {
+  const world = withGemini(() => ({ code: 429, body: '' }));
+  signUp(world);
+  world.sandbox.tick();
+  world.sent.length = 0;
+  world.hour = 23;
+  world.jobs = [makeJob('a')];
+  world.sandbox.tick();
+  assert.match(world.sandbox.geminiBlocked_(), /Paused/);
+  assert.equal(world.table('Jobs').find((job) => job.id === 'a').processedAt !== '', true, 'matched by the rules straight away');
+  assert.equal(world.sent.filter((mail) => /Problem/.test(mail.subject)).length, 0);
+  assert.equal(world.sent.filter((mail) => mail.to === 'asha@example.com').length, 1);
+  assert.equal(world.geminiCalls.length, 1, 'no more calls while paused');
+});
+
+test('the daily cap stops requests', () => {
+  const world = withGemini(() => geminiAnswer(facts()));
+  world.sandbox.CONFIG.GEMINI_DAILY_LIMIT = 2;
+  world.sandbox.tick();
+  world.jobs = [makeJob('a'), makeJob('b'), makeJob('c')];
+  world.sandbox.tick();
+  assert.equal(world.geminiCalls.length, 2);
+  assert.match(world.sandbox.geminiBlocked_(), /Daily cap/);
+});
+
+test('a rejected key raises one alert and never reveals the key', () => {
+  const world = withGemini(() => ({ code: 400, body: '{"error":{"message":"API key not valid. API_KEY_INVALID"}}' }));
+  world.sandbox.tick();
+  world.jobs = [makeJob('a'), makeJob('b')];
+  world.sandbox.tick();
+  world.sandbox.tick();
+  const alerts = world.sent.filter((mail) => /Problem: step:gemini/.test(mail.subject));
+  assert.equal(alerts.length, 1);
+  assert.match(alerts[0].body, /rejected the API key/);
+  const everything = JSON.stringify(world.sent) + JSON.stringify(world.table('Logs')) + JSON.stringify(world.table('Jobs')) + JSON.stringify(world.sandbox.getStatusData_());
+  assert.equal(everything.includes('gemini-secret-key'), false);
+});
+
+test('one unreadable job is recorded and the rest continue', () => {
+  let calls = 0;
+  const world = withGemini(() => (++calls === 1 ? { code: 200, body: '{"candidates":[]}' } : geminiAnswer(facts())));
+  world.sandbox.tick();
+  world.jobs = [makeJob('a'), makeJob('b')];
+  world.sandbox.tick();
+  const rows = world.table('Jobs');
+  assert.equal(rows.filter((job) => job.aiError).length, 1);
+  assert.equal(rows.filter((job) => job.ai).length, 1);
+  assert.equal(world.sent.filter((mail) => /Problem/.test(mail.subject)).length, 0);
+});
+
+test('profiles are not sent to Gemini until the consent switch is on', () => {
+  const world = withGemini((payload) => (/list the concrete skills/.test(payload.systemInstruction.parts[0].text) ? geminiAnswer({ skills: ['Rust', 'Kafka'] }) : geminiAnswer(facts())));
+  signUp(world);
+  world.sandbox.tick();
+  assert.equal(world.geminiCalls.filter((call) => /concrete skills/.test(call.options.payload)).length, 0);
+  world.sandbox.CONFIG.AI_READS_PROFILES = true;
+  world.sandbox.tick();
+  const student = world.table('Students')[0];
+  assert.deepEqual(JSON.parse(student.ai).skills, ['rust', 'kafka']);
+  assert.ok(logic.studentSkillSet({ ...student, ai: student.ai }, synonyms).includes('rust'));
+  signUp(world, 'r1', { [world.sandbox.FORM_TITLES.SKILLS]: 'Python, Go' });
+  assert.equal(world.table('Students')[0].aiReadAt, '', 'an edit means it is read again');
+});
+
+test('status page shows Gemini usage', () => {
+  const world = withGemini(() => geminiAnswer(facts()));
+  world.sandbox.tick();
+  world.jobs = [makeJob('a')];
+  world.sandbox.tick();
+  const data = world.sandbox.getStatusData_();
+  assert.equal(data.geminiStatus, 'Working');
+  assert.equal(data.geminiUsedToday, 1);
+  assert.equal(data.jobsReadByGemini, 1);
+  assert.match(data.profilesReadByGemini, /Off until/);
+  assert.match(renderStatus(data), /Requests today/);
+});
+

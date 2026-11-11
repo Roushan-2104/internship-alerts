@@ -77,7 +77,10 @@ function handleResponse_(response) {
     record.resumeSkills = '';
     record.resumeReadFileId = '';
     record.resumeError = '';
+    record.resumeText = '';
   }
+  // Any edit means Gemini should read the profile again.
+  record.aiReadAt = '';
   rememberNewSkills_(fields.skills);
 
   if (current) {
@@ -138,6 +141,20 @@ function refreshProfiles_(deadline) {
   var synonyms = buildSynonyms(readTable_('Skills'));
   scanGithubBatch_(students, synonyms, deadline);
   readResumeBatch_(students, synonyms, deadline);
+  readProfilesBatch_(deadline);
+}
+
+function readProfilesBatch_(deadline) {
+  if (!CONFIG.AI_READS_PROFILES) return;
+  var due = readTable_('Students').filter(function (student) {
+    // Waits for a pending resume read, so Gemini sees the resume too.
+    var resumePending = student.resumeFileId && String(student.resumeReadFileId) !== String(student.resumeFileId);
+    return student.status === 'active' && !student.aiReadAt && !resumePending;
+  }).slice(0, 3);
+  for (var i = 0; i < due.length && Date.now() < deadline; i++) {
+    if (!readProfileWithGemini_(due[i])) return;
+    updateRow_('Students', due[i]);
+  }
 }
 
 function scanGithubBatch_(students, synonyms, deadline) {
@@ -179,7 +196,10 @@ function readResumeBatch_(students, synonyms, deadline) {
       // Converting to a Google Doc runs Drive's text recognition, which also handles scanned PDFs.
       var copy = Drive.Files.copy({ name: 'resume-text-temp', mimeType: 'application/vnd.google-apps.document' }, student.resumeFileId, { ocrLanguage: 'en' });
       copyId = copy.id;
-      student.resumeSkills = extractSkills(DocumentApp.openById(copyId).getBody().getText(), synonyms).join(', ');
+      var text = DocumentApp.openById(copyId).getBody().getText();
+      student.resumeSkills = extractSkills(text, synonyms).join(', ');
+      student.resumeText = text.slice(0, 20000);
+      student.aiReadAt = '';
       student.resumeError = '';
     } catch (error) {
       student.resumeError = error.message;
