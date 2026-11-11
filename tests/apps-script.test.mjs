@@ -1456,3 +1456,15 @@ test('a form from the earlier two-form version is upgraded in place', () => {
   assert.equal(old.getItems().filter((item) => item.title === t.CHANNEL).length, 1, 'runs once');
 });
 
+test('switching to Telegram sends the connect link straight away, once', () => {
+  const world = telegramWorld('Email');
+  world.sent.length = 0;
+  signUp(world, 'r1', { [world.sandbox.FORM_TITLES.CHANNEL]: 'Email and Telegram' });
+  const mail = world.sent.find((m) => /Connect Telegram/.test(m.subject));
+  assert.ok(mail, 'sent at once');
+  assert.match(mail.body, /t\.me\/alerts_test_bot\?start=/);
+  world.sent.length = 0;
+  signUp(world, 'r1', { [world.sandbox.FORM_TITLES.CHANNEL]: 'Email and Telegram', [world.sandbox.FORM_TITLES.SKILLS]: 'Go' });
+  assert.equal(world.sent.filter((m) => /Connect Telegram/.test(m.subject)).length, 0, 'not repeated on later edits');
+});
+

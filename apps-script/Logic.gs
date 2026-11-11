@@ -447,3 +447,13 @@ function buildReminderEmail(name, editUrl) {
     body: intro + footerText_(editUrl)
   };
 }
+
+function buildTelegramLinkEmail(name, editUrl, link) {
+  var text = 'Hi ' + name + ', you chose Telegram alerts. Open this link in Telegram and press Start to connect. Until then, alerts come by email.';
+  return {
+    subject: 'Connect Telegram to get your alerts there',
+    htmlBody: '<div lang="en" style="font-size:16px;line-height:1.5"><p>' + escapeHtml(text) + '</p><p><a href="' + escapeHtml(safeUrl_(link)) + '">Connect Telegram</a></p>' + footerHtml_(editUrl) + '</div>',
+    body: text + '\n\n' + link + footerText_(editUrl)
+  };
+}
+

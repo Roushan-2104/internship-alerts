@@ -77,6 +77,7 @@ function handleResponse_(response, formId) {
 
   var now = new Date().toISOString();
   var record = current ? readTable_('Students').filter(function (row) { return row.responseId === responseId; })[0] : {};
+  var wantedTelegramBefore = current ? wantsTelegram_(record) : false;
   var githubChanged = record.github !== fields.github;
   var resumeChanged = String(record.resumeFileId || '') !== String(fields.resumeFileId);
   if (resumeChanged && record.resumeFileId) removeFile_(record.resumeFileId);
@@ -113,6 +114,11 @@ function handleResponse_(response, formId) {
     if (record.status === 'paused') dropPendingFor_(responseId);
     // Unknown company names are told to the student, so a typo doesn't silently do nothing.
     if (unknown.length && unknownChanged) enqueue_('notice', record, '', false);
+    // Switching to Telegram sends the connect link straight away.
+    if (!wantedTelegramBefore && wantsTelegram_(record) && !record.telegramChatId && telegramLink_(record)) {
+      enqueue_('telegram', record, '', false);
+      sendConfirmationsNow_();
+    }
     return;
   }
   record.createdAt = now;

@@ -234,13 +234,17 @@ function queueReminders_() {
 
 /** Sends waiting sign-up confirmations only. Called right after a sign-up and by quickTick. */
 function sendConfirmationsNow_() {
-  var waiting = readTable_('Queue').filter(function (row) { return row.type === 'confirmation' && row.status === 'pending'; });
+  var waiting = readTable_('Queue').filter(function (row) { return (row.type === 'confirmation' || row.type === 'telegram') && row.status === 'pending'; });
   if (!waiting.length) return;
   var students = {};
   readTable_('Students').forEach(function (row) { students[row.responseId] = row; });
   waiting.forEach(function (row) {
     var student = students[row.responseId];
     if (!student || MailApp.getRemainingDailyQuota() <= CONFIG.QUOTA_RESERVED_FOR_INSTANT) return;
+    if (row.type === 'telegram') {
+      if (student.telegramChatId || !telegramLink_(student)) return markResult_([row], null);
+      return attemptSend_([row], student, buildTelegramLinkEmail(student.name, student.editUrl, telegramLink_(student)), true);
+    }
     attemptSend_([row], student, buildConfirmationEmail(student.name, student.editUrl, student.unknownCompanies, wantsTelegram_(student) ? telegramLink_(student) : ''), true);
   });
 }
