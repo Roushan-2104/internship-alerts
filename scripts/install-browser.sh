@@ -1,29 +1,38 @@
 #!/usr/bin/env bash
-# Installs Chromium for Playwright, surviving short outages of Ubuntu's package servers.
-# Tries the full install (browser plus system packages) a few times, then falls back to the
-# browser alone, since GitHub's runners usually have the system packages already. Either way,
-# it checks the browser really starts.
+# Installs Chromium for Playwright without depending on Ubuntu's package servers when possible.
+# GitHub's runners usually have the system packages Chromium needs, so the browser is installed
+# alone first. System packages are only installed if Chromium then fails to start, and each try
+# has a time limit, so an outage of those servers can't use up the whole run.
 set -uo pipefail
 
+starts() {
+  node -e "
+const { chromium } = require('playwright');
+chromium.launch().then((browser) => browser.close()).then(() => process.exit(0), (error) => { console.error(error.message.split('\n')[0]); process.exit(1); });
+"
+}
+
 for attempt in 1 2 3; do
-  if npx playwright install --with-deps chromium; then
-    echo "Installed Chromium with system packages on attempt ${attempt}"
-    installed=1
-    break
-  fi
-  echo "Install attempt ${attempt} failed. Waiting before retrying."
-  sleep $((attempt * 20))
+  if timeout 300 npx playwright install chromium; then break; fi
+  echo "Browser download attempt ${attempt} failed."
+  [ "$attempt" = 3 ] && { echo "Could not download Chromium" >&2; exit 1; }
+  sleep $((attempt * 15))
 done
 
-if [ "${installed:-0}" != 1 ]; then
-  echo "System packages could not be installed. Installing the browser alone."
-  npx playwright install chromium || { echo "Could not install Chromium" >&2; exit 1; }
+if starts; then
+  echo "Chromium starts correctly without extra system packages"
+  exit 0
 fi
 
-node -e "
-const { chromium } = require('playwright');
-chromium.launch().then((browser) => browser.close()).then(
-  () => console.log('Chromium starts correctly'),
-  (error) => { console.error('Chromium does not start:', error.message); process.exit(1); },
-);
-"
+echo "Chromium needs system packages. Installing them."
+for attempt in 1 2; do
+  if timeout 240 npx playwright install-deps chromium && starts; then
+    echo "Chromium starts correctly after installing system packages (attempt ${attempt})"
+    exit 0
+  fi
+  echo "System package attempt ${attempt} failed."
+  sleep 30
+done
+
+echo "Chromium could not be made to start" >&2
+exit 1
