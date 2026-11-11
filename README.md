@@ -65,11 +65,13 @@ It expires on the date you chose when creating it. When it does, you get a `step
 | To change | Edit |
 |---|---|
 | Priority role names | `priorityTitles` in `config/watch.json` |
-| Companies | `sources` in `config/watch.json` (see below) |
+| Companies | The **Internship Alerts Companies** spreadsheet (see below) |
 | Skill synonyms | The `Skills` sheet: list extra names in `aliases`, separated by commas |
 | Limits and timing | `CONFIG` in `apps-script/Config.gs` |
 
-To add a company, find its board name in its careers URL and add a source using `greenhouse`, `lever` or `ashby` as the type. Check the board really belongs to that company, as names can collide:
+Companies are read from the **Internship Alerts Companies** spreadsheet, which is published as CSV and contains nothing else. Set **Enabled** to `no` to pause a company. To add one, fill in Company, Type (`greenhouse`, `lever`, `ashby` or `smartrecruiters`) and Board, which is the name in its careers URL. Changes reach the watcher within about 30 minutes.
+
+Check the board really belongs to that company, as names can collide. If the sheet can't be read, the watcher uses `companies` in `config/watch.json` and raises a `Companies sheet` alert, so keep that list roughly in step.
 
 ```json
 { "type": "greenhouse", "name": "Example", "company": "Example", "board": "example", "requireJobs": false }

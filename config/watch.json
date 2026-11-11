@@ -4,7 +4,7 @@
     "Student Training in Engineering Program",
     "STEP"
   ],
-  "companiesCsvUrl": "",
+  "companiesCsvUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ4ZgsLODa8mnPwPCUUHMcMqsDiqV-vaWje_9DOtzxPx2K1_AHgpeMu9wuPeBdeHkStAixRoXn12Kg_/pub?gid=0&single=true&output=csv",
   "repostWindowDays": 90,
   "closedJobRetentionDays": 180,
   "maxDetailFetchesPerRun": 20,
