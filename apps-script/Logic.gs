@@ -168,7 +168,22 @@ function eligibilityFromFacts_(job, student) {
       ? { status: 'eligible', reason: 'Graduation year fits', quote: quote }
       : { status: 'not_eligible', reason: 'Graduation year does not fit', quote: quote };
   }
-  return { status: 'unclear', reason: 'Posting does not state a graduation year', quote: quote };
+  return noYearStated_(job, quote);
+}
+
+var NO_YEAR_REASON = 'Posting does not state a graduation year';
+
+function noYearStated_(job, quote) {
+  return { status: 'unclear', reason: NO_YEAR_REASON, quote: quote };
+}
+
+/**
+ * Most internships name no graduation year because any current student can apply, so a missing
+ * year is only worth a "check eligibility" label on new-grad roles, which depend on the year.
+ */
+function needsEligibilityLabel_(result, job) {
+  if (result.status !== 'unclear') return false;
+  return result.reason !== NO_YEAR_REASON || job.roleType === 'newGrad';
 }
 
 /** Returns eligible, unclear or not_eligible, with the sentence that decided it. */
@@ -198,7 +213,43 @@ function eligibilityFromRules_(job, student) {
       ? { status: 'eligible', reason: 'Graduation year fits', quote: yearQuote }
       : { status: 'not_eligible', reason: 'Graduation year does not fit', quote: yearQuote };
   }
-  return { status: 'unclear', reason: 'Posting does not state a graduation year', quote: levelQuote };
+  return noYearStated_(job, levelQuote);
+}
+
+// Which areas of work a student's skills point to, used when a posting names no skills to compare.
+var SKILL_AREAS = [
+  [['engineering', 'product', 'research'], /python|java|javascript|typescript|react|angular|node|c\+\+|\bc\b|\bgo\b|golang|rust|kotlin|swift|android|flutter|html|css|django|flask|spring|\bgit\b|docker|kubernetes|aws|azure|gcp|linux|dsa|data structures|algorithm|software|backend|frontend|full.?stack|devops/i],
+  [['data and ai', 'engineering', 'product', 'research'], /machine learning|\bml\b|\bai\b|deep learning|\bnlp\b|computer vision|\bdata\b|sql|pandas|numpy|tensorflow|pytorch|scikit|statistics|tableau|power ?bi|analytics|\bllm/i],
+  [['design'], /figma|photoshop|illustrator|canva|\bui\b|\bux\b|design|after effects|premiere|blender|indesign|typography/i],
+  [['marketing'], /marketing|\bseo\b|content|social media|copywriting|branding/i],
+  [['sales and business'], /sales|business development|\bcrm\b|negotiat/i],
+  [['operations'], /operations|supply chain|logistics|project management/i],
+  [['finance'], /financ|accounting|tally|excel|valuation/i],
+  [['people'], /recruit|\bhr\b|human resources/i],
+  [['hardware', 'engineering'], /embedded|vlsi|verilog|arduino|electronic|matlab|autocad|solidworks|mechanical|\bcad\b|pcb|robotics/i],
+  [['legal'], /\blaw\b|legal/i]
+];
+
+function skillAreas_(skills) {
+  var text = skills.join(', ');
+  var areas = [];
+  SKILL_AREAS.forEach(function (rule) {
+    if (rule[1].test(text)) rule[0].forEach(function (area) { if (areas.indexOf(area) === -1) areas.push(area); });
+  });
+  return areas;
+}
+
+/**
+ * A posting that names no skills can't be compared on skills, so it's kept only when its area
+ * suits the student: an area they chose, or, if they chose none, one their skills point to.
+ */
+function areaSuits_(job, student, skills) {
+  if (splitList_(student.areas).length) return true; // Their chosen areas were already checked.
+  var jobAreas = splitList_(job.areas).map(function (area) { return area.toLowerCase(); });
+  if (!jobAreas.length || jobAreas.indexOf('other') !== -1) return true;
+  var mine = skillAreas_(skills);
+  if (!mine.length) return true;
+  return jobAreas.some(function (area) { return mine.indexOf(area) !== -1; });
 }
 
 function matchScore(job, student, synonyms) {
@@ -213,7 +264,7 @@ function matchScore(job, student, synonyms) {
   }
   var mine = studentSkillSet(student, synonyms);
   var shared = jobSkills.filter(function (skill) { return mine.indexOf(skill) !== -1; });
-  return { score: shared.length, jobSkillCount: jobSkills.length, shared: shared };
+  return { score: shared.length, jobSkillCount: jobSkills.length, shared: shared, studentSkills: mine };
 }
 
 /**
@@ -234,20 +285,19 @@ function routeJob(job, student, synonyms) {
   }
   if (preference.always && !priority) {
     route.channel = 'digest';
-    route.checkEligibility = result.status === 'unclear';
+    route.checkEligibility = needsEligibilityLabel_(result, job);
     return route;
   }
   if (priority) {
     route.channel = 'instant';
-    route.checkEligibility = result.status === 'unclear';
+    route.checkEligibility = needsEligibilityLabel_(result, job);
     return route;
   }
-  var skillsFit = match.score > 0 || match.jobSkillCount === 0;
-  if (skillsFit) {
+  if (match.score > 0 || (match.jobSkillCount === 0 && areaSuits_(job, student, match.studentSkills))) {
     route.channel = 'digest';
-    route.checkEligibility = result.status === 'unclear';
+    route.checkEligibility = needsEligibilityLabel_(result, job);
   } else {
-    route.reason = 'No shared skills';
+    route.reason = match.jobSkillCount === 0 ? 'Area does not suit the student' : 'No shared skills';
   }
   return route;
 }

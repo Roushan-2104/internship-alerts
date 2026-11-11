@@ -238,3 +238,13 @@ test('text escaped twice is cleaned, and blank lines disappear', () => {
   assert.equal(parsed.fullText.includes('nbsp'), false);
 });
 
+
+test('a line that only introduces a list is not shown as a requirement', () => {
+  const parsed = parseDescription(`<h3>What we're looking for</h3>
+    <ul><li>You’ll likely thrive in this role if you</li><li>Are hungry to learn.</li><li>Communicate clearly</li></ul>
+    <p>In this role, you will:</p><ul><li>Process visa applications.</li></ul>`);
+  assert.equal(parsed.minQualifications.includes('thrive'), false);
+  assert.equal(parsed.minQualifications.includes('In this role'), false);
+  assert.match(parsed.minQualifications, /Are hungry to learn\./);
+  assert.match(parsed.minQualifications, /Communicate clearly/);
+});

@@ -67,23 +67,39 @@ test('routing: skills filter normal roles but never hide priority roles', () => 
   assert.equal(logic.routeJob(unnamed, noMatch, synonyms).channel, 'digest');
   const unclearPriority = logic.routeJob({ title: 'Intern', priority: true, minQualifications: "Bachelor's degree." }, noMatch, synonyms);
   assert.equal(unclearPriority.channel, 'instant');
-  assert.equal(unclearPriority.checkEligibility, true);
+  assert.equal(unclearPriority.checkEligibility, false, 'an internship with no year is open to students');
+  const unclearNewGrad = logic.routeJob({ title: 'Software Engineer, University Graduate', roleType: 'newGrad', priority: true, minQualifications: "Bachelor's degree." }, noMatch, synonyms);
+  assert.equal(unclearNewGrad.checkEligibility, true);
   const excludedPriority = logic.routeJob({ title: 'Intern', priority: true, minQualifications: 'Pursuing a PhD.' }, noMatch, synonyms);
   assert.equal(excludedPriority.channel, 'none');
 });
 
-test('an unclear priority role arrives instantly with the check eligibility label', () => {
+test('an unclear new-grad priority role arrives instantly with the check eligibility label', () => {
   const world = ready([]);
+  world.props.LAUNCHED = 'yes';
   signUp(world);
   world.sandbox.tick();
   world.sent.length = 0;
   world.hour = 0;
-  world.jobs = [makeJob('asd', { title: 'Associate Software Developer Intern', priority: true })];
+  world.jobs = [makeJob('asd', { title: 'Software Engineer, University Graduate', roleType: 'newGrad', priority: true })];
   world.sandbox.tick();
   const mail = toStudents(world);
   assert.equal(mail.length, 1);
-  assert.match(mail[0].subject, /Associate Software Developer Intern/);
+  assert.match(mail[0].subject, /Software Engineer, University Graduate/);
   assert.match(mail[0].body, /Check eligibility/);
+});
+
+test('a posting that names no skills only goes to students whose skills suit its area', () => {
+  const coder = { ...bachelor, skills: 'Python, React' };
+  const designer = { ...bachelor, skills: 'Figma, Photoshop' };
+  const fulfilment = { title: 'Fulfilment Intern', areas: 'operations', minQualifications: 'Detail-oriented and organised.' };
+  const design = { title: 'Graphic Design Intern', areas: 'design', minQualifications: 'A good eye.' };
+  assert.equal(logic.routeJob(fulfilment, coder, synonyms).channel, 'none');
+  assert.equal(logic.routeJob(design, coder, synonyms).channel, 'none');
+  assert.equal(logic.routeJob(design, designer, synonyms).channel, 'digest');
+  assert.equal(logic.routeJob(fulfilment, { ...coder, areas: 'Operations' }, synonyms).channel, 'digest', 'a chosen area wins');
+  assert.equal(logic.routeJob({ ...fulfilment, areas: 'other' }, coder, synonyms).channel, 'digest', 'unknown areas stay');
+  assert.equal(logic.routeJob(fulfilment, { ...bachelor, skills: 'Patience' }, synonyms).channel, 'digest', 'unplaceable skills stay');
 });
 
 test('GitHub links and repo summary', () => {
@@ -159,7 +175,7 @@ test('priority role goes instantly only to eligible students', () => {
   assert.equal(world.sent.length, 0, 'must not send the same job twice');
 });
 
-test('digest waits for its hour, combines jobs, labels unclear ones, and skips non-matches', () => {
+test('digest waits for its hour, combines jobs, and skips non-matches', () => {
   const world = ready([]);
   signUp(world);
   world.sandbox.tick();
@@ -178,7 +194,7 @@ test('digest waits for its hour, combines jobs, labels unclear ones, and skips n
   const mail = toStudents(world);
   assert.equal(mail.length, 1);
   assert.match(mail[0].subject, /2 new roles/);
-  assert.match(mail[0].body, /Check eligibility/);
+  assert.equal(/Check eligibility/.test(mail[0].body), false, 'internships with no year are not labelled');
   assert.equal(mail[0].body.includes('PhD Intern'), false);
   assert.equal(mail[0].body.includes('other Intern'), false);
   assert.equal(mail[0].name, 'Test Sender');
