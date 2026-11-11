@@ -41,32 +41,44 @@ function resetAndLaunch_() {
   var newFormId = prop_('NEW_FORM_ID');
   if (!newFormId) throw new Error('The new form does not exist yet.');
 
-  readTable_('Students').forEach(function (student) { removeFile_(student.resumeFileId); });
-  [prop_('FORM_ID'), newFormId].forEach(function (formId) {
-    if (formId) FormApp.openById(formId).deleteAllResponses();
-  });
-  // Uploaded resumes live in Drive folders the forms create, separate from the responses.
-  var folders = DriveApp.searchFolders('title contains "(File responses)" and trashed = false');
-  while (folders.hasNext()) {
-    var folder = folders.next();
-    var files = folder.getFiles();
-    while (files.hasNext()) removeFile_(files.next().getId());
+  // The deletion runs once only. If a later step fails, retrying must never delete new sign-ups.
+  if (!prop_('RESET_DATA_DONE')) {
+    readTable_('Students').forEach(function (student) { removeFile_(student.resumeFileId); });
+    [prop_('FORM_ID'), newFormId].forEach(function (formId) {
+      if (formId) FormApp.openById(formId).deleteAllResponses();
+    });
+    // Uploaded resumes live in Drive folders the forms create, separate from the responses.
+    var folders = DriveApp.searchFolders('title contains "(File responses)" and trashed = false');
+    while (folders.hasNext()) {
+      var files = folders.next().getFiles();
+      while (files.hasNext()) removeFile_(files.next().getId());
+    }
+    // Clearing (not deleting) rows works however large a tab has grown.
+    ['Students', 'Matches', 'Queue', 'Jobs', 'Skills'].forEach(function (name) {
+      var sheet = sheet_(name);
+      if (sheet.getLastRow() > 1) sheet.getRange(2, 1, sheet.getLastRow() - 1, TABLES[name].length).clearContent();
+    });
+    setProp_('RESET_DATA_DONE', new Date().toISOString());
   }
-  // Clearing (not deleting) rows works however large a tab has grown, and is safe to repeat.
-  ['Students', 'Matches', 'Queue', 'Jobs', 'Skills'].forEach(function (name) {
-    var sheet = sheet_(name);
-    if (sheet.getLastRow() > 1) sheet.getRange(2, 1, sheet.getLastRow() - 1, TABLES[name].length).clearContent();
-  });
 
+  // Closing the old form is helpful but not essential, so a failure here can't block the launch.
   var oldFormId = prop_('FORM_ID');
   if (oldFormId && oldFormId !== newFormId) {
-    var oldForm = FormApp.openById(oldFormId);
-    oldForm.setAcceptingResponses(false);
-    oldForm.setCustomClosedFormMessage('This form has moved. Please sign up again here: ' + FormApp.openById(newFormId).getPublishedUrl());
     setProp_('OLD_FORM_ID', oldFormId);
+    try {
+      FormApp.openById(oldFormId).setAcceptingResponses(false);
+    } catch (error) {
+      log_('WARN', 'admin', 'Could not close the old form: ' + error.message);
+    }
+    try {
+      FormApp.openById(oldFormId).setCustomClosedFormMessage('This form has moved. Please sign up again with the new form link.');
+    } catch (error) {
+      log_('WARN', 'admin', 'Could not set the old form\'s closed message: ' + error.message);
+    }
   }
   setProp_('FORM_ID', newFormId);
   setProp_('LAUNCHED', 'yes');
   installTriggers_(newFormId);
   log_('INFO', 'admin', 'All student data was deleted and the new form is live.');
 }
+
