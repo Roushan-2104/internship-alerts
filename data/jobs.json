@@ -1,571 +1,571 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-11T17:02:00.375Z",
+  "generatedAt": "2026-11-11T17:31:44.019Z",
   "lastFullSuccessAt": "2026-11-11T17:02:00.375Z",
   "sources": {
     "Google internships India": {
       "ok": true,
       "count": 3,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Google priority role search": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Google university graduate search": {
       "ok": true,
       "count": 2,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "AIOS": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "AiPrise": {
       "ok": true,
       "count": 3,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Airbnb": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Aleph": {
       "ok": true,
       "count": 1,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Alpaca": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Amplitude": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Anthropic": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Atlan": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Atlys": {
       "ok": true,
       "count": 5,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "AtoB": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Avoca": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Bolna": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Bosch Group": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Cardboard": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Cars24": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Coinbase": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Composio": {
       "ok": true,
       "count": 1,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "CRED": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Databricks": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Datadog": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Deepgram": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "DevRev": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Druva": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Duolingo": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Elastic": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Ema": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "FamPay": {
       "ok": true,
       "count": 2,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Figma": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Finni Health": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "FirstWork": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Flai": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Fleek": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Flexport": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Freshworks": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "GitLab": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Glance": {
       "ok": true,
       "count": 1,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Groww": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "HackerRank": {
       "ok": true,
       "count": 2,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "IMC": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "InMobi": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Instawork": {
       "ok": true,
       "count": 7,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "InterviewBit": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "ION": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Lendingkart": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "LiteLLM": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Meesho": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Mem0": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Mindtickle": {
       "ok": true,
       "count": 1,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "MongoDB": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Netomi": {
       "ok": true,
       "count": 2,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Newton School": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "NoBroker": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Notion": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Observe.AI": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Okta": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "OpenAI": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Overview": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Paytm": {
       "ok": true,
       "count": 6,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "PermitFlow": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Pocket FM": {
-      "ok": true,
+      "ok": false,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
-      "error": null
+      "checkedAt": "2026-11-11T17:31:44.019Z",
+      "error": "The operation was aborted due to timeout"
     },
     "Prodigal": {
       "ok": true,
       "count": 2,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Provision": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Retell AI": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Rubrik": {
       "ok": true,
       "count": 4,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Sarvam AI": {
       "ok": true,
       "count": 1,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Scale AI": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "ServiceNow": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Sieve": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Sigmoid": {
       "ok": true,
       "count": 1,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "SigNoz": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Smallest AI": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Snowflake": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "SpotDraft": {
       "ok": true,
       "count": 1,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Stepful": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Stripe": {
       "ok": true,
       "count": 3,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Swiggy": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Tala": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Tekion": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Tower Research Capital": {
       "ok": true,
       "count": 1,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Triomics": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "TRM Labs": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Twilio": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Unacademy": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Vercel": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Western Digital": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Whatfix": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Xendit": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Zapier": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Zeta": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Zscaler": {
       "ok": true,
       "count": 0,
-      "checkedAt": "2026-11-11T17:02:00.375Z",
+      "checkedAt": "2026-11-11T17:31:44.019Z",
       "error": null
     },
     "Companies sheet": {
       "ok": true,
       "count": 90,
       "error": null,
-      "checkedAt": "2026-11-11T17:02:00.375Z"
+      "checkedAt": "2026-11-11T17:31:44.019Z"
     }
   },
   "jobs": [
@@ -594,7 +594,7 @@
       ],
       "fingerprint": "mindtickle|customer support engineer i|pune maharashtra",
       "firstSeen": "2026-11-11T12:15:48.753Z",
-      "lastSeen": "2026-11-11T17:02:00.375Z",
+      "lastSeen": "2026-11-11T17:31:44.019Z",
       "open": true,
       "repostOf": null
     },
@@ -605,9 +605,9 @@
       "location": "Gurugram",
       "aboutRole": "We are looking for a DevOps Engineer to work collaboratively with the software development team to deploy and operate the systems. You'll be responsible to ensure the system is running smoothly and is being monitored continuously to resolve issues.",
       "responsibilities": "Kubernetes Management\nDesign, deploy, and manage Kubernetes clusters.\nConfigure and enforce RBAC policies and access control mechanisms.\nOptimize cluster performance and scalability.\nCI/CD Pipeline Development\nBuild, maintain, and enhance CI/CD pipelines using tools like Jenkins, ArgoCD, Spinnaker, or similar.\nAutomate deployment processes to improve delivery efficiency and reduce lead times.\nHelm Templates\nDevelop, maintain, and optimize Helm charts for Kubernetes applications.\nEnsure proper versioning and deployment strategies through Helm.\nService Mesh Implementation\nIntegrate and manage service meshes such as Istio or Linkerd for service discovery, load balancing, and secure communication.\nImplement observability and traffic management within the service mesh.\nScripting and Automation\nWrite and maintain automation scripts using Python, Ruby, or Golang.\nLeverage scripts for infrastructure provisioning, monitoring, and debugging.\n(Bonus) Chaos & Resilience Engineering\nImplement chaos engineering principles to test and improve system reliability.\nSimulate failures and measure system resilience to ensure production readiness.",
-      "minQualifications": "Experience: At least 2 years in DevOps or a related field.\nTools and Technologies:\nKubernetes (RBAC, cluster administration, Helm).\nCI/CD tools such as Jenkins, ArgoCD, or Spinnaker.\nService mesh solutions like Istio, Linkerd, or similar.\nHands-on experience with Amazon ECS and Terraform is a mandatory requirement for this role.\nSkills:\nProficiency in scripting languages (Python, Ruby, Golang).\nFamiliarity with cloud platforms (AWS, GCP, Azure).\nStrong understanding of system design, networking, and infrastructure management.\nBonus Skills: Knowledge and experience in chaos engineering tools like Chaos Monkey, LitmusChaos, or Gremlin.",
+      "minQualifications": "Experience: At least 2 years in DevOps or a related field.\nKubernetes (RBAC, cluster administration, Helm).\nCI/CD tools such as Jenkins, ArgoCD, or Spinnaker.\nService mesh solutions like Istio, Linkerd, or similar.\nHands-on experience with Amazon ECS and Terraform is a mandatory requirement for this role.\nProficiency in scripting languages (Python, Ruby, Golang).\nFamiliarity with cloud platforms (AWS, GCP, Azure).\nStrong understanding of system design, networking, and infrastructure management.\nBonus Skills: Knowledge and experience in chaos engineering tools like Chaos Monkey, LitmusChaos, or Gremlin.",
       "preferredQualifications": "",
-      "fullText": "Netomi is the leading agentic AI platform for enterprise customer experience. We work with the largest global brands like Delta Airlines, MetLife, United, and others to enable agentic automation at scale across the entire customer journey. Our no-code platform delivers the fastest time to market, lowest total cost of ownership, and simple, scalable management of AI agents for any CX use case. Backed by WndrCo, Y Combinator, and Index Ventures, we help enterprises drive efficiency, lower costs, and deliver higher quality customer experiences.\nWant to be part of the AI revolution and transform how the world’s largest global brands do business? Join us!\nWe are looking for a DevOps Engineer to work collaboratively with the software development team to deploy and operate the systems. You'll be responsible to ensure the system is running smoothly and is being monitored continuously to resolve issues.\nKubernetes Management\nDesign, deploy, and manage Kubernetes clusters.\nConfigure and enforce RBAC policies and access control mechanisms.\nOptimize cluster performance and scalability.\nCI/CD Pipeline Development\nBuild, maintain, and enhance CI/CD pipelines using tools like Jenkins, ArgoCD, Spinnaker, or similar.\nAutomate deployment processes to improve delivery efficiency and reduce lead times.\nHelm Templates\nDevelop, maintain, and optimize Helm charts for Kubernetes applications.\nEnsure proper versioning and deployment strategies through Helm.\nService Mesh Implementation\nIntegrate and manage service meshes such as Istio or Linkerd for service discovery, load balancing, and secure communication.\nImplement observability and traffic management within the service mesh.\nScripting and Automation\nWrite and maintain automation scripts using Python, Ruby, or Golang.\nLeverage scripts for infrastructure provisioning, monitoring, and debugging.\n(Bonus) Chaos & Resilience Engineering\nImplement chaos engineering principles to test and improve system reliability.\nSimulate failures and measure system resilience to ensure production readiness.\nExperience: At least 2 years in DevOps or a related field.\nTools and Technologies:\nKubernetes (RBAC, cluster administration, Helm).\nCI/CD tools such as Jenkins, ArgoCD, or Spinnaker.\nService mesh solutions like Istio, Linkerd, or similar.\nHands-on experience with Amazon ECS and Terraform is a mandatory requirement for this role.\nSkills:\nProficiency in scripting languages (Python, Ruby, Golang).\nFamiliarity with cloud platforms (AWS, GCP, Azure).\nStrong understanding of system design, networking, and infrastructure management.\nBonus Skills: Knowledge and experience in chaos engineering tools like Chaos Monkey, LitmusChaos, or Gremlin.",
+      "fullText": "Netomi is the leading agentic AI platform for enterprise customer experience. We work with the largest global brands like Delta Airlines, MetLife, United, and others to enable agentic automation at scale across the entire customer journey. Our no-code platform delivers the fastest time to market, lowest total cost of ownership, and simple, scalable management of AI agents for any CX use case. Backed by WndrCo, Y Combinator, and Index Ventures, we help enterprises drive efficiency, lower costs, and deliver higher quality customer experiences.\nWant to be part of the AI revolution and transform how the world’s largest global brands do business? Join us!\nWe are looking for a DevOps Engineer to work collaboratively with the software development team to deploy and operate the systems. You'll be responsible to ensure the system is running smoothly and is being monitored continuously to resolve issues.\nKubernetes Management\nDesign, deploy, and manage Kubernetes clusters.\nConfigure and enforce RBAC policies and access control mechanisms.\nOptimize cluster performance and scalability.\nCI/CD Pipeline Development\nBuild, maintain, and enhance CI/CD pipelines using tools like Jenkins, ArgoCD, Spinnaker, or similar.\nAutomate deployment processes to improve delivery efficiency and reduce lead times.\nHelm Templates\nDevelop, maintain, and optimize Helm charts for Kubernetes applications.\nEnsure proper versioning and deployment strategies through Helm.\nService Mesh Implementation\nIntegrate and manage service meshes such as Istio or Linkerd for service discovery, load balancing, and secure communication.\nImplement observability and traffic management within the service mesh.\nScripting and Automation\nWrite and maintain automation scripts using Python, Ruby, or Golang.\nLeverage scripts for infrastructure provisioning, monitoring, and debugging.\n(Bonus) Chaos & Resilience Engineering\nImplement chaos engineering principles to test and improve system reliability.\nSimulate failures and measure system resilience to ensure production readiness.\nExperience: At least 2 years in DevOps or a related field.\nKubernetes (RBAC, cluster administration, Helm).\nCI/CD tools such as Jenkins, ArgoCD, or Spinnaker.\nService mesh solutions like Istio, Linkerd, or similar.\nHands-on experience with Amazon ECS and Terraform is a mandatory requirement for this role.\nProficiency in scripting languages (Python, Ruby, Golang).\nFamiliarity with cloud platforms (AWS, GCP, Azure).\nStrong understanding of system design, networking, and infrastructure management.\nBonus Skills: Knowledge and experience in chaos engineering tools like Chaos Monkey, LitmusChaos, or Gremlin.",
       "company": "Netomi",
       "source": "Netomi",
       "priority": false,
@@ -623,7 +623,7 @@
       ],
       "fingerprint": "netomi|devops engineer i|gurugram",
       "firstSeen": "2026-11-11T12:15:48.753Z",
-      "lastSeen": "2026-11-11T17:02:00.375Z",
+      "lastSeen": "2026-11-11T17:31:44.019Z",
       "open": true,
       "repostOf": null
     },
@@ -652,7 +652,7 @@
       ],
       "fingerprint": "spotdraft|associate product manager|spotdraft hq bengaluru",
       "firstSeen": "2026-11-11T12:15:48.753Z",
-      "lastSeen": "2026-11-11T17:02:00.375Z",
+      "lastSeen": "2026-11-11T17:31:44.019Z",
       "open": true,
       "repostOf": null
     },
@@ -677,7 +677,7 @@
       ],
       "fingerprint": "google|silicon engineer platform and devices university graduate 2026|bengaluru karnataka india",
       "firstSeen": "2026-11-11T08:07:49.926Z",
-      "lastSeen": "2026-11-11T17:02:00.375Z",
+      "lastSeen": "2026-11-11T17:31:44.019Z",
       "open": true,
       "repostOf": null,
       "detailAttempts": 0,
@@ -707,7 +707,7 @@
       ],
       "fingerprint": "google|associate product manager university graduate 2027 start|bengaluru karnataka india",
       "firstSeen": "2026-11-11T08:07:49.926Z",
-      "lastSeen": "2026-11-11T17:02:00.375Z",
+      "lastSeen": "2026-11-11T17:31:44.019Z",
       "open": true,
       "repostOf": null,
       "detailAttempts": 0,
@@ -742,7 +742,7 @@
       ],
       "fingerprint": "aiprise|software engineer i bangalore india|bengaluru",
       "firstSeen": "2026-11-11T08:07:49.926Z",
-      "lastSeen": "2026-11-11T17:02:00.375Z",
+      "lastSeen": "2026-11-11T17:31:44.019Z",
       "open": true,
       "repostOf": null
     },
@@ -771,7 +771,7 @@
       ],
       "fingerprint": "aiprise|software engineer i frontend bangalore india|bengaluru",
       "firstSeen": "2026-11-11T08:07:49.926Z",
-      "lastSeen": "2026-11-11T17:02:00.375Z",
+      "lastSeen": "2026-11-11T17:31:44.019Z",
       "open": true,
       "repostOf": null
     },
@@ -800,7 +800,7 @@
       ],
       "fingerprint": "aiprise|software engineer i full stack frontend focused bangalore india|bengaluru",
       "firstSeen": "2026-11-11T08:07:49.926Z",
-      "lastSeen": "2026-11-11T17:02:00.375Z",
+      "lastSeen": "2026-11-11T17:31:44.019Z",
       "open": true,
       "repostOf": null
     },
@@ -811,9 +811,9 @@
       "location": "Delhi HQ",
       "aboutRole": "We’re looking for a Fulfilment Intern to support the end-to-end processing of visa applications and learn how high-quality travel operations work at scale.\nYou’ll work closely with our regional operations team to review applications, track cases, coordinate across stakeholders and support customers through the visa process.\nThis is a hands-on, on-ground internship where attention to detail, reliability and a willingness to learn matter every day. The role is based in-office and operates on a 6-day work week.",
       "responsibilities": "",
-      "minQualifications": "You’ll likely thrive in this role if you\nAre hungry to learn, take ownership and build real-world experience in a fast-moving environment.\nAre detail-oriented and organised, with the ability to manage multiple tasks without losing accuracy.\nCommunicate clearly and confidently, both verbally and in writing.\nAre comfortable using digital tools, learning new systems and figuring things out quickly.\nAre proactive, dependable and willing to get hands-on with whatever it takes to keep things moving.\nWe hire exceptional people for their craft, not travel enthusiasts. We solve hard problems that happen to touch global travel and government infrastructure.\nAtlys is built by a small team with outsized ambition, high ownership, and an obsession with doing great work.\nHere’s what you can expect\nCompetitive compensation and equity so you participate in the value you help create.\nComprehensive health insurance covering you and your family, plus annual preventive health check-up on us.\nA thoughtful leave policy with paid time off and company holidays, because great work also requires real time off.\nLunch, high tea and dinner at the office , so the basics are taken care of while we build together.\nLearning & development credits to invest in courses, books, conferences and tools that help you get better at your craft.\nRelocation support to make moving closer to the team as seamless as possible.\nGreat tools to do your best work , including high-spec equipment and software.\nAn office designed for more than just work , with pickleball, table tennis, PlayStation, an arcade game room, an F1 simulator and even a full flight simulator.\nOur values shape how we make decisions, work together and build for travelers. The bar is high, the pace is fast, and the way we work is deliberate. Read them before you apply. If this environment energizes you, you’ll probably thrive here. If it doesn’t, it’s better to know that upfront.",
+      "minQualifications": "Are hungry to learn, take ownership and build real-world experience in a fast-moving environment.\nAre detail-oriented and organised, with the ability to manage multiple tasks without losing accuracy.\nCommunicate clearly and confidently, both verbally and in writing.\nAre comfortable using digital tools, learning new systems and figuring things out quickly.\nAre proactive, dependable and willing to get hands-on with whatever it takes to keep things moving.\nWe hire exceptional people for their craft, not travel enthusiasts. We solve hard problems that happen to touch global travel and government infrastructure.\nAtlys is built by a small team with outsized ambition, high ownership, and an obsession with doing great work.\nCompetitive compensation and equity so you participate in the value you help create.\nComprehensive health insurance covering you and your family, plus annual preventive health check-up on us.\nA thoughtful leave policy with paid time off and company holidays, because great work also requires real time off.\nLunch, high tea and dinner at the office , so the basics are taken care of while we build together.\nLearning & development credits to invest in courses, books, conferences and tools that help you get better at your craft.\nRelocation support to make moving closer to the team as seamless as possible.\nGreat tools to do your best work , including high-spec equipment and software.\nAn office designed for more than just work , with pickleball, table tennis, PlayStation, an arcade game room, an F1 simulator and even a full flight simulator.\nOur values shape how we make decisions, work together and build for travelers. The bar is high, the pace is fast, and the way we work is deliberate. Read them before you apply. If this environment energizes you, you’ll probably thrive here. If it doesn’t, it’s better to know that upfront.",
       "preferredQualifications": "",
-      "fullText": "Our mission is to enable every person on Earth to travel freely.\nTravel should feel exciting. Instead, too much of it is still defined by paperwork, uncertainty, and processes that were never designed for travellers.\nAtlys is changing that.\nWe’re building an AI-first platform that removes friction and uncertainty from travel. To date, we’ve processed visas for 1M+ travellers across 127 countries . But we’re still early.\nWe’re looking for a Fulfilment Intern to support the end-to-end processing of visa applications and learn how high-quality travel operations work at scale.\nYou’ll work closely with our regional operations team to review applications, track cases, coordinate across stakeholders and support customers through the visa process.\nThis is a hands-on, on-ground internship where attention to detail, reliability and a willingness to learn matter every day. The role is based in-office and operates on a 6-day work week.\nSupport customers through the visa process by helping communicate requirements, documentation and next steps.\nReview visa documentation for completeness and accuracy, escalating issues or missing information when needed.\nCoordinate across teams and external stakeholders to help keep applications moving and support communication with consulates and embassies.\nTrack application progress closely and help ensure customers receive timely updates on status and required actions.\nSupport accurate and reliable execution by maintaining customer data confidentiality and contributing to a smooth experience from start to finish.\nYou’ll likely thrive in this role if you\nAre hungry to learn, take ownership and build real-world experience in a fast-moving environment.\nAre detail-oriented and organised, with the ability to manage multiple tasks without losing accuracy.\nCommunicate clearly and confidently, both verbally and in writing.\nAre comfortable using digital tools, learning new systems and figuring things out quickly.\nAre proactive, dependable and willing to get hands-on with whatever it takes to keep things moving.\nWe hire exceptional people for their craft, not travel enthusiasts. We solve hard problems that happen to touch global travel and government infrastructure.\nAtlys is built by a small team with outsized ambition, high ownership, and an obsession with doing great work.\nHere’s what you can expect\nCompetitive compensation and equity so you participate in the value you help create.\nComprehensive health insurance covering you and your family, plus annual preventive health check-up on us.\nA thoughtful leave policy with paid time off and company holidays, because great work also requires real time off.\nLunch, high tea and dinner at the office , so the basics are taken care of while we build together.\nLearning & development credits to invest in courses, books, conferences and tools that help you get better at your craft.\nRelocation support to make moving closer to the team as seamless as possible.\nGreat tools to do your best work , including high-spec equipment and software.\nAn office designed for more than just work , with pickleball, table tennis, PlayStation, an arcade game room, an F1 simulator and even a full flight simulator.\nOur values shape how we make decisions, work together and build for travelers. The bar is high, the pace is fast, and the way we work is deliberate. Read them before you apply. If this environment energizes you, you’ll probably thrive here. If it doesn’t, it’s better to know that upfront.",
+      "fullText": "Our mission is to enable every person on Earth to travel freely.\nTravel should feel exciting. Instead, too much of it is still defined by paperwork, uncertainty, and processes that were never designed for travellers.\nAtlys is changing that.\nWe’re building an AI-first platform that removes friction and uncertainty from travel. To date, we’ve processed visas for 1M+ travellers across 127 countries . But we’re still early.\nWe’re looking for a Fulfilment Intern to support the end-to-end processing of visa applications and learn how high-quality travel operations work at scale.\nYou’ll work closely with our regional operations team to review applications, track cases, coordinate across stakeholders and support customers through the visa process.\nThis is a hands-on, on-ground internship where attention to detail, reliability and a willingness to learn matter every day. The role is based in-office and operates on a 6-day work week.\nSupport customers through the visa process by helping communicate requirements, documentation and next steps.\nReview visa documentation for completeness and accuracy, escalating issues or missing information when needed.\nCoordinate across teams and external stakeholders to help keep applications moving and support communication with consulates and embassies.\nTrack application progress closely and help ensure customers receive timely updates on status and required actions.\nSupport accurate and reliable execution by maintaining customer data confidentiality and contributing to a smooth experience from start to finish.\nAre hungry to learn, take ownership and build real-world experience in a fast-moving environment.\nAre detail-oriented and organised, with the ability to manage multiple tasks without losing accuracy.\nCommunicate clearly and confidently, both verbally and in writing.\nAre comfortable using digital tools, learning new systems and figuring things out quickly.\nAre proactive, dependable and willing to get hands-on with whatever it takes to keep things moving.\nWe hire exceptional people for their craft, not travel enthusiasts. We solve hard problems that happen to touch global travel and government infrastructure.\nAtlys is built by a small team with outsized ambition, high ownership, and an obsession with doing great work.\nCompetitive compensation and equity so you participate in the value you help create.\nComprehensive health insurance covering you and your family, plus annual preventive health check-up on us.\nA thoughtful leave policy with paid time off and company holidays, because great work also requires real time off.\nLunch, high tea and dinner at the office , so the basics are taken care of while we build together.\nLearning & development credits to invest in courses, books, conferences and tools that help you get better at your craft.\nRelocation support to make moving closer to the team as seamless as possible.\nGreat tools to do your best work , including high-spec equipment and software.\nAn office designed for more than just work , with pickleball, table tennis, PlayStation, an arcade game room, an F1 simulator and even a full flight simulator.\nOur values shape how we make decisions, work together and build for travelers. The bar is high, the pace is fast, and the way we work is deliberate. Read them before you apply. If this environment energizes you, you’ll probably thrive here. If it doesn’t, it’s better to know that upfront.",
       "company": "Atlys",
       "source": "Atlys",
       "priority": false,
@@ -829,7 +829,7 @@
       ],
       "fingerprint": "atlys|fulfilment intern|delhi hq",
       "firstSeen": "2026-11-11T08:07:49.926Z",
-      "lastSeen": "2026-11-11T17:02:00.375Z",
+      "lastSeen": "2026-11-11T17:31:44.019Z",
       "open": true,
       "repostOf": null
     },
@@ -840,9 +840,9 @@
       "location": "Delhi HQ",
       "aboutRole": "We’re looking for a Pre-Sales Intern to help turn customer interest into confident decisions and successful conversions.\nYou’ll be among the first people travellers speak to at Atlys, understanding their needs, helping them navigate their visa options, and building trust through clear, thoughtful conversations.\nThis is a hands-on role for someone who communicates well, enjoys interacting with people, and wants to learn how sales works in a fast-paced, high-volume environment.\nDuration: 6 months\nStipend & Incentives: ₹25,000/month plus uncapped incentives. The more you sell, the more you earn!\nFull-Time Opportunity: Perform well, and you could receive a PPO for a full-time role at Atlys.",
       "responsibilities": "",
-      "minQualifications": "You’ll likely thrive in this role if you\nHave 1+ years of experience in pre-sales, sales, customer success or another customer-facing role.\nCommunicate clearly and confidently, and can simplify complex information into easy, human conversations.\nAre persuasive without being pushy, with strong empathy and the ability to understand what a customer actually needs.\nAre proactive, organised and comfortable managing multiple conversations and follow-ups in a fast-paced environment.\nAre comfortable working a 6-day schedule, with Monday to Friday in-office and a rotational WFH shift on either Saturday or Sunday.\nWe hire exceptional people for their craft, not travel enthusiasts. We solve hard problems that happen to touch global travel and government infrastructure.\nAtlys is built by a small team with outsized ambition, high ownership, and an obsession with doing great work.\nHere’s what you can expect\nCompetitive compensation and equity so you participate in the value you help create.\nA thoughtful leave policy with paid time off and company holidays, because great work also requires real time off.\nLunch, high tea and dinner at the office , so the basics are taken care of while we build together.\nGreat tools to do your best work , including high-spec equipment and software.\nAn office designed for more than just work , with pickleball, table tennis, PlayStation, an arcade game room, an F1 simulator and even a full flight simulator.\nOur values shape how we make decisions, work together and build for travelers. The bar is high, the pace is fast, and the way we work is deliberate. Read them before you apply. If this environment energizes you, you’ll probably thrive here. If it doesn’t, it’s better to know that upfront.\nCome build the intelligence layer for global travel\" this is the pre sale sassociate role. now make similar jd for internship. all subheadings and format remian the same",
+      "minQualifications": "Have 1+ years of experience in pre-sales, sales, customer success or another customer-facing role.\nCommunicate clearly and confidently, and can simplify complex information into easy, human conversations.\nAre persuasive without being pushy, with strong empathy and the ability to understand what a customer actually needs.\nAre proactive, organised and comfortable managing multiple conversations and follow-ups in a fast-paced environment.\nAre comfortable working a 6-day schedule, with Monday to Friday in-office and a rotational WFH shift on either Saturday or Sunday.\nWe hire exceptional people for their craft, not travel enthusiasts. We solve hard problems that happen to touch global travel and government infrastructure.\nAtlys is built by a small team with outsized ambition, high ownership, and an obsession with doing great work.\nCompetitive compensation and equity so you participate in the value you help create.\nA thoughtful leave policy with paid time off and company holidays, because great work also requires real time off.\nLunch, high tea and dinner at the office , so the basics are taken care of while we build together.\nGreat tools to do your best work , including high-spec equipment and software.\nAn office designed for more than just work , with pickleball, table tennis, PlayStation, an arcade game room, an F1 simulator and even a full flight simulator.\nOur values shape how we make decisions, work together and build for travelers. The bar is high, the pace is fast, and the way we work is deliberate. Read them before you apply. If this environment energizes you, you’ll probably thrive here. If it doesn’t, it’s better to know that upfront.\nCome build the intelligence layer for global travel\" this is the pre sale sassociate role. now make similar jd for internship. all subheadings and format remian the same",
       "preferredQualifications": "",
-      "fullText": "Our mission is to enable every person on Earth to travel freely.\nTravel should feel exciting. Instead, too much of it is still defined by paperwork, uncertainty, and processes that were never designed for travellers.\nAtlys is changing that.\nWe’re building an AI-first platform that removes friction and uncertainty from travel. To date, we’ve processed visas for 1M+ travellers across 127 countries . But we’re still early.\nWe’re looking for a Pre-Sales Intern to help turn customer interest into confident decisions and successful conversions.\nYou’ll be among the first people travellers speak to at Atlys, understanding their needs, helping them navigate their visa options, and building trust through clear, thoughtful conversations.\nThis is a hands-on role for someone who communicates well, enjoys interacting with people, and wants to learn how sales works in a fast-paced, high-volume environment.\nDuration: 6 months\nStipend & Incentives: ₹25,000/month plus uncapped incentives. The more you sell, the more you earn!\nFull-Time Opportunity: Perform well, and you could receive a PPO for a full-time role at Atlys.\nEngage and qualify potential customers across calls, chats and email by understanding their travel needs and guiding them towards the right Atlys solution.\nExplain our products and visa processes clearly so customers understand their options, feel confident in their decisions and know what happens next.\nSupport lead conversion through timely follow-ups, addressing customer questions and objections, and helping move potential customers towards a decision.\nLearn from customer conversations by identifying recurring questions, pain points and opportunities to improve conversion and the overall customer experience.\nWork closely across teams with Sales, Marketing, Fulfilment and Product while maintaining accurate lead and interaction data.\nYou’ll likely thrive in this role if you\nHave 1+ years of experience in pre-sales, sales, customer success or another customer-facing role.\nCommunicate clearly and confidently, and can simplify complex information into easy, human conversations.\nAre persuasive without being pushy, with strong empathy and the ability to understand what a customer actually needs.\nAre proactive, organised and comfortable managing multiple conversations and follow-ups in a fast-paced environment.\nAre comfortable working a 6-day schedule, with Monday to Friday in-office and a rotational WFH shift on either Saturday or Sunday.\nWe hire exceptional people for their craft, not travel enthusiasts. We solve hard problems that happen to touch global travel and government infrastructure.\nAtlys is built by a small team with outsized ambition, high ownership, and an obsession with doing great work.\nHere’s what you can expect\nCompetitive compensation and equity so you participate in the value you help create.\nA thoughtful leave policy with paid time off and company holidays, because great work also requires real time off.\nLunch, high tea and dinner at the office , so the basics are taken care of while we build together.\nGreat tools to do your best work , including high-spec equipment and software.\nAn office designed for more than just work , with pickleball, table tennis, PlayStation, an arcade game room, an F1 simulator and even a full flight simulator.\nOur values shape how we make decisions, work together and build for travelers. The bar is high, the pace is fast, and the way we work is deliberate. Read them before you apply. If this environment energizes you, you’ll probably thrive here. If it doesn’t, it’s better to know that upfront.\nCome build the intelligence layer for global travel\" this is the pre sale sassociate role. now make similar jd for internship. all subheadings and format remian the same",
+      "fullText": "Our mission is to enable every person on Earth to travel freely.\nTravel should feel exciting. Instead, too much of it is still defined by paperwork, uncertainty, and processes that were never designed for travellers.\nAtlys is changing that.\nWe’re building an AI-first platform that removes friction and uncertainty from travel. To date, we’ve processed visas for 1M+ travellers across 127 countries . But we’re still early.\nWe’re looking for a Pre-Sales Intern to help turn customer interest into confident decisions and successful conversions.\nYou’ll be among the first people travellers speak to at Atlys, understanding their needs, helping them navigate their visa options, and building trust through clear, thoughtful conversations.\nThis is a hands-on role for someone who communicates well, enjoys interacting with people, and wants to learn how sales works in a fast-paced, high-volume environment.\nDuration: 6 months\nStipend & Incentives: ₹25,000/month plus uncapped incentives. The more you sell, the more you earn!\nFull-Time Opportunity: Perform well, and you could receive a PPO for a full-time role at Atlys.\nEngage and qualify potential customers across calls, chats and email by understanding their travel needs and guiding them towards the right Atlys solution.\nExplain our products and visa processes clearly so customers understand their options, feel confident in their decisions and know what happens next.\nSupport lead conversion through timely follow-ups, addressing customer questions and objections, and helping move potential customers towards a decision.\nLearn from customer conversations by identifying recurring questions, pain points and opportunities to improve conversion and the overall customer experience.\nWork closely across teams with Sales, Marketing, Fulfilment and Product while maintaining accurate lead and interaction data.\nHave 1+ years of experience in pre-sales, sales, customer success or another customer-facing role.\nCommunicate clearly and confidently, and can simplify complex information into easy, human conversations.\nAre persuasive without being pushy, with strong empathy and the ability to understand what a customer actually needs.\nAre proactive, organised and comfortable managing multiple conversations and follow-ups in a fast-paced environment.\nAre comfortable working a 6-day schedule, with Monday to Friday in-office and a rotational WFH shift on either Saturday or Sunday.\nWe hire exceptional people for their craft, not travel enthusiasts. We solve hard problems that happen to touch global travel and government infrastructure.\nAtlys is built by a small team with outsized ambition, high ownership, and an obsession with doing great work.\nCompetitive compensation and equity so you participate in the value you help create.\nA thoughtful leave policy with paid time off and company holidays, because great work also requires real time off.\nLunch, high tea and dinner at the office , so the basics are taken care of while we build together.\nGreat tools to do your best work , including high-spec equipment and software.\nAn office designed for more than just work , with pickleball, table tennis, PlayStation, an arcade game room, an F1 simulator and even a full flight simulator.\nOur values shape how we make decisions, work together and build for travelers. The bar is high, the pace is fast, and the way we work is deliberate. Read them before you apply. If this environment energizes you, you’ll probably thrive here. If it doesn’t, it’s better to know that upfront.\nCome build the intelligence layer for global travel\" this is the pre sale sassociate role. now make similar jd for internship. all subheadings and format remian the same",
       "company": "Atlys",
       "source": "Atlys",
       "priority": false,
@@ -858,7 +858,7 @@
       ],
       "fingerprint": "atlys|pre sales intern|delhi hq",
       "firstSeen": "2026-11-11T08:07:49.926Z",
-      "lastSeen": "2026-11-11T17:02:00.375Z",
+      "lastSeen": "2026-11-11T17:31:44.019Z",
       "open": true,
       "repostOf": null
     },
@@ -869,9 +869,9 @@
       "location": "Delhi HQ",
       "aboutRole": "The Launchpad Fellowship is a full-time, in-office internship designed for final-year students and recent graduates looking to gain meaningful, hands-on experience before stepping into their first full-time role.\nYou’ll work closely with teams across operations, growth, research, strategy, customer experience, product, and process improvement, gaining exposure to how a high-growth startup operates, makes decisions, and solves real customer problems at scale.",
       "responsibilities": "",
-      "minQualifications": "You’ll likely thrive in this role if you\nAre a final-year student or recent graduate looking for a full-time, in-office, high-intensity internship.\nAre a quick learner who is comfortable with ambiguity and unfamiliar problems.\nCommunicate clearly and take ownership without waiting to be told what to do.\nAre curious about product, operations, customer experience, or how businesses work.\nThrive in fast-paced environments and enjoy figuring things out independently.\nWe hire exceptional people for their craft, not travel enthusiasts. We solve hard problems that happen to touch global travel and government infrastructure.\nAtlys is built by a small team with outsized ambition, high ownership, and an obsession with doing great work.\nHere’s what you can expect\nCompetitive compensation and equity so you participate in the value you help create.\nA thoughtful leave policy with paid time off and company holidays, because great work also requires real time off.\nLunch, high tea and dinner at the office , so the basics are taken care of while we build together.\nGreat tools to do your best work , including high-spec equipment and software.\nAn office designed for more than just work , with pickleball, table tennis, PlayStation, an arcade game room, an F1 simulator and even a full flight simulator.\nOur values shape how we make decisions, work together and build for travelers. The bar is high, the pace is fast, and the way we work is deliberate. Read them before you apply. If this environment energizes you, you’ll probably thrive here. If it doesn’t, it’s better to know that upfront.",
+      "minQualifications": "Are a final-year student or recent graduate looking for a full-time, in-office, high-intensity internship.\nAre a quick learner who is comfortable with ambiguity and unfamiliar problems.\nCommunicate clearly and take ownership without waiting to be told what to do.\nAre curious about product, operations, customer experience, or how businesses work.\nThrive in fast-paced environments and enjoy figuring things out independently.\nWe hire exceptional people for their craft, not travel enthusiasts. We solve hard problems that happen to touch global travel and government infrastructure.\nAtlys is built by a small team with outsized ambition, high ownership, and an obsession with doing great work.\nCompetitive compensation and equity so you participate in the value you help create.\nA thoughtful leave policy with paid time off and company holidays, because great work also requires real time off.\nLunch, high tea and dinner at the office , so the basics are taken care of while we build together.\nGreat tools to do your best work , including high-spec equipment and software.\nAn office designed for more than just work , with pickleball, table tennis, PlayStation, an arcade game room, an F1 simulator and even a full flight simulator.\nOur values shape how we make decisions, work together and build for travelers. The bar is high, the pace is fast, and the way we work is deliberate. Read them before you apply. If this environment energizes you, you’ll probably thrive here. If it doesn’t, it’s better to know that upfront.",
       "preferredQualifications": "",
-      "fullText": "Our mission is to enable every person on Earth to travel freely.\nTravel should feel exciting. Instead, too much of it is still defined by paperwork, uncertainty, and processes that were never designed for travellers.\nAtlys is changing that.\nWe’re building an AI-first platform that removes friction and uncertainty from travel. To date, we’ve processed visas for 1M+ travellers across 127 countries . But we’re still early.\nThe Launchpad Fellowship is a full-time, in-office internship designed for final-year students and recent graduates looking to gain meaningful, hands-on experience before stepping into their first full-time role.\nYou’ll work closely with teams across operations, growth, research, strategy, customer experience, product, and process improvement, gaining exposure to how a high-growth startup operates, makes decisions, and solves real customer problems at scale.\nGrowth, Research & Strategy: Work on business problems across growth and strategy, conduct research, identify opportunities, and turn insights into actionable recommendations.\nOperations & Customer Experience: Work on real customer journeys, manage core visa operations, and understand how we deliver a seamless experience at scale.\nProduct & Process Improvement: Identify user pain points and operational inefficiencies, and work with product and process teams to build better solutions, tools, and workflows.\nCross-Functional Execution: Work closely with different teams, take ownership of projects, and learn to prioritise, move quickly, and solve problems in a fast-paced startup environment.\nCapstone & Leadership Exposure: Take ownership of a real business challenge, develop a solution, and present your work to leadership, while receiving regular mentorship and feedback throughout the fellowship.\nYou’ll likely thrive in this role if you\nAre a final-year student or recent graduate looking for a full-time, in-office, high-intensity internship.\nAre a quick learner who is comfortable with ambiguity and unfamiliar problems.\nCommunicate clearly and take ownership without waiting to be told what to do.\nAre curious about product, operations, customer experience, or how businesses work.\nThrive in fast-paced environments and enjoy figuring things out independently.\nWe hire exceptional people for their craft, not travel enthusiasts. We solve hard problems that happen to touch global travel and government infrastructure.\nAtlys is built by a small team with outsized ambition, high ownership, and an obsession with doing great work.\nHere’s what you can expect\nCompetitive compensation and equity so you participate in the value you help create.\nA thoughtful leave policy with paid time off and company holidays, because great work also requires real time off.\nLunch, high tea and dinner at the office , so the basics are taken care of while we build together.\nGreat tools to do your best work , including high-spec equipment and software.\nAn office designed for more than just work , with pickleball, table tennis, PlayStation, an arcade game room, an F1 simulator and even a full flight simulator.\nOur values shape how we make decisions, work together and build for travelers. The bar is high, the pace is fast, and the way we work is deliberate. Read them before you apply. If this environment energizes you, you’ll probably thrive here. If it doesn’t, it’s better to know that upfront.",
+      "fullText": "Our mission is to enable every person on Earth to travel freely.\nTravel should feel exciting. Instead, too much of it is still defined by paperwork, uncertainty, and processes that were never designed for travellers.\nAtlys is changing that.\nWe’re building an AI-first platform that removes friction and uncertainty from travel. To date, we’ve processed visas for 1M+ travellers across 127 countries . But we’re still early.\nThe Launchpad Fellowship is a full-time, in-office internship designed for final-year students and recent graduates looking to gain meaningful, hands-on experience before stepping into their first full-time role.\nYou’ll work closely with teams across operations, growth, research, strategy, customer experience, product, and process improvement, gaining exposure to how a high-growth startup operates, makes decisions, and solves real customer problems at scale.\nGrowth, Research & Strategy: Work on business problems across growth and strategy, conduct research, identify opportunities, and turn insights into actionable recommendations.\nOperations & Customer Experience: Work on real customer journeys, manage core visa operations, and understand how we deliver a seamless experience at scale.\nProduct & Process Improvement: Identify user pain points and operational inefficiencies, and work with product and process teams to build better solutions, tools, and workflows.\nCross-Functional Execution: Work closely with different teams, take ownership of projects, and learn to prioritise, move quickly, and solve problems in a fast-paced startup environment.\nCapstone & Leadership Exposure: Take ownership of a real business challenge, develop a solution, and present your work to leadership, while receiving regular mentorship and feedback throughout the fellowship.\nAre a final-year student or recent graduate looking for a full-time, in-office, high-intensity internship.\nAre a quick learner who is comfortable with ambiguity and unfamiliar problems.\nCommunicate clearly and take ownership without waiting to be told what to do.\nAre curious about product, operations, customer experience, or how businesses work.\nThrive in fast-paced environments and enjoy figuring things out independently.\nWe hire exceptional people for their craft, not travel enthusiasts. We solve hard problems that happen to touch global travel and government infrastructure.\nAtlys is built by a small team with outsized ambition, high ownership, and an obsession with doing great work.\nCompetitive compensation and equity so you participate in the value you help create.\nA thoughtful leave policy with paid time off and company holidays, because great work also requires real time off.\nLunch, high tea and dinner at the office , so the basics are taken care of while we build together.\nGreat tools to do your best work , including high-spec equipment and software.\nAn office designed for more than just work , with pickleball, table tennis, PlayStation, an arcade game room, an F1 simulator and even a full flight simulator.\nOur values shape how we make decisions, work together and build for travelers. The bar is high, the pace is fast, and the way we work is deliberate. Read them before you apply. If this environment energizes you, you’ll probably thrive here. If it doesn’t, it’s better to know that upfront.",
       "company": "Atlys",
       "source": "Atlys",
       "priority": false,
@@ -887,7 +887,7 @@
       ],
       "fingerprint": "atlys|launchpad fellowship|delhi hq",
       "firstSeen": "2026-11-11T08:07:49.926Z",
-      "lastSeen": "2026-11-11T17:02:00.375Z",
+      "lastSeen": "2026-11-11T17:31:44.019Z",
       "open": true,
       "repostOf": null
     },
@@ -898,9 +898,9 @@
       "location": "Delhi HQ",
       "aboutRole": "We're looking for a Copywriting Intern who loves writing, understands internet culture and has a knack for creating content that grabs attention.\nYou'll work closely with our creative and performance marketing teams to develop copy for ads, video scripts, social media and digital campaigns. From brainstorming scroll-stopping hooks to writing engaging scripts and experimenting with different messaging angles, you'll help turn ideas into creative that captures attention and drives action.\nThis is an opportunity to learn performance-driven copywriting in a fast-paced, digital-first environment and see how great creative translates into business impact.",
       "responsibilities": "",
-      "minQualifications": "You'll likely thrive in this role if you\nHave a strong command of written English and enjoy experimenting with words.\nHave a natural understanding of social media, internet culture, trends and digital content.\nCan write engaging headlines, catchy hooks and interesting short-form content.\nAre curious about advertising, storytelling and what makes people click, watch or engage.\nAre comfortable taking feedback, experimenting with ideas and improving your work.\nHave a proactive mindset and can work in a fast-paced environment.\nWe hire exceptional people for their craft, not travel enthusiasts. We solve hard problems that happen to touch global travel and government infrastructure.\nAtlys is built by a small team with outsized ambition, high ownership, and an obsession with doing great work.\nHere’s what you can expect\nCompetitive compensation and equity so you participate in the value you help create.\nComprehensive health insurance covering you and your family, plus annual preventive health check-up on us.\nA thoughtful leave policy with paid time off and company holidays, because great work also requires real time off.\nLunch, high tea and dinner at the office , so the basics are taken care of while we build together.\nLearning & development credits to invest in courses, books, conferences and tools that help you get better at your craft.\nRelocation support to make moving closer to the team as seamless as possible.\nGreat tools to do your best work , including high-spec equipment and software.\nAn office designed for more than just work , with pickleball, table tennis, PlayStation, an arcade game room, an F1 simulator and even a full flight simulator.\nOur values shape how we make decisions, work together and build for travelers. The bar is high, the pace is fast, and the way we work is deliberate. Read them before you apply. If this environment energizes you, you’ll probably thrive here. If it doesn’t, it’s better to know that upfront.",
+      "minQualifications": "Have a strong command of written English and enjoy experimenting with words.\nHave a natural understanding of social media, internet culture, trends and digital content.\nCan write engaging headlines, catchy hooks and interesting short-form content.\nAre curious about advertising, storytelling and what makes people click, watch or engage.\nAre comfortable taking feedback, experimenting with ideas and improving your work.\nHave a proactive mindset and can work in a fast-paced environment.\nWe hire exceptional people for their craft, not travel enthusiasts. We solve hard problems that happen to touch global travel and government infrastructure.\nAtlys is built by a small team with outsized ambition, high ownership, and an obsession with doing great work.\nCompetitive compensation and equity so you participate in the value you help create.\nComprehensive health insurance covering you and your family, plus annual preventive health check-up on us.\nA thoughtful leave policy with paid time off and company holidays, because great work also requires real time off.\nLunch, high tea and dinner at the office , so the basics are taken care of while we build together.\nLearning & development credits to invest in courses, books, conferences and tools that help you get better at your craft.\nRelocation support to make moving closer to the team as seamless as possible.\nGreat tools to do your best work , including high-spec equipment and software.\nAn office designed for more than just work , with pickleball, table tennis, PlayStation, an arcade game room, an F1 simulator and even a full flight simulator.\nOur values shape how we make decisions, work together and build for travelers. The bar is high, the pace is fast, and the way we work is deliberate. Read them before you apply. If this environment energizes you, you’ll probably thrive here. If it doesn’t, it’s better to know that upfront.",
       "preferredQualifications": "",
-      "fullText": "Our mission is to enable every person on Earth to travel freely.\nTravel should feel exciting. Instead, too much of it is still defined by paperwork, uncertainty, and processes that were never designed for travellers.\nAtlys is changing that.\nWe’re building an AI-first platform that removes friction and uncertainty from travel. To date, we’ve processed visas for 1M+ travellers across 127 countries . But we’re still early.\nWe're looking for a Copywriting Intern who loves writing, understands internet culture and has a knack for creating content that grabs attention.\nYou'll work closely with our creative and performance marketing teams to develop copy for ads, video scripts, social media and digital campaigns. From brainstorming scroll-stopping hooks to writing engaging scripts and experimenting with different messaging angles, you'll help turn ideas into creative that captures attention and drives action.\nThis is an opportunity to learn performance-driven copywriting in a fast-paced, digital-first environment and see how great creative translates into business impact.\nWrite copy across digital platforms including Meta, Google, YouTube, Instagram and other paid and organic channels.\nAssist in developing video ad scripts across UGC, short-form videos and other performance marketing formats.\nBrainstorm hooks and creative angles for ads, campaigns and social media content.\nResearch audience behaviour, trends and competitor communication to identify interesting content opportunities.\nExperiment with different messaging styles and learn to adapt copy for different audiences and platforms.\nWork with designers, video editors and the performance marketing team to bring creative concepts to life.\nReview existing creatives and performance insights to understand what works and contribute ideas for improvement.\nYou'll likely thrive in this role if you\nHave a strong command of written English and enjoy experimenting with words.\nHave a natural understanding of social media, internet culture, trends and digital content.\nCan write engaging headlines, catchy hooks and interesting short-form content.\nAre curious about advertising, storytelling and what makes people click, watch or engage.\nAre comfortable taking feedback, experimenting with ideas and improving your work.\nHave a proactive mindset and can work in a fast-paced environment.\nWe hire exceptional people for their craft, not travel enthusiasts. We solve hard problems that happen to touch global travel and government infrastructure.\nAtlys is built by a small team with outsized ambition, high ownership, and an obsession with doing great work.\nHere’s what you can expect\nCompetitive compensation and equity so you participate in the value you help create.\nComprehensive health insurance covering you and your family, plus annual preventive health check-up on us.\nA thoughtful leave policy with paid time off and company holidays, because great work also requires real time off.\nLunch, high tea and dinner at the office , so the basics are taken care of while we build together.\nLearning & development credits to invest in courses, books, conferences and tools that help you get better at your craft.\nRelocation support to make moving closer to the team as seamless as possible.\nGreat tools to do your best work , including high-spec equipment and software.\nAn office designed for more than just work , with pickleball, table tennis, PlayStation, an arcade game room, an F1 simulator and even a full flight simulator.\nOur values shape how we make decisions, work together and build for travelers. The bar is high, the pace is fast, and the way we work is deliberate. Read them before you apply. If this environment energizes you, you’ll probably thrive here. If it doesn’t, it’s better to know that upfront.",
+      "fullText": "Our mission is to enable every person on Earth to travel freely.\nTravel should feel exciting. Instead, too much of it is still defined by paperwork, uncertainty, and processes that were never designed for travellers.\nAtlys is changing that.\nWe’re building an AI-first platform that removes friction and uncertainty from travel. To date, we’ve processed visas for 1M+ travellers across 127 countries . But we’re still early.\nWe're looking for a Copywriting Intern who loves writing, understands internet culture and has a knack for creating content that grabs attention.\nYou'll work closely with our creative and performance marketing teams to develop copy for ads, video scripts, social media and digital campaigns. From brainstorming scroll-stopping hooks to writing engaging scripts and experimenting with different messaging angles, you'll help turn ideas into creative that captures attention and drives action.\nThis is an opportunity to learn performance-driven copywriting in a fast-paced, digital-first environment and see how great creative translates into business impact.\nWrite copy across digital platforms including Meta, Google, YouTube, Instagram and other paid and organic channels.\nAssist in developing video ad scripts across UGC, short-form videos and other performance marketing formats.\nBrainstorm hooks and creative angles for ads, campaigns and social media content.\nResearch audience behaviour, trends and competitor communication to identify interesting content opportunities.\nExperiment with different messaging styles and learn to adapt copy for different audiences and platforms.\nWork with designers, video editors and the performance marketing team to bring creative concepts to life.\nReview existing creatives and performance insights to understand what works and contribute ideas for improvement.\nHave a strong command of written English and enjoy experimenting with words.\nHave a natural understanding of social media, internet culture, trends and digital content.\nCan write engaging headlines, catchy hooks and interesting short-form content.\nAre curious about advertising, storytelling and what makes people click, watch or engage.\nAre comfortable taking feedback, experimenting with ideas and improving your work.\nHave a proactive mindset and can work in a fast-paced environment.\nWe hire exceptional people for their craft, not travel enthusiasts. We solve hard problems that happen to touch global travel and government infrastructure.\nAtlys is built by a small team with outsized ambition, high ownership, and an obsession with doing great work.\nCompetitive compensation and equity so you participate in the value you help create.\nComprehensive health insurance covering you and your family, plus annual preventive health check-up on us.\nA thoughtful leave policy with paid time off and company holidays, because great work also requires real time off.\nLunch, high tea and dinner at the office , so the basics are taken care of while we build together.\nLearning & development credits to invest in courses, books, conferences and tools that help you get better at your craft.\nRelocation support to make moving closer to the team as seamless as possible.\nGreat tools to do your best work , including high-spec equipment and software.\nAn office designed for more than just work , with pickleball, table tennis, PlayStation, an arcade game room, an F1 simulator and even a full flight simulator.\nOur values shape how we make decisions, work together and build for travelers. The bar is high, the pace is fast, and the way we work is deliberate. Read them before you apply. If this environment energizes you, you’ll probably thrive here. If it doesn’t, it’s better to know that upfront.",
       "company": "Atlys",
       "source": "Atlys",
       "priority": false,
@@ -916,7 +916,7 @@
       ],
       "fingerprint": "atlys|copywriting intern|delhi hq",
       "firstSeen": "2026-11-11T08:07:49.926Z",
-      "lastSeen": "2026-11-11T17:02:00.375Z",
+      "lastSeen": "2026-11-11T17:31:44.019Z",
       "open": true,
       "repostOf": null
     },
@@ -927,9 +927,9 @@
       "location": "Delhi HQ",
       "aboutRole": "We're looking for a Graphic Design Intern with a strong visual eye, creative curiosity and a passion for bringing ideas to life through design.\nYou'll work closely with our creative and marketing teams to create engaging visual assets across digital platforms. From designing scroll-stopping ad creatives and social media graphics to experimenting with layouts, typography and visual concepts, you'll help build creative that captures attention and communicates effectively.\nThis is an opportunity to work on real-world brand and performance marketing projects, learn from a fast-paced creative team and see how design drives engagement and business impact.",
       "responsibilities": "",
-      "minQualifications": "You'll likely thrive in this role if you\nHave a good eye for design, aesthetics, composition and visual storytelling.\nAre comfortable with design tools such as Adobe Photoshop, Illustrator, Figma or Canva.\nUnderstand basic principles of typography, colour theory, layouts and visual hierarchy.\nFollow digital design trends, social media formats and emerging creative styles.\nAre curious about advertising and understand how visuals can capture attention and influence decisions.\nAre detail-oriented, open to feedback and comfortable working in a fast-paced environment.\nCan take an idea from a rough brief to a polished visual output.\nWe hire exceptional people for their craft, not travel enthusiasts. We solve hard problems that happen to touch global travel and government infrastructure.\nAtlys is built by a small team with outsized ambition, high ownership, and an obsession with doing great work.\nHere’s what you can expect\nCompetitive compensation and equity so you participate in the value you help create.\nComprehensive health insurance covering you and your family, plus annual preventive health check-up on us.\nA thoughtful leave policy with paid time off and company holidays, because great work also requires real time off.\nLunch, high tea and dinner at the office , so the basics are taken care of while we build together.\nLearning & development credits to invest in courses, books, conferences and tools that help you get better at your craft.\nRelocation support to make moving closer to the team as seamless as possible.\nGreat tools to do your best work , including high-spec equipment and software.\nAn office designed for more than just work , with pickleball, table tennis, PlayStation, an arcade game room, an F1 simulator and even a full flight simulator.\nOur values shape how we make decisions, work together and build for travelers. The bar is high, the pace is fast, and the way we work is deliberate. Read them before you apply. If this environment energizes you, you’ll probably thrive here. If it doesn’t, it’s better to know that upfront.",
+      "minQualifications": "Have a good eye for design, aesthetics, composition and visual storytelling.\nAre comfortable with design tools such as Adobe Photoshop, Illustrator, Figma or Canva.\nUnderstand basic principles of typography, colour theory, layouts and visual hierarchy.\nFollow digital design trends, social media formats and emerging creative styles.\nAre curious about advertising and understand how visuals can capture attention and influence decisions.\nAre detail-oriented, open to feedback and comfortable working in a fast-paced environment.\nCan take an idea from a rough brief to a polished visual output.\nWe hire exceptional people for their craft, not travel enthusiasts. We solve hard problems that happen to touch global travel and government infrastructure.\nAtlys is built by a small team with outsized ambition, high ownership, and an obsession with doing great work.\nCompetitive compensation and equity so you participate in the value you help create.\nComprehensive health insurance covering you and your family, plus annual preventive health check-up on us.\nA thoughtful leave policy with paid time off and company holidays, because great work also requires real time off.\nLunch, high tea and dinner at the office , so the basics are taken care of while we build together.\nLearning & development credits to invest in courses, books, conferences and tools that help you get better at your craft.\nRelocation support to make moving closer to the team as seamless as possible.\nGreat tools to do your best work , including high-spec equipment and software.\nAn office designed for more than just work , with pickleball, table tennis, PlayStation, an arcade game room, an F1 simulator and even a full flight simulator.\nOur values shape how we make decisions, work together and build for travelers. The bar is high, the pace is fast, and the way we work is deliberate. Read them before you apply. If this environment energizes you, you’ll probably thrive here. If it doesn’t, it’s better to know that upfront.",
       "preferredQualifications": "",
-      "fullText": "Our mission is to enable every person on Earth to travel freely.\nTravel should feel exciting. Instead, too much of it is still defined by paperwork, uncertainty, and processes that were never designed for travellers.\nAtlys is changing that.\nWe’re building an AI-first platform that removes friction and uncertainty from travel. To date, we’ve processed visas for 1M+ travellers across 127 countries . But we’re still early.\nWe're looking for a Graphic Design Intern with a strong visual eye, creative curiosity and a passion for bringing ideas to life through design.\nYou'll work closely with our creative and marketing teams to create engaging visual assets across digital platforms. From designing scroll-stopping ad creatives and social media graphics to experimenting with layouts, typography and visual concepts, you'll help build creative that captures attention and communicates effectively.\nThis is an opportunity to work on real-world brand and performance marketing projects, learn from a fast-paced creative team and see how design drives engagement and business impact.\nDesign creatives for digital platforms including Meta, Google, YouTube, Instagram and other paid and organic channels.\nCreate visual assets for social media, digital campaigns, ads, landing pages and marketing collaterals.\nTranslate creative briefs into visual concepts by experimenting with layouts, typography, colours and design styles.\nCollaborate with copywriters, video editors and performance marketers to develop cohesive creative campaigns.\nAdapt and resize creatives across different platforms, formats and campaign requirements.\nExplore new design trends and visual references to bring fresh ideas and perspectives to the team.\nWork on multiple creative iterations based on feedback, campaign requirements and performance insights.\nMaintain consistency in visual communication while exploring new ways to make the brand stand out.\nYou'll likely thrive in this role if you\nHave a good eye for design, aesthetics, composition and visual storytelling.\nAre comfortable with design tools such as Adobe Photoshop, Illustrator, Figma or Canva.\nUnderstand basic principles of typography, colour theory, layouts and visual hierarchy.\nFollow digital design trends, social media formats and emerging creative styles.\nAre curious about advertising and understand how visuals can capture attention and influence decisions.\nAre detail-oriented, open to feedback and comfortable working in a fast-paced environment.\nCan take an idea from a rough brief to a polished visual output.\nWe hire exceptional people for their craft, not travel enthusiasts. We solve hard problems that happen to touch global travel and government infrastructure.\nAtlys is built by a small team with outsized ambition, high ownership, and an obsession with doing great work.\nHere’s what you can expect\nCompetitive compensation and equity so you participate in the value you help create.\nComprehensive health insurance covering you and your family, plus annual preventive health check-up on us.\nA thoughtful leave policy with paid time off and company holidays, because great work also requires real time off.\nLunch, high tea and dinner at the office , so the basics are taken care of while we build together.\nLearning & development credits to invest in courses, books, conferences and tools that help you get better at your craft.\nRelocation support to make moving closer to the team as seamless as possible.\nGreat tools to do your best work , including high-spec equipment and software.\nAn office designed for more than just work , with pickleball, table tennis, PlayStation, an arcade game room, an F1 simulator and even a full flight simulator.\nOur values shape how we make decisions, work together and build for travelers. The bar is high, the pace is fast, and the way we work is deliberate. Read them before you apply. If this environment energizes you, you’ll probably thrive here. If it doesn’t, it’s better to know that upfront.",
+      "fullText": "Our mission is to enable every person on Earth to travel freely.\nTravel should feel exciting. Instead, too much of it is still defined by paperwork, uncertainty, and processes that were never designed for travellers.\nAtlys is changing that.\nWe’re building an AI-first platform that removes friction and uncertainty from travel. To date, we’ve processed visas for 1M+ travellers across 127 countries . But we’re still early.\nWe're looking for a Graphic Design Intern with a strong visual eye, creative curiosity and a passion for bringing ideas to life through design.\nYou'll work closely with our creative and marketing teams to create engaging visual assets across digital platforms. From designing scroll-stopping ad creatives and social media graphics to experimenting with layouts, typography and visual concepts, you'll help build creative that captures attention and communicates effectively.\nThis is an opportunity to work on real-world brand and performance marketing projects, learn from a fast-paced creative team and see how design drives engagement and business impact.\nDesign creatives for digital platforms including Meta, Google, YouTube, Instagram and other paid and organic channels.\nCreate visual assets for social media, digital campaigns, ads, landing pages and marketing collaterals.\nTranslate creative briefs into visual concepts by experimenting with layouts, typography, colours and design styles.\nCollaborate with copywriters, video editors and performance marketers to develop cohesive creative campaigns.\nAdapt and resize creatives across different platforms, formats and campaign requirements.\nExplore new design trends and visual references to bring fresh ideas and perspectives to the team.\nWork on multiple creative iterations based on feedback, campaign requirements and performance insights.\nMaintain consistency in visual communication while exploring new ways to make the brand stand out.\nHave a good eye for design, aesthetics, composition and visual storytelling.\nAre comfortable with design tools such as Adobe Photoshop, Illustrator, Figma or Canva.\nUnderstand basic principles of typography, colour theory, layouts and visual hierarchy.\nFollow digital design trends, social media formats and emerging creative styles.\nAre curious about advertising and understand how visuals can capture attention and influence decisions.\nAre detail-oriented, open to feedback and comfortable working in a fast-paced environment.\nCan take an idea from a rough brief to a polished visual output.\nWe hire exceptional people for their craft, not travel enthusiasts. We solve hard problems that happen to touch global travel and government infrastructure.\nAtlys is built by a small team with outsized ambition, high ownership, and an obsession with doing great work.\nCompetitive compensation and equity so you participate in the value you help create.\nComprehensive health insurance covering you and your family, plus annual preventive health check-up on us.\nA thoughtful leave policy with paid time off and company holidays, because great work also requires real time off.\nLunch, high tea and dinner at the office , so the basics are taken care of while we build together.\nLearning & development credits to invest in courses, books, conferences and tools that help you get better at your craft.\nRelocation support to make moving closer to the team as seamless as possible.\nGreat tools to do your best work , including high-spec equipment and software.\nAn office designed for more than just work , with pickleball, table tennis, PlayStation, an arcade game room, an F1 simulator and even a full flight simulator.\nOur values shape how we make decisions, work together and build for travelers. The bar is high, the pace is fast, and the way we work is deliberate. Read them before you apply. If this environment energizes you, you’ll probably thrive here. If it doesn’t, it’s better to know that upfront.",
       "company": "Atlys",
       "source": "Atlys",
       "priority": false,
@@ -945,7 +945,7 @@
       ],
       "fingerprint": "atlys|graphic design intern|delhi hq",
       "firstSeen": "2026-11-11T08:07:49.926Z",
-      "lastSeen": "2026-11-11T17:02:00.375Z",
+      "lastSeen": "2026-11-11T17:31:44.019Z",
       "open": true,
       "repostOf": null
     },
@@ -974,7 +974,7 @@
       ],
       "fingerprint": "composio|product ops intern|bangalore",
       "firstSeen": "2026-11-11T08:07:49.926Z",
-      "lastSeen": "2026-11-11T17:02:00.375Z",
+      "lastSeen": "2026-11-11T17:31:44.019Z",
       "open": true,
       "repostOf": null
     },
@@ -1003,7 +1003,7 @@
       ],
       "fingerprint": "glance|ux design intern|bengaluru",
       "firstSeen": "2026-11-11T08:07:49.926Z",
-      "lastSeen": "2026-11-11T17:02:00.375Z",
+      "lastSeen": "2026-11-11T17:31:44.019Z",
       "open": true,
       "repostOf": null
     },
@@ -1033,7 +1033,7 @@
       ],
       "fingerprint": "netomi|data engineer i|remote india",
       "firstSeen": "2026-11-11T08:07:49.926Z",
-      "lastSeen": "2026-11-11T17:02:00.375Z",
+      "lastSeen": "2026-11-11T17:31:44.019Z",
       "open": true,
       "repostOf": null
     },
@@ -1062,7 +1062,7 @@
       ],
       "fingerprint": "paytm|intern talent acquisition|gurugram haryana",
       "firstSeen": "2026-11-11T08:07:49.926Z",
-      "lastSeen": "2026-11-11T17:02:00.375Z",
+      "lastSeen": "2026-11-11T17:31:44.019Z",
       "open": true,
       "repostOf": null
     },
@@ -1075,7 +1075,7 @@
       "responsibilities": "",
       "minQualifications": "● Greet and guide new employees on their first day.\n● Support HR in conducting orientation sessions and presentations.\n● Ensure completion of joining formalities, forms, and policy acknowledgments.\n● Maintain accurate employee records and digital filing systems.\n● Update trackers (new joiner status, onboarding progress, etc.).\n● Strong verbal and written communication skills with the ability to interact effectively with new hires and multiple departments.\n● Basic MS Office / Google Workspace skill.\n● Ability to manage confidential information.\n● Positive attitude and eagerness to learn.",
       "preferredQualifications": "",
-      "fullText": "Job Title: HR Onboarding Intern\nPositions (MBA / Graduate) Location: Noida\nMode: Work from Office (5 days a week)\nDuration: 3 Months\nAbout Us\nPaytm is India's leading mobile payments and financial services distribution company. Pioneer of the mobile QR payments revolution in India, Paytm builds technologies that help small businesses with payments and commerce. Paytm’s mission is to serve half a billion Indians and bring them to the mainstream economy with the help of technology.\n● Greet and guide new employees on their first day.\n● Support HR in conducting orientation sessions and presentations.\n● Ensure completion of joining formalities, forms, and policy acknowledgments.\n● Maintain accurate employee records and digital filing systems.\n● Update trackers (new joiner status, onboarding progress, etc.).\n● Strong verbal and written communication skills with the ability to interact effectively with new hires and multiple departments.\n● Basic MS Office / Google Workspace skill.\n● Ability to manage confidential information.\n● Positive attitude and eagerness to learn.",
+      "fullText": "Job Title: HR Onboarding Intern\nPositions (MBA / Graduate) Location: Noida\nMode: Work from Office (5 days a week)\nDuration: 3 Months\nPaytm is India's leading mobile payments and financial services distribution company. Pioneer of the mobile QR payments revolution in India, Paytm builds technologies that help small businesses with payments and commerce. Paytm’s mission is to serve half a billion Indians and bring them to the mainstream economy with the help of technology.\n● Greet and guide new employees on their first day.\n● Support HR in conducting orientation sessions and presentations.\n● Ensure completion of joining formalities, forms, and policy acknowledgments.\n● Maintain accurate employee records and digital filing systems.\n● Update trackers (new joiner status, onboarding progress, etc.).\n● Strong verbal and written communication skills with the ability to interact effectively with new hires and multiple departments.\n● Basic MS Office / Google Workspace skill.\n● Ability to manage confidential information.\n● Positive attitude and eagerness to learn.",
       "company": "Paytm",
       "source": "Paytm",
       "priority": false,
@@ -1091,7 +1091,7 @@
       ],
       "fingerprint": "paytm|intern hr onboarding|noida uttar pradesh",
       "firstSeen": "2026-11-11T08:07:49.926Z",
-      "lastSeen": "2026-11-11T17:02:00.375Z",
+      "lastSeen": "2026-11-11T17:31:44.019Z",
       "open": true,
       "repostOf": null
     },
@@ -1120,7 +1120,7 @@
       ],
       "fingerprint": "paytm|intern talent acquisition|bangalore karnataka",
       "firstSeen": "2026-11-11T08:07:49.926Z",
-      "lastSeen": "2026-11-11T17:02:00.375Z",
+      "lastSeen": "2026-11-11T17:31:44.019Z",
       "open": true,
       "repostOf": null
     },
@@ -1149,7 +1149,7 @@
       ],
       "fingerprint": "paytm|talent acquisition intern|noida uttar pradesh",
       "firstSeen": "2026-11-11T08:07:49.926Z",
-      "lastSeen": "2026-11-11T17:02:00.375Z",
+      "lastSeen": "2026-11-11T17:31:44.019Z",
       "open": true,
       "repostOf": null
     },
@@ -1178,7 +1178,7 @@
       ],
       "fingerprint": "paytm|talent acquisition intern bangalore|bangalore karnataka",
       "firstSeen": "2026-11-11T08:07:49.926Z",
-      "lastSeen": "2026-11-11T17:02:00.375Z",
+      "lastSeen": "2026-11-11T17:31:44.019Z",
       "open": true,
       "repostOf": null
     },
@@ -1207,7 +1207,7 @@
       ],
       "fingerprint": "paytm|talent acquisition intern it recruitment|noida uttar pradesh",
       "firstSeen": "2026-11-11T08:07:49.926Z",
-      "lastSeen": "2026-11-11T17:02:00.375Z",
+      "lastSeen": "2026-11-11T17:31:44.019Z",
       "open": true,
       "repostOf": null
     },
@@ -1247,9 +1247,9 @@
       "location": "Bengaluru, Karnataka, India",
       "aboutRole": "",
       "responsibilities": "Handle day-to-day accounting and bookkeeping activities\nAssist with month-end closing processes and financial reporting\nPrepare and file GST returns\nCalculate and deduct TDS as per applicable regulations\nPrepare and file TDS returns\nSupport statutory, internal, and tax audits\nPerform ledger reconciliations and account reviews\nEnsure compliance with accounting standards and taxation regulations",
-      "minQualifications": "Semi-Qualified CA ( CA Inter cleared – one or both groups)\nCurrently pursuing CA internship or articleship\nAspiring to complete CA qualification in the future\nSemi-Qualified Chartered Accountant (CA Inter)\nExperience or exposure to audit, core accounting, compliance, and taxation\nWorking knowledge of GST, TDS, payroll processing, and statutory filings\nProficiency in:\nMS Excel\nMS Word\nMicrosoft PowerPoint\nFamiliarity with accounting software such as:\nTally\nSAP\nZoho Books\nQuickBooks\nStrong analytical and problem-solving abilities\nGood written and verbal communication skills\nHigh attention to detail and accuracy\nResponsible, proactive, and professional attitude",
+      "minQualifications": "Semi-Qualified CA ( CA Inter cleared – one or both groups)\nCurrently pursuing CA internship or articleship\nAspiring to complete CA qualification in the future\nSemi-Qualified Chartered Accountant (CA Inter)\nExperience or exposure to audit, core accounting, compliance, and taxation\nWorking knowledge of GST, TDS, payroll processing, and statutory filings\nMS Excel\nMS Word\nMicrosoft PowerPoint\nTally\nSAP\nZoho Books\nQuickBooks\nStrong analytical and problem-solving abilities\nGood written and verbal communication skills\nHigh attention to detail and accuracy\nResponsible, proactive, and professional attitude",
       "preferredQualifications": "",
-      "fullText": "Sigmoid Analytics is a fast-growing data and analytics company that partners with global enterprises to deliver real-time business insights. As part of the expansion of our Finance & Accounting team, we are looking for Semi-Qualified Chartered Accountants (CA Inter cleared) who are eager to gain hands-on experience in core finance functions.\nSigmoid Analytics\n2nd Floor, Tower-2, SJR I PARK\nRoad Number 9, EPIP Zone, Whitefield\nBengaluru, Karnataka – 560066\n6-month engagement\nOpportunity for conversion to a full-time role based on performance\nSemi-Qualified CA ( CA Inter cleared – one or both groups)\nCurrently pursuing CA internship or articleship\nAspiring to complete CA qualification in the future\nHandle day-to-day accounting and bookkeeping activities\nAssist with month-end closing processes and financial reporting\nPrepare and file GST returns\nCalculate and deduct TDS as per applicable regulations\nPrepare and file TDS returns\nSupport statutory, internal, and tax audits\nPerform ledger reconciliations and account reviews\nEnsure compliance with accounting standards and taxation regulations\nSemi-Qualified Chartered Accountant (CA Inter)\nExperience or exposure to audit, core accounting, compliance, and taxation\nWorking knowledge of GST, TDS, payroll processing, and statutory filings\nProficiency in:\nMS Excel\nMS Word\nMicrosoft PowerPoint\nFamiliarity with accounting software such as:\nTally\nSAP\nZoho Books\nQuickBooks\nStrong analytical and problem-solving abilities\nGood written and verbal communication skills\nHigh attention to detail and accuracy\nResponsible, proactive, and professional attitude\nWork with a dynamic and fast-paced finance team\nGain practical corporate experience in accounting, taxation, and compliance\nLearn from experienced finance professionals and industry experts\nPotential opportunity for a full-time role based on performance\nExposure to a technology-driven and high-growth organization",
+      "fullText": "Sigmoid Analytics is a fast-growing data and analytics company that partners with global enterprises to deliver real-time business insights. As part of the expansion of our Finance & Accounting team, we are looking for Semi-Qualified Chartered Accountants (CA Inter cleared) who are eager to gain hands-on experience in core finance functions.\nSigmoid Analytics\n2nd Floor, Tower-2, SJR I PARK\nRoad Number 9, EPIP Zone, Whitefield\nBengaluru, Karnataka – 560066\n6-month engagement\nOpportunity for conversion to a full-time role based on performance\nSemi-Qualified CA ( CA Inter cleared – one or both groups)\nCurrently pursuing CA internship or articleship\nAspiring to complete CA qualification in the future\nHandle day-to-day accounting and bookkeeping activities\nAssist with month-end closing processes and financial reporting\nPrepare and file GST returns\nCalculate and deduct TDS as per applicable regulations\nPrepare and file TDS returns\nSupport statutory, internal, and tax audits\nPerform ledger reconciliations and account reviews\nEnsure compliance with accounting standards and taxation regulations\nSemi-Qualified Chartered Accountant (CA Inter)\nExperience or exposure to audit, core accounting, compliance, and taxation\nWorking knowledge of GST, TDS, payroll processing, and statutory filings\nMS Excel\nMS Word\nMicrosoft PowerPoint\nTally\nSAP\nZoho Books\nQuickBooks\nStrong analytical and problem-solving abilities\nGood written and verbal communication skills\nHigh attention to detail and accuracy\nResponsible, proactive, and professional attitude\nWork with a dynamic and fast-paced finance team\nGain practical corporate experience in accounting, taxation, and compliance\nLearn from experienced finance professionals and industry experts\nPotential opportunity for a full-time role based on performance\nExposure to a technology-driven and high-growth organization",
       "company": "Sigmoid",
       "source": "Sigmoid",
       "priority": false,
@@ -1265,7 +1265,7 @@
       ],
       "fingerprint": "sigmoid|industrial trainee finance accounting|bengaluru karnataka india",
       "firstSeen": "2026-11-11T08:07:49.926Z",
-      "lastSeen": "2026-11-11T17:02:00.375Z",
+      "lastSeen": "2026-11-11T17:31:44.019Z",
       "open": true,
       "repostOf": null
     },
@@ -1294,7 +1294,7 @@
       ],
       "fingerprint": "stripe|software engineer new grad|bangalore",
       "firstSeen": "2026-11-11T08:07:49.926Z",
-      "lastSeen": "2026-11-11T17:02:00.375Z",
+      "lastSeen": "2026-11-11T17:31:44.019Z",
       "open": true,
       "repostOf": null
     },
@@ -1311,7 +1311,7 @@
       "deadline": "",
       "fingerprint": "aleph|finance intern|mumbai india",
       "firstSeen": "2026-11-07T10:17:02.218Z",
-      "lastSeen": "2026-11-11T17:02:00.375Z",
+      "lastSeen": "2026-11-11T17:31:44.019Z",
       "open": true,
       "repostOf": null,
       "aboutRole": "",
@@ -1340,7 +1340,7 @@
       "deadline": "",
       "fingerprint": "fampay|people operations intern|bengaluru",
       "firstSeen": "2026-11-07T10:17:02.218Z",
-      "lastSeen": "2026-11-11T17:02:00.375Z",
+      "lastSeen": "2026-11-11T17:31:44.019Z",
       "open": true,
       "repostOf": null,
       "aboutRole": "",
@@ -1370,7 +1370,7 @@
       "deadline": "",
       "fingerprint": "fampay|security engineer intern|bengaluru",
       "firstSeen": "2026-11-07T10:17:02.218Z",
-      "lastSeen": "2026-11-11T17:02:00.375Z",
+      "lastSeen": "2026-11-11T17:31:44.019Z",
       "open": true,
       "repostOf": null,
       "aboutRole": "We are looking for a Security Enthusiast who thinks like a hacker but works for the good guys. You shouldn't just find bugs; you should be obsessed with understanding why they exist and how to fix them for good.\nAs an Application Security Engineer Intern , you will be the first line of defense for the Fam. You will break things before the bad guys do, automate security checks, and work side-by-side with our engineering team to build a fortress around our users' hard-earned money.\nIf you get a rush from finding an RCE, live on r/netsec, or spend your weekends capturing flags or bounties, this role is for you.\nNote: This is an onsite internship at Fam HQ, Bangalore.\nCurious to know about FamPay's tech stack? Click here to know what makes and keeps Fam running!",
@@ -1399,7 +1399,7 @@
       "deadline": "",
       "fingerprint": "hackerrank|ai researcher intern|onsite in bangalore",
       "firstSeen": "2026-11-07T10:17:02.218Z",
-      "lastSeen": "2026-11-11T17:02:00.375Z",
+      "lastSeen": "2026-11-11T17:31:44.019Z",
       "open": true,
       "repostOf": null,
       "aboutRole": "HackerRank is advancing AI-driven Technical Interviewing, assessment of Integrity, and the measurement of Engineering skill to use AI assistance effectively in the agentic era. We are looking for research-oriented M.S./Ph.D. scholars to explore and develop novel Deep Learning architectures and build efficient, trustworthy AI systems. A key research direction is to develop a model-agnostic external Recursive Reasoning Engine that enables smaller models (SLM/SSM/Hybrid etc.) to solve complex, repository-grounded software engineering tasks with greater effectiveness, traceability, and lower inference cost.",
@@ -1429,12 +1429,12 @@
       "deadline": "",
       "fingerprint": "hackerrank|software development engineer intern|onsite in bangalore",
       "firstSeen": "2026-11-07T10:17:02.218Z",
-      "lastSeen": "2026-11-11T17:02:00.375Z",
+      "lastSeen": "2026-11-11T17:31:44.019Z",
       "open": true,
       "repostOf": null,
       "aboutRole": "This is a 6-month full-time onsite internship (Jan - June 2027).\nPlease apply only if you're available full-time to work from the Bengaluru office for the entire duration.\nIf you're obsessed with writing great code that will be used by other great engineers around the world, read on - this just may be the perfect role for you. HackerRank is looking for high-potential Hacker Interns to join our team of world-class full-time Hackers as we build the most engaged community of Developers.",
       "responsibilities": "",
-      "fullText": "This is a 6-month full-time onsite internship (Jan - June 2027).\nPlease apply only if you're available full-time to work from the Bengaluru office for the entire duration.\nIf you're obsessed with writing great code that will be used by other great engineers around the world, read on - this just may be the perfect role for you. HackerRank is looking for high-potential Hacker Interns to join our team of world-class full-time Hackers as we build the most engaged community of Developers.\nWorld-class mentors, great culture, amazing people and opportunities to make a difference all in a real-world scenario and right at the beginning of your career! If this sounds exciting, read on...\nEach one of you will be paired with a mentor, who will support you throughout your internship.\nYou get to push your code to prod and contribute to meaningful & real-world projects right from your first month.\nTransparent communication is one of the principles that guides us. You’ll have access to all the information needed including the company’s progress every week directly from the Executive team.\nYou’ll have direct access to all employees in the company and can always challenge the status quo, enabling you to be more data driven.\nWhether you're graduating and seeking a full-time position after your internship, or hoping to return for another internship next year, you'll be considered for a returning offer during your internship.\nThe early days: 2014 · 2015 · 2016 · 2017\n2018-2019: 2018 winter · 2018 summer · 2019 winter · 2019 summer\n2020-2022: 2020 · 2021 winter · 2021 summer · 2022 winter · 2022 summer\nMost recent: 2024 · 2025 · 2026\nDon't take our word for it. Take theirs\nOur past interns share what the experience was really like\nIshan , Abhishek and Adyasha , who wrote a full blog series (2021 summer)\nPriya (2023)\nSindhu and Khushboo (2024)\nSharanya and Anshika (2026)\nYou can read many more blogs and watch videos here\nCare about the craft. From the code we ship to the words we use with customers, small things add up to an experience worth being proud of. Then we find ways to make it better.\nOne team. Engineering, product, design and others bring different skills, but the outcome belongs to everyone.\nDevelopers first. Every decision gets one test: does it help developers do their best work?\nGo deep. Learn the product, understand the problem, and share what you know with the people around you.\nOwn it. Bring the right people together, follow through on commitments, and raise issues early.\nIs it only for 6 months? Yes, it is a 6-month full-time Internship.\nIs it a Paid/Unpaid internship? It is a paid Internship and comes with a lot more\nIs it a remote internship? No, this is a full-time, in-office internship.\nWhat benefits do I avail apart from the stipend? There is insurance, coverage of two-way travel , various reimbursements and so much more!\nIs there any resume format? There isn't a specific format, but you may go to hackerrank.com/resume and create a resume there.\nIf you have any questions about the steps mentioned above, write to internship-queries@hackerrank.com and someone from our team will answer them.",
+      "fullText": "This is a 6-month full-time onsite internship (Jan - June 2027).\nPlease apply only if you're available full-time to work from the Bengaluru office for the entire duration.\nIf you're obsessed with writing great code that will be used by other great engineers around the world, read on - this just may be the perfect role for you. HackerRank is looking for high-potential Hacker Interns to join our team of world-class full-time Hackers as we build the most engaged community of Developers.\nWorld-class mentors, great culture, amazing people and opportunities to make a difference all in a real-world scenario and right at the beginning of your career! If this sounds exciting, read on...\nEach one of you will be paired with a mentor, who will support you throughout your internship.\nYou get to push your code to prod and contribute to meaningful & real-world projects right from your first month.\nTransparent communication is one of the principles that guides us. You’ll have access to all the information needed including the company’s progress every week directly from the Executive team.\nYou’ll have direct access to all employees in the company and can always challenge the status quo, enabling you to be more data driven.\nWhether you're graduating and seeking a full-time position after your internship, or hoping to return for another internship next year, you'll be considered for a returning offer during your internship.\nThe early days: 2014 · 2015 · 2016 · 2017\n2018-2019: 2018 winter · 2018 summer · 2019 winter · 2019 summer\n2020-2022: 2020 · 2021 winter · 2021 summer · 2022 winter · 2022 summer\nMost recent: 2024 · 2025 · 2026\nDon't take our word for it. Take theirs\nIshan , Abhishek and Adyasha , who wrote a full blog series (2021 summer)\nPriya (2023)\nSindhu and Khushboo (2024)\nSharanya and Anshika (2026)\nYou can read many more blogs and watch videos here\nCare about the craft. From the code we ship to the words we use with customers, small things add up to an experience worth being proud of. Then we find ways to make it better.\nOne team. Engineering, product, design and others bring different skills, but the outcome belongs to everyone.\nDevelopers first. Every decision gets one test: does it help developers do their best work?\nGo deep. Learn the product, understand the problem, and share what you know with the people around you.\nOwn it. Bring the right people together, follow through on commitments, and raise issues early.\nIs it only for 6 months? Yes, it is a 6-month full-time Internship.\nIs it a Paid/Unpaid internship? It is a paid Internship and comes with a lot more\nIs it a remote internship? No, this is a full-time, in-office internship.\nWhat benefits do I avail apart from the stipend? There is insurance, coverage of two-way travel , various reimbursements and so much more!\nIs there any resume format? There isn't a specific format, but you may go to hackerrank.com/resume and create a resume there.\nIf you have any questions about the steps mentioned above, write to internship-queries@hackerrank.com and someone from our team will answer them.",
       "roleType": "internship",
       "partTime": false,
       "areas": [
@@ -1458,7 +1458,7 @@
       "deadline": "",
       "fingerprint": "instawork|hardware intern robotics ai|bengaluru karnataka india",
       "firstSeen": "2026-11-07T10:17:02.218Z",
-      "lastSeen": "2026-11-11T17:02:00.375Z",
+      "lastSeen": "2026-11-11T17:31:44.019Z",
       "open": true,
       "repostOf": null,
       "aboutRole": "",
@@ -1488,7 +1488,7 @@
       "deadline": "",
       "fingerprint": "instawork|hr intern|bengaluru karnataka india",
       "firstSeen": "2026-11-07T10:17:02.218Z",
-      "lastSeen": "2026-11-11T17:02:00.375Z",
+      "lastSeen": "2026-11-11T17:31:44.019Z",
       "open": true,
       "repostOf": null,
       "aboutRole": "We are looking for a highly motivated and highly organized Talent Acquisition Intern to join our team at Instawork. In this role, you will get hands-on experience working on end-to-end recruitment, serving as the critical bridge between our hiring teams and prospective candidates.\nIf you enjoy speaking with people, thrive in a fast-paced environment, and want to build a strong foundation in human resources and talent acquisition, this opportunity is a great starting point.",
@@ -1517,12 +1517,12 @@
       "deadline": "",
       "fingerprint": "instawork|inventory management intern|bengaluru karnataka india",
       "firstSeen": "2026-11-07T10:17:02.218Z",
-      "lastSeen": "2026-11-11T17:02:00.375Z",
+      "lastSeen": "2026-11-11T17:31:44.019Z",
       "open": true,
       "repostOf": null,
       "aboutRole": "The Inventory Manager will be responsible for end-to-end custody, tracking, and reconciliation of high-value inventory, primarily iPhones and related accessories such as SD cards and card readers. This role demands strict control, zero tolerance for mismatches, and complete documentation discipline.\nNo inventory movement is allowed without entries, and physical stock must always tally with records.\n(Morning Shift - 7 am to 4 pm; Evening Shift - 4 pm to 2 am)",
-      "responsibilities": "Take complete ownership of high-value devices and accessories .\nEnsure serial-number–level tracking for all devices.\nMaintain zero loss and zero undocumented movement .\nReceive devices and accessories from the IT team.\nVerify:\nQuantity\nSerial numbers\nPhysical condition\nRecord all inward movements immediately in:\nManual registers\nGoogle Sheets\nEscalate any mismatch, damage, or discrepancy without delay.\nHand over inventory from:\nInventory to Field Ops (FO)\nField Ops back to Inventory\nEnsure no item goes out without prior entry .\nCapture details including:\nItem name and serial number\nFO name / ID\nDate and time of handover\nExpected return date\nAvoid all verbal or informal handovers.\nReceive returned inventory and re-verify serial numbers and condition.\nUpdate return entries on the same day.\nPerform daily reconciliation between:\nPhysical stock\nGoogle Sheets\nItems with Field Ops\nTrack overdue or missing items and follow up proactively.\nMaintain clean, structured Google Sheets trackers.\nEnsure inventory area access is controlled.\nSupport audits and internal checks as required.\nMaintain high compliance standards for asset handling.",
-      "fullText": "Function: Operations – Asset & Inventory Control\nInventory Type: High-Value Electronic Assets\nTools Used: Manual Registers & Google Sheets\nWork Mode: On-site\nThe Inventory Manager will be responsible for end-to-end custody, tracking, and reconciliation of high-value inventory, primarily iPhones and related accessories such as SD cards and card readers. This role demands strict control, zero tolerance for mismatches, and complete documentation discipline.\nNo inventory movement is allowed without entries, and physical stock must always tally with records.\n(Morning Shift - 7 am to 4 pm; Evening Shift - 4 pm to 2 am)\nTake complete ownership of high-value devices and accessories .\nEnsure serial-number–level tracking for all devices.\nMaintain zero loss and zero undocumented movement .\nReceive devices and accessories from the IT team.\nVerify:\nQuantity\nSerial numbers\nPhysical condition\nRecord all inward movements immediately in:\nManual registers\nGoogle Sheets\nEscalate any mismatch, damage, or discrepancy without delay.\nHand over inventory from:\nInventory to Field Ops (FO)\nField Ops back to Inventory\nEnsure no item goes out without prior entry .\nCapture details including:\nItem name and serial number\nFO name / ID\nDate and time of handover\nExpected return date\nAvoid all verbal or informal handovers.\nReceive returned inventory and re-verify serial numbers and condition.\nUpdate return entries on the same day.\nPerform daily reconciliation between:\nPhysical stock\nGoogle Sheets\nItems with Field Ops\nTrack overdue or missing items and follow up proactively.\nMaintain clean, structured Google Sheets trackers.\nEnsure inventory area access is controlled.\nSupport audits and internal checks as required.\nMaintain high compliance standards for asset handling.\nExperience handling high-value inventory or assets .\nStrong working knowledge of Google Sheets (filters, basic formulas).\nExperience with manual inventory registers .\nHigh attention to detail and accuracy.\nBackground in inventory, warehouse, logistics, or operations.\nExperience managing electronic devices or serialized assets.\nStrong ownership and accountability\nProcess-driven with a zero-error mindset\nHigh integrity and discipline\nComfortable working under strict controls\n100% match between physical inventory and records\nZero undocumented inventory movement\nZero asset loss due to process lapses\nTimely reconciliation and reporting",
+      "responsibilities": "Take complete ownership of high-value devices and accessories .\nEnsure serial-number–level tracking for all devices.\nMaintain zero loss and zero undocumented movement .\nReceive devices and accessories from the IT team.\nQuantity\nSerial numbers\nPhysical condition\nManual registers\nGoogle Sheets\nEscalate any mismatch, damage, or discrepancy without delay.\nInventory to Field Ops (FO)\nField Ops back to Inventory\nEnsure no item goes out without prior entry .\nItem name and serial number\nFO name / ID\nDate and time of handover\nExpected return date\nAvoid all verbal or informal handovers.\nReceive returned inventory and re-verify serial numbers and condition.\nUpdate return entries on the same day.\nPhysical stock\nGoogle Sheets\nItems with Field Ops\nTrack overdue or missing items and follow up proactively.\nMaintain clean, structured Google Sheets trackers.\nEnsure inventory area access is controlled.\nSupport audits and internal checks as required.\nMaintain high compliance standards for asset handling.",
+      "fullText": "Function: Operations – Asset & Inventory Control\nInventory Type: High-Value Electronic Assets\nTools Used: Manual Registers & Google Sheets\nWork Mode: On-site\nThe Inventory Manager will be responsible for end-to-end custody, tracking, and reconciliation of high-value inventory, primarily iPhones and related accessories such as SD cards and card readers. This role demands strict control, zero tolerance for mismatches, and complete documentation discipline.\nNo inventory movement is allowed without entries, and physical stock must always tally with records.\n(Morning Shift - 7 am to 4 pm; Evening Shift - 4 pm to 2 am)\nTake complete ownership of high-value devices and accessories .\nEnsure serial-number–level tracking for all devices.\nMaintain zero loss and zero undocumented movement .\nReceive devices and accessories from the IT team.\nQuantity\nSerial numbers\nPhysical condition\nManual registers\nGoogle Sheets\nEscalate any mismatch, damage, or discrepancy without delay.\nInventory to Field Ops (FO)\nField Ops back to Inventory\nEnsure no item goes out without prior entry .\nItem name and serial number\nFO name / ID\nDate and time of handover\nExpected return date\nAvoid all verbal or informal handovers.\nReceive returned inventory and re-verify serial numbers and condition.\nUpdate return entries on the same day.\nPhysical stock\nGoogle Sheets\nItems with Field Ops\nTrack overdue or missing items and follow up proactively.\nMaintain clean, structured Google Sheets trackers.\nEnsure inventory area access is controlled.\nSupport audits and internal checks as required.\nMaintain high compliance standards for asset handling.\nExperience handling high-value inventory or assets .\nStrong working knowledge of Google Sheets (filters, basic formulas).\nExperience with manual inventory registers .\nHigh attention to detail and accuracy.\nBackground in inventory, warehouse, logistics, or operations.\nExperience managing electronic devices or serialized assets.\nStrong ownership and accountability\nProcess-driven with a zero-error mindset\nHigh integrity and discipline\nComfortable working under strict controls\n100% match between physical inventory and records\nZero undocumented inventory movement\nZero asset loss due to process lapses\nTimely reconciliation and reporting",
       "roleType": "internship",
       "partTime": false,
       "areas": [
@@ -1546,7 +1546,7 @@
       "deadline": "",
       "fingerprint": "instawork|it intern gadget tech support operations|bengaluru karnataka india",
       "firstSeen": "2026-11-07T10:17:02.218Z",
-      "lastSeen": "2026-11-11T17:02:00.375Z",
+      "lastSeen": "2026-11-11T17:31:44.019Z",
       "open": true,
       "repostOf": null,
       "aboutRole": "The Rig / Productivity Team is responsible for ensuring that recorded field data is uploaded, reconciled, validated, and made ready for reuse. The role combines two critical functions: processing SD card data and reviewing recorded videos to determine whether the data is valid.\nThe team ensures that every uploaded batch is accounted for, SD cards are returned to inventory within the expected turnaround time, and valid-data assessments are completed accurately. No shortcuts in data handling, no unexplained pending work, and no compromise on data quality.",
@@ -1575,7 +1575,7 @@
       "deadline": "",
       "fingerprint": "instawork|operations management intern|bengaluru karnataka india",
       "firstSeen": "2026-11-07T10:17:02.218Z",
-      "lastSeen": "2026-11-11T17:02:00.375Z",
+      "lastSeen": "2026-11-11T17:31:44.019Z",
       "open": true,
       "repostOf": null,
       "aboutRole": "An Internal Coordinator (IC) owns the day-to-day running of field data collection for a single region. Each IC leads a team of Field Officers (FOs) who carry recording rigs(hardware) into partner businesses, set them up correctly, and capture high-quality task recordings.\nThe IC is the operational nerve center of the region: planning the day's pipeline, keeping FOs productive in the field, solving problems live, ensuring recording quality and diversity rules are met, tracking inventory (rigs and SD cards) in and out, and reporting hours planned vs. achieved with clear loss reasons at end of day.\nThis role is mainly about live coordination, field problem-solving, quality control, and disciplined reporting.",
@@ -1604,7 +1604,7 @@
       "deadline": "",
       "fingerprint": "instawork|quality check intern hardware|bengaluru karnataka india",
       "firstSeen": "2026-11-07T10:17:02.218Z",
-      "lastSeen": "2026-11-11T17:02:00.375Z",
+      "lastSeen": "2026-11-11T17:31:44.019Z",
       "open": true,
       "repostOf": null,
       "aboutRole": "The Quality Control Intern – Hardware is the checkpoint every recording rig passes through, in both directions. When rigs return from the field, you inspect their condition, run a functional check, and capture a short test recording that you review to confirm the cameras, footage, audio, and storage are all working. Before any rig goes back out, you give the final sign-off that it is field-ready.\nThis is a small role with an outsized impact: a rig that leaves your desk in a bad state means a Field Officer travels to a business, records for hours, and returns with unusable or missing data — a full day lost, and sometimes a burned business relationship. Your job is to make sure that never happens. Precision, consistency, and discipline are the whole game here.",
@@ -1633,7 +1633,7 @@
       "deadline": "",
       "fingerprint": "instawork|trainer intern|bengaluru karnataka india",
       "firstSeen": "2026-11-07T10:17:02.218Z",
-      "lastSeen": "2026-11-11T17:02:00.375Z",
+      "lastSeen": "2026-11-11T17:31:44.019Z",
       "open": true,
       "repostOf": null,
       "aboutRole": "We are looking for a Trainer (Intern) to support the onboarding, training, assessment, and certification of Field Operators working on large-scale field operations.\nThis is a hands-on training role, not a conventional classroom-only position. You will be responsible for taking candidates through the complete training journey, from onboarding and practical training to assessment and certification.\nThe role requires extensive travel across India, strong communication skills, confidence in managing groups, and the ability to strictly enforce SOPs and make objective certification decisions.",
@@ -1662,12 +1662,12 @@
       "deadline": "",
       "fingerprint": "prodigal|content marketing intern|mumbai",
       "firstSeen": "2026-11-07T10:17:02.218Z",
-      "lastSeen": "2026-11-11T17:02:00.375Z",
+      "lastSeen": "2026-11-11T17:31:44.019Z",
       "open": true,
       "repostOf": null,
-      "aboutRole": "AI has made it incredibly easy to produce content. There are more articles, posts, emails, videos, and opinions competing for people's attention every day.\nWe think this makes genuinely good content more valuable.\nWe're looking for a Content Marketing Intern who wants to become exceptionally good at understanding an audience, finding ideas worth talking about, and turning those ideas into work people actually want to read, watch, save, share, and come back to.\nAt Prodigal, good content starts with understanding.\nYou'll learn how financial institutions operate, how their teams work, what their customers experience, what executives care about, where processes break, and how AI is changing the industry. We go unusually deep into these details. We obsess over the people, processes, regulations, and edge cases that shape how this industry actually works.\nThat level of understanding should show up in everything we publish.\nWe want someone inside the industry to encounter something from Prodigal and think\nHow do they know that?\nAnd we want the content to be good enough that they keep reading.\nThis is an Intern + PPO opportunity (performance based).",
-      "responsibilities": "Ideas can come from anywhere: earnings calls, annual reports, customer conversations, regulatory filings, job postings, datasets, online communities, sales calls, or an obscure detail several searches deep.\nYou'll learn to enter an unfamiliar subject quickly, understand what is happening, separate signal from noise, and find the part worth telling someone about.\nYou'll work across LinkedIn, articles, research reports, executive content, newsletters, customer stories, email campaigns, videos, event content, data-led stories, and formats we haven't tried yet.\nYou'll think carefully about the reader throughout\nWhat would make them stop?\nWhat do they already know?\nWhat might surprise them?\nWhere will they lose interest?\nWhat would make this worth sharing?\nThe headline, structure, language, examples, and design should all come from those questions.\nYou don't need to understand financial services before joining. You do need to be curious enough to learn it.\nYou'll understand how banks and lenders make decisions, how borrowers move through different stages of a loan, why an auto lender operates differently from a card issuer, how regulations shape interactions, and what changes when thousands or millions of customer conversations need to happen at scale.\nTry new hooks, structures, research formats, visual treatments, videos, interactive ideas, event experiences, and approaches borrowed from great creators, journalists, consumer brands, and places outside traditional B2B marketing.\nSome will work. Some won't. Pay attention to why.\nA person may first see a LinkedIn post, later read a report, receive an email, watch a customer story, visit our website, meet us at an event, and eventually speak with Sales.\nYou'll think about how those interactions connect and whether each one strengthens the person's understanding of Prodigal.\nAI should make you significantly faster.",
-      "fullText": "AI has made it incredibly easy to produce content. There are more articles, posts, emails, videos, and opinions competing for people's attention every day.\nWe think this makes genuinely good content more valuable.\nWe're looking for a Content Marketing Intern who wants to become exceptionally good at understanding an audience, finding ideas worth talking about, and turning those ideas into work people actually want to read, watch, save, share, and come back to.\nAt Prodigal, good content starts with understanding.\nYou'll learn how financial institutions operate, how their teams work, what their customers experience, what executives care about, where processes break, and how AI is changing the industry. We go unusually deep into these details. We obsess over the people, processes, regulations, and edge cases that shape how this industry actually works.\nThat level of understanding should show up in everything we publish.\nWe want someone inside the industry to encounter something from Prodigal and think\nHow do they know that?\nAnd we want the content to be good enough that they keep reading.\nThis is an Intern + PPO opportunity (performance based).\nIdeas can come from anywhere: earnings calls, annual reports, customer conversations, regulatory filings, job postings, datasets, online communities, sales calls, or an obscure detail several searches deep.\nYou'll learn to enter an unfamiliar subject quickly, understand what is happening, separate signal from noise, and find the part worth telling someone about.\nYou'll work across LinkedIn, articles, research reports, executive content, newsletters, customer stories, email campaigns, videos, event content, data-led stories, and formats we haven't tried yet.\nYou'll think carefully about the reader throughout\nWhat would make them stop?\nWhat do they already know?\nWhat might surprise them?\nWhere will they lose interest?\nWhat would make this worth sharing?\nThe headline, structure, language, examples, and design should all come from those questions.\nYou don't need to understand financial services before joining. You do need to be curious enough to learn it.\nYou'll understand how banks and lenders make decisions, how borrowers move through different stages of a loan, why an auto lender operates differently from a card issuer, how regulations shape interactions, and what changes when thousands or millions of customer conversations need to happen at scale.\nTry new hooks, structures, research formats, visual treatments, videos, interactive ideas, event experiences, and approaches borrowed from great creators, journalists, consumer brands, and places outside traditional B2B marketing.\nSome will work. Some won't. Pay attention to why.\nA person may first see a LinkedIn post, later read a report, receive an email, watch a customer story, visit our website, meet us at an event, and eventually speak with Sales.\nYou'll think about how those interactions connect and whether each one strengthens the person's understanding of Prodigal.\nAI should make you significantly faster.\nUse it for research, synthesis, transcript analysis, idea exploration, pattern finding, alternative approaches, and iteration.\nYou'll still be responsible for judgment.\nYou should notice when something sounds generic, when a polished paragraph says very little, when an idea needs a better premise, and when one version among ten is clearly stronger.\nAs generating content becomes easier, taste becomes more important.\nCuriosity. You enjoy understanding things and tend to keep digging when something catches your attention.\nTaste. You notice when something is genuinely interesting, generic, forced, overdone, or forgettable. Your taste might come from writing, film, design, advertising, music, YouTube, journalism, memes, or something completely different.\nReader instinct. You naturally think about how something will land with another person and what will make them care.\nEnergy. Ideas excite you. You like making things, trying another version, and bringing momentum into a project.\nClear thinking. You can consume a lot of information, decide what matters, and explain something complicated simply.\nLove for language. You care about words, openings, rhythm, and whether something sounds like an actual human wrote it.\nIteration. You can make several versions, take feedback, throw away something you liked, and improve it.\nIndependent thinking. You question conventions, bring references from outside B2B marketing, and are comfortable suggesting ideas we haven't considered.\nAttention to detail. Names, numbers, sources, terminology, claims, and context need to be right.\nThis could be your first formal marketing role.\nWe're interested in people who have chosen to make things on their own.\nMaybe you've written online, started a newsletter, made videos, built a social page or community, run a college publication, created great memes, developed a side project, researched one topic obsessively, or built an audience around something you care about.\nContent is changing quickly.\nAI is dramatically reducing the time required to research, draft, edit, design, and produce. Someone with curiosity, judgment, taste, and energy can now explore more ideas and iterate much faster than was possible a few years ago.\nYou'll get to develop those skills while working close to founders, product teams, engineers, Sales, customers, industry operators, and people who have spent years understanding how financial institutions actually work.\nYou'll also have room to leave a mark.\nYou could create a research franchise people follow every year, invent a format that becomes associated with Prodigal, uncover a story nobody else noticed, or build something that people inside the industry start waiting for.\nYears from now, there should be things in Prodigal's body of work that exist partly because you were here and thought of them.",
+      "aboutRole": "AI has made it incredibly easy to produce content. There are more articles, posts, emails, videos, and opinions competing for people's attention every day.\nWe think this makes genuinely good content more valuable.\nWe're looking for a Content Marketing Intern who wants to become exceptionally good at understanding an audience, finding ideas worth talking about, and turning those ideas into work people actually want to read, watch, save, share, and come back to.\nAt Prodigal, good content starts with understanding.\nYou'll learn how financial institutions operate, how their teams work, what their customers experience, what executives care about, where processes break, and how AI is changing the industry. We go unusually deep into these details. We obsess over the people, processes, regulations, and edge cases that shape how this industry actually works.\nThat level of understanding should show up in everything we publish.\nHow do they know that?\nAnd we want the content to be good enough that they keep reading.\nThis is an Intern + PPO opportunity (performance based).",
+      "responsibilities": "Ideas can come from anywhere: earnings calls, annual reports, customer conversations, regulatory filings, job postings, datasets, online communities, sales calls, or an obscure detail several searches deep.\nYou'll learn to enter an unfamiliar subject quickly, understand what is happening, separate signal from noise, and find the part worth telling someone about.\nYou'll work across LinkedIn, articles, research reports, executive content, newsletters, customer stories, email campaigns, videos, event content, data-led stories, and formats we haven't tried yet.\nWhat would make them stop?\nWhat do they already know?\nWhat might surprise them?\nWhere will they lose interest?\nWhat would make this worth sharing?\nThe headline, structure, language, examples, and design should all come from those questions.\nYou don't need to understand financial services before joining. You do need to be curious enough to learn it.\nYou'll understand how banks and lenders make decisions, how borrowers move through different stages of a loan, why an auto lender operates differently from a card issuer, how regulations shape interactions, and what changes when thousands or millions of customer conversations need to happen at scale.\nTry new hooks, structures, research formats, visual treatments, videos, interactive ideas, event experiences, and approaches borrowed from great creators, journalists, consumer brands, and places outside traditional B2B marketing.\nSome will work. Some won't. Pay attention to why.\nA person may first see a LinkedIn post, later read a report, receive an email, watch a customer story, visit our website, meet us at an event, and eventually speak with Sales.\nYou'll think about how those interactions connect and whether each one strengthens the person's understanding of Prodigal.\nAI should make you significantly faster.\nUse it for research, synthesis, transcript analysis, idea exploration, pattern finding, alternative approaches, and iteration.",
+      "fullText": "AI has made it incredibly easy to produce content. There are more articles, posts, emails, videos, and opinions competing for people's attention every day.\nWe think this makes genuinely good content more valuable.\nWe're looking for a Content Marketing Intern who wants to become exceptionally good at understanding an audience, finding ideas worth talking about, and turning those ideas into work people actually want to read, watch, save, share, and come back to.\nAt Prodigal, good content starts with understanding.\nYou'll learn how financial institutions operate, how their teams work, what their customers experience, what executives care about, where processes break, and how AI is changing the industry. We go unusually deep into these details. We obsess over the people, processes, regulations, and edge cases that shape how this industry actually works.\nThat level of understanding should show up in everything we publish.\nHow do they know that?\nAnd we want the content to be good enough that they keep reading.\nThis is an Intern + PPO opportunity (performance based).\nIdeas can come from anywhere: earnings calls, annual reports, customer conversations, regulatory filings, job postings, datasets, online communities, sales calls, or an obscure detail several searches deep.\nYou'll learn to enter an unfamiliar subject quickly, understand what is happening, separate signal from noise, and find the part worth telling someone about.\nYou'll work across LinkedIn, articles, research reports, executive content, newsletters, customer stories, email campaigns, videos, event content, data-led stories, and formats we haven't tried yet.\nWhat would make them stop?\nWhat do they already know?\nWhat might surprise them?\nWhere will they lose interest?\nWhat would make this worth sharing?\nThe headline, structure, language, examples, and design should all come from those questions.\nYou don't need to understand financial services before joining. You do need to be curious enough to learn it.\nYou'll understand how banks and lenders make decisions, how borrowers move through different stages of a loan, why an auto lender operates differently from a card issuer, how regulations shape interactions, and what changes when thousands or millions of customer conversations need to happen at scale.\nTry new hooks, structures, research formats, visual treatments, videos, interactive ideas, event experiences, and approaches borrowed from great creators, journalists, consumer brands, and places outside traditional B2B marketing.\nSome will work. Some won't. Pay attention to why.\nA person may first see a LinkedIn post, later read a report, receive an email, watch a customer story, visit our website, meet us at an event, and eventually speak with Sales.\nYou'll think about how those interactions connect and whether each one strengthens the person's understanding of Prodigal.\nAI should make you significantly faster.\nUse it for research, synthesis, transcript analysis, idea exploration, pattern finding, alternative approaches, and iteration.\nYou'll still be responsible for judgment.\nYou should notice when something sounds generic, when a polished paragraph says very little, when an idea needs a better premise, and when one version among ten is clearly stronger.\nAs generating content becomes easier, taste becomes more important.\nCuriosity. You enjoy understanding things and tend to keep digging when something catches your attention.\nTaste. You notice when something is genuinely interesting, generic, forced, overdone, or forgettable. Your taste might come from writing, film, design, advertising, music, YouTube, journalism, memes, or something completely different.\nReader instinct. You naturally think about how something will land with another person and what will make them care.\nEnergy. Ideas excite you. You like making things, trying another version, and bringing momentum into a project.\nClear thinking. You can consume a lot of information, decide what matters, and explain something complicated simply.\nLove for language. You care about words, openings, rhythm, and whether something sounds like an actual human wrote it.\nIteration. You can make several versions, take feedback, throw away something you liked, and improve it.\nIndependent thinking. You question conventions, bring references from outside B2B marketing, and are comfortable suggesting ideas we haven't considered.\nAttention to detail. Names, numbers, sources, terminology, claims, and context need to be right.\nThis could be your first formal marketing role.\nWe're interested in people who have chosen to make things on their own.\nMaybe you've written online, started a newsletter, made videos, built a social page or community, run a college publication, created great memes, developed a side project, researched one topic obsessively, or built an audience around something you care about.\nContent is changing quickly.\nAI is dramatically reducing the time required to research, draft, edit, design, and produce. Someone with curiosity, judgment, taste, and energy can now explore more ideas and iterate much faster than was possible a few years ago.\nYou'll get to develop those skills while working close to founders, product teams, engineers, Sales, customers, industry operators, and people who have spent years understanding how financial institutions actually work.\nYou'll also have room to leave a mark.\nYou could create a research franchise people follow every year, invent a format that becomes associated with Prodigal, uncover a story nobody else noticed, or build something that people inside the industry start waiting for.\nYears from now, there should be things in Prodigal's body of work that exist partly because you were here and thought of them.",
       "roleType": "internship",
       "partTime": false,
       "areas": [
@@ -1691,7 +1691,7 @@
       "deadline": "",
       "fingerprint": "prodigal|people ops intern|mumbai",
       "firstSeen": "2026-11-07T10:17:02.218Z",
-      "lastSeen": "2026-11-11T17:02:00.375Z",
+      "lastSeen": "2026-11-11T17:31:44.019Z",
       "open": true,
       "repostOf": null,
       "aboutRole": "",
@@ -1721,7 +1721,7 @@
       "deadline": "",
       "fingerprint": "rubrik|eng project program intern|bangalore",
       "firstSeen": "2026-11-07T10:17:02.218Z",
-      "lastSeen": "2026-11-11T17:02:00.375Z",
+      "lastSeen": "2026-11-11T17:31:44.019Z",
       "open": true,
       "repostOf": null,
       "aboutRole": "We are looking for a highly organised and motivated Project/ Program Manager Intern to join our dynamic team. As an intern, you'll assist in managing our On Prem/Saas product delivery. You will assist in the planning, managing, and execution of several technical programs and initiatives each year for our Engineering Organisation across our Product portfolio. You will get an first-hand experience in driving the improvement of our processes throughout the development, validation and deployment lifecycle. You will be collaborating with stakeholders and understanding the components of delivering large features/ initiatives and their associated technical complexities. This role will provide you the opportunity to learn how to navigate complex situations while evaluating risks and aligning with business priorities. You will learn to manage tasks while working in a fast-paced environment and developing your technical expertise. Your responsibilities will include assisting in driving metrics improvement, learning to communicate the current status, and helping in delivering features to market.",
@@ -1762,7 +1762,7 @@
       "title": "Payroll Industrial Trainee",
       "url": "https://www.rubrik.com/company/careers/departments/job.8305308?gh_jid=8305308",
       "location": "Bangalore",
-      "minQualifications": "Education:CA Intern and eligible for industrial training.\nSkills:\nStrong communication skills, both verbal and written.\nProficiency in Microsoft Office Suite (particularly Excel, Word, and Outlook).\nAbility to work effectively in a team environment and collaborate with colleagues.\nAttention to detail and accuracy in performing tasks.\nStrong organizational skills and the ability to prioritize tasks.\nEagerness to learn and develop new skills in the accounting field.\nPrior internship or work experience in Payroll accounting or finance is a plus.\nStrong attention to detail and accuracy.\nProficiency in data entry and computer systems.\nExperience: Some experience in payroll processing or accounting is often preferred.\nBenefits:\nHands-on experience and mentorship from seasoned professionals.\nExposure to diverse accounting tasks and projects.\nOpportunity to develop skills and knowledge in accounting and finance.\nCompetitive compensation package.\nLearn US and Canada Countries Payroll.\nFriendly and supportive work environment.\nJoining our Finance department as Payroll Apprentice will provide you with a solid foundation for a successful career in Payroll Accounting. We encourage you to apply if you are passionate about numbers, eager to learn, and ready to contribute to our team.",
+      "minQualifications": "Education:CA Intern and eligible for industrial training.\nStrong communication skills, both verbal and written.\nProficiency in Microsoft Office Suite (particularly Excel, Word, and Outlook).\nAbility to work effectively in a team environment and collaborate with colleagues.\nAttention to detail and accuracy in performing tasks.\nStrong organizational skills and the ability to prioritize tasks.\nEagerness to learn and develop new skills in the accounting field.\nPrior internship or work experience in Payroll accounting or finance is a plus.\nStrong attention to detail and accuracy.\nProficiency in data entry and computer systems.\nExperience: Some experience in payroll processing or accounting is often preferred.\nHands-on experience and mentorship from seasoned professionals.\nExposure to diverse accounting tasks and projects.\nOpportunity to develop skills and knowledge in accounting and finance.\nCompetitive compensation package.\nLearn US and Canada Countries Payroll.\nFriendly and supportive work environment.\nJoining our Finance department as Payroll Apprentice will provide you with a solid foundation for a successful career in Payroll Accounting. We encourage you to apply if you are passionate about numbers, eager to learn, and ready to contribute to our team.",
       "company": "Rubrik",
       "source": "Rubrik",
       "priority": false,
@@ -1770,12 +1770,12 @@
       "deadline": "",
       "fingerprint": "rubrik|payroll industrial trainee|bangalore",
       "firstSeen": "2026-11-07T10:17:02.218Z",
-      "lastSeen": "2026-11-11T17:02:00.375Z",
+      "lastSeen": "2026-11-11T17:31:44.019Z",
       "open": true,
       "repostOf": null,
       "aboutRole": "",
-      "responsibilities": "Basic activities of Payroll:\nThis Role will start understanding the Payroll Activities from the Basics to Statutory compliance.\nSupport on Payroll Activities for North America (US and Canada)\nData Collection and Verification:\nCollect New hires data, payroll required forms, and other relevant information from New Hires.\nVerify all information for new hires are correctly completed in these form and other payroll-related data.\nValidate the Offer letters\nPayroll Processing supports\nHelping with payroll tasks as required by Payroll specialist and Payroll Manager.\nHelp to provide the basic level for payroll processing related activities (like validating forma, communifi, commission, etc.)\nRecord Keeping and Audit Requirements:\nRetrieve and manage payroll information as needed.\nMaintain accurate and up-to-date payroll records which will be aligned with the Audit requirements\nNeed to help the team in collating the Audit requirement.\nProvide support for year-end activities.\nOther Duties:\nAssist with payroll inquiries from employees.\nPrepare payroll reports and statements.\nMay assist with other administrative tasks as needed.\nSupport on Statutory Compliance based on country specific.\nSupport GL team on payroll Recons and Fluxes\nWill be supporting the Payroll team in the new development projects to improve the Team Process.",
-      "fullText": "A Payroll Intern – will be learning the payroll activities phase wise and while the role is responsible for supporting Payroll team members with assigned payroll tasks, employee supports (answering emails, filing, collecting data, Payroll Validation and forms collection), and support to maintaining accurate payroll records.\nBasic activities of Payroll:\nThis Role will start understanding the Payroll Activities from the Basics to Statutory compliance.\nSupport on Payroll Activities for North America (US and Canada)\nData Collection and Verification:\nCollect New hires data, payroll required forms, and other relevant information from New Hires.\nVerify all information for new hires are correctly completed in these form and other payroll-related data.\nValidate the Offer letters\nPayroll Processing supports\nHelping with payroll tasks as required by Payroll specialist and Payroll Manager.\nHelp to provide the basic level for payroll processing related activities (like validating forma, communifi, commission, etc.)\nRecord Keeping and Audit Requirements:\nRetrieve and manage payroll information as needed.\nMaintain accurate and up-to-date payroll records which will be aligned with the Audit requirements\nNeed to help the team in collating the Audit requirement.\nProvide support for year-end activities.\nOther Duties:\nAssist with payroll inquiries from employees.\nPrepare payroll reports and statements.\nMay assist with other administrative tasks as needed.\nSupport on Statutory Compliance based on country specific.\nSupport GL team on payroll Recons and Fluxes\nWill be supporting the Payroll team in the new development projects to improve the Team Process.\nEducation:CA Intern and eligible for industrial training.\nSkills:\nStrong communication skills, both verbal and written.\nProficiency in Microsoft Office Suite (particularly Excel, Word, and Outlook).\nAbility to work effectively in a team environment and collaborate with colleagues.\nAttention to detail and accuracy in performing tasks.\nStrong organizational skills and the ability to prioritize tasks.\nEagerness to learn and develop new skills in the accounting field.\nPrior internship or work experience in Payroll accounting or finance is a plus.\nStrong attention to detail and accuracy.\nProficiency in data entry and computer systems.\nExperience: Some experience in payroll processing or accounting is often preferred.\nBenefits:\nHands-on experience and mentorship from seasoned professionals.\nExposure to diverse accounting tasks and projects.\nOpportunity to develop skills and knowledge in accounting and finance.\nCompetitive compensation package.\nLearn US and Canada Countries Payroll.\nFriendly and supportive work environment.\nJoining our Finance department as Payroll Apprentice will provide you with a solid foundation for a successful career in Payroll Accounting. We encourage you to apply if you are passionate about numbers, eager to learn, and ready to contribute to our team.",
+      "responsibilities": "This Role will start understanding the Payroll Activities from the Basics to Statutory compliance.\nSupport on Payroll Activities for North America (US and Canada)\nCollect New hires data, payroll required forms, and other relevant information from New Hires.\nVerify all information for new hires are correctly completed in these form and other payroll-related data.\nValidate the Offer letters\nPayroll Processing supports\nHelping with payroll tasks as required by Payroll specialist and Payroll Manager.\nHelp to provide the basic level for payroll processing related activities (like validating forma, communifi, commission, etc.)\nRetrieve and manage payroll information as needed.\nMaintain accurate and up-to-date payroll records which will be aligned with the Audit requirements\nNeed to help the team in collating the Audit requirement.\nProvide support for year-end activities.\nAssist with payroll inquiries from employees.\nPrepare payroll reports and statements.\nMay assist with other administrative tasks as needed.\nSupport on Statutory Compliance based on country specific.\nSupport GL team on payroll Recons and Fluxes\nWill be supporting the Payroll team in the new development projects to improve the Team Process.",
+      "fullText": "A Payroll Intern – will be learning the payroll activities phase wise and while the role is responsible for supporting Payroll team members with assigned payroll tasks, employee supports (answering emails, filing, collecting data, Payroll Validation and forms collection), and support to maintaining accurate payroll records.\nThis Role will start understanding the Payroll Activities from the Basics to Statutory compliance.\nSupport on Payroll Activities for North America (US and Canada)\nCollect New hires data, payroll required forms, and other relevant information from New Hires.\nVerify all information for new hires are correctly completed in these form and other payroll-related data.\nValidate the Offer letters\nPayroll Processing supports\nHelping with payroll tasks as required by Payroll specialist and Payroll Manager.\nHelp to provide the basic level for payroll processing related activities (like validating forma, communifi, commission, etc.)\nRetrieve and manage payroll information as needed.\nMaintain accurate and up-to-date payroll records which will be aligned with the Audit requirements\nNeed to help the team in collating the Audit requirement.\nProvide support for year-end activities.\nAssist with payroll inquiries from employees.\nPrepare payroll reports and statements.\nMay assist with other administrative tasks as needed.\nSupport on Statutory Compliance based on country specific.\nSupport GL team on payroll Recons and Fluxes\nWill be supporting the Payroll team in the new development projects to improve the Team Process.\nEducation:CA Intern and eligible for industrial training.\nStrong communication skills, both verbal and written.\nProficiency in Microsoft Office Suite (particularly Excel, Word, and Outlook).\nAbility to work effectively in a team environment and collaborate with colleagues.\nAttention to detail and accuracy in performing tasks.\nStrong organizational skills and the ability to prioritize tasks.\nEagerness to learn and develop new skills in the accounting field.\nPrior internship or work experience in Payroll accounting or finance is a plus.\nStrong attention to detail and accuracy.\nProficiency in data entry and computer systems.\nExperience: Some experience in payroll processing or accounting is often preferred.\nHands-on experience and mentorship from seasoned professionals.\nExposure to diverse accounting tasks and projects.\nOpportunity to develop skills and knowledge in accounting and finance.\nCompetitive compensation package.\nLearn US and Canada Countries Payroll.\nFriendly and supportive work environment.\nJoining our Finance department as Payroll Apprentice will provide you with a solid foundation for a successful career in Payroll Accounting. We encourage you to apply if you are passionate about numbers, eager to learn, and ready to contribute to our team.",
       "roleType": "apprentice",
       "partTime": false,
       "areas": [
@@ -1799,7 +1799,7 @@
       "deadline": "",
       "fingerprint": "rubrik|product management intern|bangalore",
       "firstSeen": "2026-11-07T10:17:02.218Z",
-      "lastSeen": "2026-11-11T17:02:00.375Z",
+      "lastSeen": "2026-11-11T17:31:44.019Z",
       "open": true,
       "repostOf": null,
       "aboutRole": "",
@@ -1828,7 +1828,7 @@
       "deadline": "",
       "fingerprint": "rubrik|software engineer cpd winter intern|bangalore",
       "firstSeen": "2026-11-07T10:17:02.218Z",
-      "lastSeen": "2026-11-11T17:02:00.375Z",
+      "lastSeen": "2026-11-11T17:31:44.019Z",
       "open": true,
       "repostOf": null,
       "aboutRole": "We are looking for a Software Engineer - Intern to join our Continuous Product Development (CPD) team in Bangalore. We believe in giving engineers responsibility, not tasks. Our goal is to motivate and challenge people to do their best work. To do that, we have a very fluid structure and give people the flexibility to work on projects that they enjoy the most. This develops more capable engineers and keeps everyone engaged and happy.",
@@ -1857,7 +1857,7 @@
       "deadline": "",
       "fingerprint": "sarvam ai|marketing internship brand communication|bengaluru",
       "firstSeen": "2026-11-07T10:17:02.218Z",
-      "lastSeen": "2026-11-11T17:02:00.375Z",
+      "lastSeen": "2026-11-11T17:31:44.019Z",
       "open": true,
       "repostOf": null,
       "aboutRole": "We are looking for a sharp, high-ownership Marketing Intern to act as the primary story-builder and content engine across Sarvam’s marketing channels.\nThis is not a passive internship focused on surface-level social updates. You will translate complex frontier AI capabilities like our Vision APIs, Document Intelligence models, and voice platforms into crisp, high-impact stories, viral launch threads, and sharp enterprise collateral. You will sit at the intersection of product, creative execution, and creator operations, helping shape how Sarvam communicates its sovereign AI vision to technical builders, enterprise buyers, and the broader ecosystem.",
@@ -1886,7 +1886,7 @@
       "deadline": "",
       "fingerprint": "stripe|operations associate apprenticeship|bengaluru",
       "firstSeen": "2026-11-07T10:17:02.218Z",
-      "lastSeen": "2026-11-11T17:02:00.375Z",
+      "lastSeen": "2026-11-11T17:31:44.019Z",
       "open": true,
       "repostOf": null,
       "aboutRole": "",
@@ -1915,7 +1915,7 @@
       "deadline": "",
       "fingerprint": "stripe|software engineer intern|bengaluru",
       "firstSeen": "2026-11-07T10:17:02.218Z",
-      "lastSeen": "2026-11-11T17:02:00.375Z",
+      "lastSeen": "2026-11-11T17:31:44.019Z",
       "open": true,
       "repostOf": null,
       "aboutRole": "",
@@ -1944,7 +1944,7 @@
       "deadline": "",
       "fingerprint": "tower research capital|hr intern|gurgaon",
       "firstSeen": "2026-11-07T10:17:02.218Z",
-      "lastSeen": "2026-11-11T17:02:00.375Z",
+      "lastSeen": "2026-11-11T17:31:44.019Z",
       "open": true,
       "repostOf": null,
       "aboutRole": "",
@@ -1971,7 +1971,7 @@
       "priority": false,
       "fingerprint": "google|software engineering phd intern summer 2027|bengaluru karnataka india",
       "firstSeen": "2026-11-06T15:15:56.838Z",
-      "lastSeen": "2026-11-11T17:02:00.375Z",
+      "lastSeen": "2026-11-11T17:31:44.019Z",
       "open": true,
       "repostOf": null,
       "detailAttempts": 0,
@@ -2002,7 +2002,7 @@
       "priority": false,
       "fingerprint": "google|silicon engineering intern phd summer 2027|bengaluru karnataka india",
       "firstSeen": "2026-11-06T15:15:56.838Z",
-      "lastSeen": "2026-11-11T17:02:00.375Z",
+      "lastSeen": "2026-11-11T17:31:44.019Z",
       "open": true,
       "repostOf": null,
       "detailAttempts": 0,
@@ -2056,7 +2056,7 @@
       "priority": false,
       "fingerprint": "google|student researcher 2027|india",
       "firstSeen": "2026-11-06T15:15:56.838Z",
-      "lastSeen": "2026-11-11T17:02:00.375Z",
+      "lastSeen": "2026-11-11T17:31:44.019Z",
       "open": true,
       "repostOf": null,
       "detailAttempts": 0,
